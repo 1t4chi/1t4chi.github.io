@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://1t4chi.com/2018/12/05/Socket_Semaphore/">
+    <link itemprop="mainEntityOfPage" href="http://1t4chi.com/2019/03/06/Blog_Hexo+Next/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="1t4chi">
@@ -278,7 +278,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/12/05/Socket_Semaphore/" itemprop="url">Untitled</a></h1>
+                <a class="post-title-link" href="/2019/03/06/Blog_Hexo+Next/" itemprop="url">Hexo + NexT 美化实录</a></h1>
         
 
         <div class="post-meta">
@@ -290,8 +290,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-05T13:50:08+08:00">
-                2018-12-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-06T00:00:00+08:00">
+                2019-03-06
               </time>
             
 
@@ -300,6 +300,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Blog/" itemprop="url" rel="index">
+                    <span itemprop="name">Blog</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -329,11 +351,14 @@
 
       
         
-          
-            <h1 id="信号灯"><a href="#信号灯" class="headerlink" title="信号灯"></a>信号灯</h1><p>即semaphore，又称为信号量，是在多进程环境下使用的一种同步机制，负责协调各个进程正确、合理的使用公共资源；<br>是一种数据操作锁的概念，本身不具备数据交换的功能，而是通过控制其他的通信资源（比如文件、外设等）来实现进程间通信，是一种外部资源的标识；<br>分为单值和多值两种，对应单个或多个同类型的可用资源，前者只能被一个进程获得，后者可被若干个进程获得；</p>
-<p>信号灯集操作函数<br>创建：<br>int semget(key_t key, int nsems, int flags);<br>操作：<br>int semop(int semid, struct sembuf *ops, size_t nops);<br>控制：<br>int semctl(int semid, int semnum, int cmd, union semun arg);<br>s</p>
-
-          
+          本文侧重Blog 的美化，包括更换背景、配色、图标、自定义界面、动画效果、添加分类与标签等等。
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/06/Blog_Hexo+Next/">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -380,7 +405,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://1t4chi.com/2018/11/07/Socket_Unix/">
+    <link itemprop="mainEntityOfPage" href="http://1t4chi.com/2019/03/05/Blog_Hexo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="1t4chi">
@@ -399,7 +424,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/07/Socket_Unix/" itemprop="url">Untitled</a></h1>
+                <a class="post-title-link" href="/2019/03/05/Blog_Hexo/" itemprop="url">Hexo + Github 建站实录</a></h1>
         
 
         <div class="post-meta">
@@ -411,8 +436,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-07T09:28:49+08:00">
-                2018-11-07
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-05T00:00:00+08:00">
+                2019-03-05
               </time>
             
 
@@ -421,6 +446,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Blog/" itemprop="url" rel="index">
+                    <span itemprop="name">Blog</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -450,16 +497,452 @@
 
       
         
-          
-            <h1 id="UnixSock"><a href="#UnixSock" class="headerlink" title="UnixSock"></a>UnixSock</h1><h2 id="非命令-Unix-套接字"><a href="#非命令-Unix-套接字" class="headerlink" title="非命令 Unix 套接字"></a>非命令 Unix 套接字</h2><p>socketpair(AF_UNIX,SOCK_STREAM,0,fd_array)<br>通常在父子进程间通信使用socketpair<br>双工</p>
-<h2 id="命名-Unix-套接字"><a href="#命名-Unix-套接字" class="headerlink" title="命名 Unix 套接字"></a>命名 Unix 套接字</h2><p>UNIX域协议不是真正的网络通信协议，它提供同一台主机上进程间通信的手段；<br>socket(AF_UNIX, type, protocol)<br>或AF_LOCAL</p>
-<p>UNIX域套接字与同一台主机上的域套接字相连，每一个域套接字的新连接都产生一个新的通信通道；</p>
-<p>UNIX域套接字是双向通道；</p>
-<p>UNIX域套接字比Internet套接字效率更高<br>在同一台主机上分别运行TCP套接字和UNIX域套接字程序传送16,777,216个字节的数据，结果为：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/un.h&gt;</span></span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">socketaddr_un</span> &#123;</span></span><br><span class="line">            <span class="keyword">short</span> <span class="keyword">int</span> sun_family;   <span class="comment">//AF_UNIX</span></span><br><span class="line">            <span class="keyword">char</span> sun_path[<span class="number">108</span>]; <span class="comment">//文件名的绝对路径</span></span><br><span class="line">        &#125;；</span><br></pre></td></tr></table></figure>
-<p>UNIX域协议使用路径名标识服务器和客户端；<br>服务器调用函数bind绑定一个UNIX域socket时以该路径名创建一个特殊文件，无法用open等系统调用打开或读、写该文件；</p>
+          放下鸡鸡儿(Jekyll)，立地成佛。本文侧重 Hexo 搭建、本地运行、Github 运行的基础建站过程，美化过程请移步下一篇<hexo+next 美化实录>。
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/05/Blog_Hexo/">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </hexo+next></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://1t4chi.com/2019/02/13/Blog_Jekyll/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="1t4chi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="1t4chi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/13/Blog_Jekyll/" itemprop="url">Jekyll + Github 从入门到死亡</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-13T00:00:00+08:00">
+                2019-02-13
+              </time>
+            
+
+            
+
+            
+          </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Blog/" itemprop="url" rel="index">
+                    <span itemprop="name">Blog</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          想着把以前的笔记上Blog，无意惊扰了 Jekyll，苦海无涯任我漂。
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/02/13/Blog_Jekyll/">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://1t4chi.com/2018/11/19/PyQt_MainFunc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="1t4chi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="1t4chi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/19/PyQt_MainFunc/" itemprop="url">PyQt Main 函数的流程详解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-19T00:00:00+08:00">
+                2018-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PyQt/" itemprop="url" rel="index">
+                    <span itemprop="name">PyQt</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          本文详细讲述 PyQt 的 main 函数的流程原理，并附有示例代码，以供整体把控 Qt 的程序设计思路。
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/19/PyQt_MainFunc/">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://1t4chi.com/2018/11/18/PyQt5+Pycharm+QtDesigner/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="1t4chi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="1t4chi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/18/PyQt5+Pycharm+QtDesigner/" itemprop="url">PyQt5 + Pycharm + QtDesigner 搭建完美 Qt 开发环境</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-18T00:00:00+08:00">
+                2018-11-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PyQt/" itemprop="url" rel="index">
+                    <span itemprop="name">PyQt</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          对于独立开发或者平时的小练手来说，PyQt 简直是最最好用的界面开发工具了。本文记录了搭建 PyQt 开发环境和配置的全过程。
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/18/PyQt5+Pycharm+QtDesigner/">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -598,448 +1081,10 @@
 
       
         
-          Out-Of-Band data 带外数据，在已经排队等待发送的普通(即带内)数据之前发送，比普通数据有更高的优先级
+          Out-Of-Band data 带外数据，在已经排队等待发送的普通(即带内)数据之前发送，比普通数据有更高的优先级。本文介绍如何发送、接受 OOB 数据和其常用操作。
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/11/07/Socket_OOB/">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://1t4chi.com/2018/10/20/OS_Pipe/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="1t4chi">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="1t4chi">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/20/OS_Pipe/" itemprop="url">Pipe:Process Communication</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-20T00:00:00+08:00">
-                2018-10-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OS/" itemprop="url" rel="index">
-                    <span itemprop="name">OS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          管道分为匿名管道和命名管道。匿名管道用于父子进程间通信；命名管道无此限制
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/20/OS_Pipe/">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://1t4chi.com/2018/10/20/OS_Sharememory/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="1t4chi">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="1t4chi">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/20/OS_Sharememory/" itemprop="url">ShareMemory:Process Communication</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-20T00:00:00+08:00">
-                2018-10-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OS/" itemprop="url" rel="index">
-                    <span itemprop="name">OS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          共享内存是一种进程通信方法。指在多处理器的计算机系统中，大容量内存可以被不同中央处理器访问
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/20/OS_Sharememory/">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://1t4chi.com/2018/10/19/OS_Msgqueue/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="1t4chi">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="1t4chi">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/19/OS_Msgqueue/" itemprop="url">Msgqueue:Process Communication</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-19T00:00:00+08:00">
-                2018-10-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OS/" itemprop="url" rel="index">
-                    <span itemprop="name">OS</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          消息队列是进程通信方法的一种。它是内核中以链表式结构组织的一组数据，通过消息队列标识符引用
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/19/OS_Msgqueue/">
               Read more &raquo;
             </a>
           </div>
@@ -1109,7 +1154,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/18/OS_Signal/" itemprop="url">Signal:Process Communication</a></h1>
+                <a class="post-title-link" href="/2018/10/18/OS_Signal/" itemprop="url">信号:进程间的通信</a></h1>
         
 
         <div class="post-meta">
@@ -1182,7 +1227,7 @@
 
       
         
-          信号是一种进程间通信的方法，实质是一种软中断。常见的信号有 ctrl+c 产生 SIGINT 信号
+          信号是一种进程间通信的方法，实质是一种软中断。常见的信号有 ctrl+c 产生 SIGINT 信号。
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/10/18/OS_Signal/">
@@ -1255,7 +1300,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/17/OS_Deamon Process/" itemprop="url">How to create Deamon Process</a></h1>
+                <a class="post-title-link" href="/2018/10/17/OS_Deamon Process/" itemprop="url">Linux 下如何创建守护进程</a></h1>
         
 
         <div class="post-meta">
@@ -1328,7 +1373,7 @@
 
       
         
-          守护进程执行守护任务，比如远程登录监控程序。生存期为系统执行时间，一般不和终端发生联系
+          守护进程执行守护任务，比如远程登录监控程序。生存期为系统执行时间，一般不和终端发生联系。本文详细记录了 Linux 守护进程的创建步骤。
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/10/17/OS_Deamon Process/">
@@ -1401,7 +1446,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/13/OS_Process Operation for C/" itemprop="url">Process API for C</a></h1>
+                <a class="post-title-link" href="/2018/10/13/OS_Process Operation for C/" itemprop="url">Linux 下进程操作 C 语言接口</a></h1>
         
 
         <div class="post-meta">
@@ -1474,7 +1519,7 @@
 
       
         
-          C 语言下的进程操作常用接口,包括创建子进程、替换进程、退出、等待等
+          C 语言下的进程操作常用接口,包括创建子进程、替换进程、退出、等待，并且列举了避免僵尸进程的方法。
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/10/13/OS_Process Operation for C/">
@@ -1620,7 +1665,7 @@
 
       
         
-          多路复用模型是阻塞模型的改进。监视多个描述符，一旦某个描述符就绪，就通知程序进行相应操作
+          多路复用模型是阻塞模型的改进。监视多个描述符，一旦某个描述符就绪，就通知程序进行相应操作。
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/10/12/Socket_IO_Multiplex/">
@@ -1711,7 +1756,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -1722,7 +1767,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">categories</span>
                 
               </div>
@@ -1733,7 +1778,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
