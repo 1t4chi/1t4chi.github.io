@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="C,Linux,Process Communication,">
 
 
 
@@ -79,14 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://1t4chi.com/tags/index.html">
+<meta name="description" content="消息队列是进程通信方法的一种。它是内核中以链表式结构组织的一组数据，通过消息队列标识符引用">
+<meta name="keywords" content="C,Linux,Process Communication">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Msgqueue:Process Communication">
+<meta property="og:url" content="http://1t4chi.com/2018/10/19/OS_Msgqueue/index.html">
 <meta property="og:site_name" content="1t4chi">
+<meta property="og:description" content="消息队列是进程通信方法的一种。它是内核中以链表式结构组织的一组数据，通过消息队列标识符引用">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-13T06:06:51.410Z">
+<meta property="og:updated_time" content="2019-03-13T07:32:39.428Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
+<meta name="twitter:title" content="Msgqueue:Process Communication">
+<meta name="twitter:description" content="消息队列是进程通信方法的一种。它是内核中以链表式结构组织的一组数据，通过消息队列标识符引用">
 
 
 
@@ -116,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://1t4chi.com/tags/">
+  <link rel="canonical" href="http://1t4chi.com/2018/10/19/OS_Msgqueue/">
 
 
 
 
 
-  <title>tags | 1t4chi</title>
+  <title>Msgqueue:Process Communication | 1t4chi</title>
   
 
 
@@ -247,33 +251,179 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://1t4chi.com/2018/10/19/OS_Msgqueue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="1t4chi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="1t4chi">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">tags</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
+          <h1 class="post-title" itemprop="name headline">Msgqueue:Process Communication</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-19T00:00:00+08:00">
+                2018-10-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-      </div>
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OS/" itemprop="url" rel="index">
+                    <span itemprop="name">OS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  消息队列是进程通信方法的一种。它是内核中以链表式结构组织的一组数据，通过消息队列标识符引用
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <hr>
+<p>可以把消息看成一个记录，具有特定的格式，对消息队列有写权限的进程可以向其中按照一定的规则添加新消息，对消息队列有读权限的进程则可以从消息队列中读走消息；<br>每个消息队列都在系统范围内对应一个唯一的键值，消息队列的标识符（ID）就是由该键值生成的，而键值对应了系统内的一条路径。ftok函数能够由路径获得消息队列的键值；</p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C</a>
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/Process-Communication/" rel="tag"># Process Communication</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/18/OS_Signal/" rel="next" title="Signal:Process Communication">
+                <i class="fa fa-chevron-left"></i> Signal:Process Communication
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/20/OS_Sharememory/" rel="prev" title="ShareMemory:Process Communication">
+                ShareMemory:Process Communication <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Introduction,Net,Socket,">
 
 
 
@@ -79,14 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://1t4chi.com/tags/index.html">
+<meta name="description" content="本文介绍网络程序设计的概念与基础模型等">
+<meta name="keywords" content="Introduction,Net,Socket">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络编程基础知识">
+<meta property="og:url" content="http://1t4chi.com/2018/09/05/Socket_NetProgramming/index.html">
 <meta property="og:site_name" content="1t4chi">
+<meta property="og:description" content="本文介绍网络程序设计的概念与基础模型等">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-13T06:06:51.410Z">
+<meta property="og:updated_time" content="2019-03-13T07:56:16.834Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
+<meta name="twitter:title" content="网络编程基础知识">
+<meta name="twitter:description" content="本文介绍网络程序设计的概念与基础模型等">
 
 
 
@@ -116,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://1t4chi.com/tags/">
+  <link rel="canonical" href="http://1t4chi.com/2018/09/05/Socket_NetProgramming/">
 
 
 
 
 
-  <title>tags | 1t4chi</title>
+  <title>网络编程基础知识 | 1t4chi</title>
   
 
 
@@ -247,33 +251,210 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://1t4chi.com/2018/09/05/Socket_NetProgramming/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="1t4chi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="1t4chi">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">tags</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
+          <h1 class="post-title" itemprop="name headline">网络编程基础知识</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-05T00:00:00+08:00">
+                2018-09-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-      </div>
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Socket/" itemprop="url" rel="index">
+                    <span itemprop="name">Socket</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  本文介绍网络程序设计的概念与基础模型等
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="网络程序编程接口"><a href="#网络程序编程接口" class="headerlink" title="网络程序编程接口"></a>网络程序编程接口</h2><ul>
+<li>Socket TCP/IP</li>
+<li>AT&amp;T TLI OSI7</li>
+</ul>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="网络程序设计模型"><a href="#网络程序设计模型" class="headerlink" title="网络程序设计模型"></a>网络程序设计模型</h2><h4 id="客户端-服务器模型-C-S"><a href="#客户端-服务器模型-C-S" class="headerlink" title="客户端/服务器模型 C/S"></a>客户端/服务器模型 C/S</h4><ul>
+<li>非对称模型</li>
+<li>重复型服务器</li>
+<li>并发型服务器</li>
+</ul>
+<h4 id="浏览器-服务器模型-B-S"><a href="#浏览器-服务器模型-B-S" class="headerlink" title="浏览器/服务器模型 B/S"></a>浏览器/服务器模型 B/S</h4><ul>
+<li>www 技术兴起，一种改进的 CS 结构，用于 web 应用</li>
+<li>主要采用 http https 协议进行数据传输</li>
+<li>三层结构<ul>
+<li>客户端：即浏览器，负责客户和后台交互及其最终查询结果的输出</li>
+<li>服务器：功能层，与后台数据库连接 将由数据库返回的结果返回客户端</li>
+<li>数据库服务器：数据层，应客户请求进行各种查询和处理</li>
+</ul>
+</li>
+</ul>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="客户端服务器通讯模式"><a href="#客户端服务器通讯模式" class="headerlink" title="客户端服务器通讯模式"></a>客户端服务器通讯模式</h2><h4 id="面向连接"><a href="#面向连接" class="headerlink" title="面向连接"></a>面向连接</h4><ul>
+<li>connection-oriented</li>
+<li>传输数据前建立稳定可靠数据通道</li>
+<li>可靠稳定，但占用资源多</li>
+<li>TCP</li>
+</ul>
+<h4 id="无连接"><a href="#无连接" class="headerlink" title="无连接"></a>无连接</h4><ul>
+<li>connectionless</li>
+<li>不用建立通道</li>
+<li>不可靠，性能高</li>
+<li>UDP</li>
+</ul>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Introduction/" rel="tag"># Introduction</a>
+          
+            <a href="/tags/Net/" rel="tag"># Net</a>
+          
+            <a href="/tags/Socket/" rel="tag"># Socket</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/14/Socket_Address/" rel="prev" title="Socket 的地址结构">
+                Socket 的地址结构 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -306,8 +487,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -383,6 +573,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#网络程序编程接口"><span class="nav-number">1.</span> <span class="nav-text">网络程序编程接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络程序设计模型"><span class="nav-number">2.</span> <span class="nav-text">网络程序设计模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端-服务器模型-C-S"><span class="nav-number">2.0.1.</span> <span class="nav-text">客户端/服务器模型 C/S</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浏览器-服务器模型-B-S"><span class="nav-number">2.0.2.</span> <span class="nav-text">浏览器/服务器模型 B/S</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端服务器通讯模式"><span class="nav-number">3.</span> <span class="nav-text">客户端服务器通讯模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#面向连接"><span class="nav-number">3.0.1.</span> <span class="nav-text">面向连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#无连接"><span class="nav-number">3.0.2.</span> <span class="nav-text">无连接</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

@@ -79,14 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://1t4chi.com/tags/index.html">
+<meta name="description" content="信号灯即semaphore，又称为信号量，是在多进程环境下使用的一种同步机制，负责协调各个进程正确、合理的使用公共资源；是一种数据操作锁的概念，本身不具备数据交换的功能，而是通过控制其他的通信资源（比如文件、外设等）来实现进程间通信，是一种外部资源的标识；分为单值和多值两种，对应单个或多个同类型的可用资源，前者只能被一个进程获得，后者可被若干个进程获得； 信号灯集操作函数创建：int semget">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1t4chi">
+<meta property="og:url" content="http://1t4chi.com/2018/12/05/Socket_Semaphore/index.html">
 <meta property="og:site_name" content="1t4chi">
+<meta property="og:description" content="信号灯即semaphore，又称为信号量，是在多进程环境下使用的一种同步机制，负责协调各个进程正确、合理的使用公共资源；是一种数据操作锁的概念，本身不具备数据交换的功能，而是通过控制其他的通信资源（比如文件、外设等）来实现进程间通信，是一种外部资源的标识；分为单值和多值两种，对应单个或多个同类型的可用资源，前者只能被一个进程获得，后者可被若干个进程获得； 信号灯集操作函数创建：int semget">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-13T06:06:51.410Z">
+<meta property="og:updated_time" content="2019-03-12T16:48:29.674Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
+<meta name="twitter:title" content="1t4chi">
+<meta name="twitter:description" content="信号灯即semaphore，又称为信号量，是在多进程环境下使用的一种同步机制，负责协调各个进程正确、合理的使用公共资源；是一种数据操作锁的概念，本身不具备数据交换的功能，而是通过控制其他的通信资源（比如文件、外设等）来实现进程间通信，是一种外部资源的标识；分为单值和多值两种，对应单个或多个同类型的可用资源，前者只能被一个进程获得，后者可被若干个进程获得； 信号灯集操作函数创建：int semget">
 
 
 
@@ -116,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://1t4chi.com/tags/">
+  <link rel="canonical" href="http://1t4chi.com/2018/12/05/Socket_Semaphore/">
 
 
 
 
 
-  <title>tags | 1t4chi</title>
+  <title> | 1t4chi</title>
   
 
 
@@ -247,33 +250,139 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://1t4chi.com/2018/12/05/Socket_Semaphore/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="1t4chi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="1t4chi">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">tags</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-05T13:50:08+08:00">
+                2018-12-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-      </div>
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h1 id="信号灯"><a href="#信号灯" class="headerlink" title="信号灯"></a>信号灯</h1><p>即semaphore，又称为信号量，是在多进程环境下使用的一种同步机制，负责协调各个进程正确、合理的使用公共资源；<br>是一种数据操作锁的概念，本身不具备数据交换的功能，而是通过控制其他的通信资源（比如文件、外设等）来实现进程间通信，是一种外部资源的标识；<br>分为单值和多值两种，对应单个或多个同类型的可用资源，前者只能被一个进程获得，后者可被若干个进程获得；</p>
+<p>信号灯集操作函数<br>创建：<br>int semget(key_t key, int nsems, int flags);<br>操作：<br>int semop(int semid, struct sembuf *ops, size_t nops);<br>控制：<br>int semctl(int semid, int semnum, int cmd, union semun arg);<br>s</p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/07/Socket_Unix/" rel="next" title>
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -306,8 +415,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -383,6 +501,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#信号灯"><span class="nav-number">1.</span> <span class="nav-text">信号灯</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
