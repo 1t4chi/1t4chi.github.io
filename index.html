@@ -62,12 +62,44 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Sock_semaphore" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/13/hello-world/" class="article-date">
-  <time datetime="2019-03-13T04:49:40.534Z" itemprop="datePublished">2019-03-13</time>
+    <a href="/2018/12/05/Sock_semaphore/" class="article-date">
+  <time datetime="2018-12-05T05:50:08.000Z" itemprop="datePublished">2018-12-05</time>
 </a>
     
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="信号灯"><a href="#信号灯" class="headerlink" title="信号灯"></a>信号灯</h1><p>即semaphore，又称为信号量，是在多进程环境下使用的一种同步机制，负责协调各个进程正确、合理的使用公共资源；<br>是一种数据操作锁的概念，本身不具备数据交换的功能，而是通过控制其他的通信资源（比如文件、外设等）来实现进程间通信，是一种外部资源的标识；<br>分为单值和多值两种，对应单个或多个同类型的可用资源，前者只能被一个进程获得，后者可被若干个进程获得；</p>
+<p>信号灯集操作函数<br>创建：<br>int semget(key_t key, int nsems, int flags);<br>操作：<br>int semop(int semid, struct sembuf *ops, size_t nops);<br>控制：<br>int semctl(int semid, int semnum, int cmd, union semun arg);<br>s</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://1t4chi.com/2018/12/05/Sock_semaphore/" data-id="cjt6rg517000w5uvqn96kpqwx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2018-10-20-Process Communication_Sharemem" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/05/2018-10-20-Process Communication_Sharemem/" class="article-date">
+  <time datetime="2018-12-05T05:39:40.008Z" itemprop="datePublished">2018-12-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OS/">OS</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -76,7 +108,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/13/hello-world/">Hello World</a>
+      <a class="article-title" href="/2018/12/05/2018-10-20-Process Communication_Sharemem/">进程的通信——共享内存</a>
     </h1>
   
 
@@ -84,20 +116,542 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <p>共享内存是一种进程通信方法。指在多处理器的计算机系统中，大容量内存可以被不同中央处理器访问。</p>
+<hr>
+<h2 id="ftok"><a href="#ftok" class="headerlink" title="ftok"></a>ftok</h2><p>ftok函数：获得特定文件路径名的键值<br>key_t ftok(char *pathname, char proj_id);<br>参数：<br>pathname－指定的文件（路径）名<br>proj_id－子序号<br>返回值<br>成功时返回与路径pathname相对应的一个键值（通常与指定文件的索引节点号相关），失败则返回-1<br>例子程序：ftok_test.c</p>
+<hr>
+<h2 id="shmget"><a href="#shmget" class="headerlink" title="shmget"></a>shmget</h2><p>创建共享内存段：<br>int shmget(key_t key, int size, int flags);</p>
+<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><p>key 是 ftok 函数返回的某文件的键</p>
+<hr>
+<h2 id="shmat"><a href="#shmat" class="headerlink" title="shmat"></a>shmat</h2><p>将共享内存段映射到进程虚拟地址空间：<br>char <em>shmat(int segid, char </em>addr, int flags);<br>返回共享内存段在进程虚拟地址空间的首地址</p>
+<hr>
+<h2 id="shmdt"><a href="#shmdt" class="headerlink" title="shmdt"></a>shmdt</h2><p>解除共享内存段的映射：<br>int shmdt(char *addr);</p>
+<hr>
+<h2 id="shmctl"><a href="#shmctl" class="headerlink" title="shmctl"></a>shmctl</h2><p>共享内存段控制：<br>int shmctl(int segid, int cmd, struct shmid_ds *sbuf);<br>Cmd: SHM_LOCK, SHM_UNLOCK, IPC_RMID等</p>
+<hr>
+<h2 id="ipc-命令"><a href="#ipc-命令" class="headerlink" title="ipc 命令"></a>ipc 命令</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo ipcs [-m]</span><br><span class="line">sudo ipcrm –m shmid</span><br></pre></td></tr></table></figure>
+<p>ipcrm 命令<br>移除一个消息对象。或者共享内存段，或者一个信号集，同时会将与ipc对象相关链的数据也一起移除。当然，只有超级管理员，或者ipc对象的创建者才有这项权利啦</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://1t4chi.com/2019/03/13/hello-world/" data-id="cjt6qmhfq000016vq5rg241cv" class="article-share-link">Share</a>
+      <a data-url="http://1t4chi.com/2018/12/05/2018-10-20-Process Communication_Sharemem/" data-id="cjt6rg50z000m5uvqywz81i6c" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2018-10-19-Process Communication_Msgqueue" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/05/2018-10-19-Process Communication_Msgqueue/" class="article-date">
+  <time datetime="2018-12-05T05:34:29.209Z" itemprop="datePublished">2018-12-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OS/">OS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/05/2018-10-19-Process Communication_Msgqueue/">进程的通信——消息队列</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>消息队列是进程通信方法的一种。它是内核中以链表式结构组织的一组数据，通过消息队列标识符引用。</p>
+<hr>
+<p>可以把消息看成一个记录，具有特定的格式，对消息队列有写权限的进程可以向其中按照一定的规则添加新消息，对消息队列有读权限的进程则可以从消息队列中读走消息；<br>每个消息队列都在系统范围内对应一个唯一的键值，消息队列的标识符（ID）就是由该键值生成的，而键值对应了系统内的一条路径。ftok函数能够由路径获得消息队列的键值；</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://1t4chi.com/2018/12/05/2018-10-19-Process Communication_Msgqueue/" data-id="cjt6rg50y000k5uvqjqugh9ur" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2018-10-20-Process Communication_Pipe" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/05/2018-10-20-Process Communication_Pipe/" class="article-date">
+  <time datetime="2018-12-05T05:31:14.116Z" itemprop="datePublished">2018-12-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OS/">OS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/05/2018-10-20-Process Communication_Pipe/">进程的通信——管道</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>管道分为匿名管道和命名管道。匿名管道用于父子进程间通信；命名管道无此限制。</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="匿名管道"><a href="#匿名管道" class="headerlink" title="匿名管道"></a>匿名管道</h2><p>只用于父子进程间的通讯<br>单工<br>若父子进程均需要读写消息，则需要两个管道<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pipe</span><span class="params">(<span class="keyword">int</span> fd[<span class="number">2</span>])</span></span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="命名管道"><a href="#命名管道" class="headerlink" title="命名管道"></a>命名管道</h2><p>可用于非亲缘关系的两个进程间通信<br>实质是一个文件<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfifo()</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://1t4chi.com/2018/12/05/2018-10-20-Process Communication_Pipe/" data-id="cjt6rg511000p5uvquj4b4y3o" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2018-10-11-Socket IO" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/04/2018-10-11-Socket IO/" class="article-date">
+  <time datetime="2018-12-03T17:48:38.808Z" itemprop="datePublished">2018-12-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Socket/">Socket</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/04/2018-10-11-Socket IO/">Socket 的 IO 模型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>IO模型一般有4种：阻塞式 IO、非阻塞式 IO、多路复用 IO、信号驱动 IO。</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="Linux-的-IO"><a href="#Linux-的-IO" class="headerlink" title="Linux 的 IO"></a>Linux 的 IO</h2><p>阻塞是 IO：简单，被阻塞不占用 CPU 时间，不影响其他进程，但自己不能完成其他任务<br>非阻塞时 IO：fcntl、ioctl，IO 操作不能完成时返回错误不休眠<br>多路复用：阻塞与非阻塞的综合，利用 select 函数<br>信号驱动 IO：SIGIO</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="socket-函数的阻塞情况"><a href="#socket-函数的阻塞情况" class="headerlink" title="socket 函数的阻塞情况"></a>socket 函数的阻塞情况</h2><p>可以产生阻塞：<br>数据发送：sendmsg\sendto\send\write\writev<br>数据接收<br>建立连接：connect<br>接收连接：accept</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="阻塞-IO"><a href="#阻塞-IO" class="headerlink" title="阻塞 IO"></a>阻塞 IO</h2><p>套接字相关函数默认时采用阻塞方式操作<br>阻塞方式（ block ），顾名思义，就是进程或是线程执行到这些函数时必须等待某个事件的发生，假如事件没有发生，进程或线程就被阻塞，函数不能立即返回。<br>使用阻塞模式的套接字，开发网络程序比较简单，容易实现。当希望能够立即发送和接收数据，且处理的套接字数量比较少的情况下，使用阻塞模式来开发网络程序比较合适。</p>
+<h4 id="多进程-线程"><a href="#多进程-线程" class="headerlink" title="多进程(线程)"></a>多进程(线程)</h4><p>应对多客户机的网络应用，最简单的解决方式是在服务器端使用多线程（或多进程）。多线程（或多进程）的目的是让每个连接都拥有独立的线程（或进程），这样任何一个连接的阻塞都不会影响其他的连接。<br>具体使用多进程还是多线程，并没有一个特定的模式。传统意义上，进程的开销要远远大于线程，所以，如果需要同时为较多的客户机提供服务，则不推荐使用多进程；如果单个服务执行体需要消耗较多的 CPU 资源，譬如需要进行大规模或长时间的数据运算或文件访问，则进程较为安全。通常，使用 pthread _create () 创建新线程，fork() 创建新进程。</p>
+<h3 id="多线程与多进程"><a href="#多线程与多进程" class="headerlink" title="多线程与多进程"></a>多线程与多进程</h3><p>应对多客户机的网络应用，最简单的解决方式是在服务器端使用多线程（或多进程）。多线程（或多进程）的目的是让每个连接都拥有独立的线程（或进程），这样任何一个连接的阻塞都不会影响其他的连接。</p>
+<ul>
+<li><p>使用多线程<br>具体使用多进程还是多线程，并没有一个特定的模式。传统意义上，进程的开销要远远大于线程，所以，如果需要同时为较多的客户机提供服务，则不推荐使用多进程；</p>
+</li>
+<li><p>使用多进程<br>如果单个服务执行体需要消耗较多的 CPU 资源，譬如需要进行大规模或长时间的数据运算或文件访问，则进程较为安全。通常，使用 pthread _create () 创建新线程，fork() 创建新进程。</p>
+</li>
+</ul>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="非阻塞-IO"><a href="#非阻塞-IO" class="headerlink" title="非阻塞 IO"></a>非阻塞 IO</h2><p>把一个SOCKET接口设置为非阻塞就是告诉内核，当所请求的I/O操作无法完成时，不要将进程睡眠，而是返回一个错误。I/O操作函数将不断的测试数据是否已经准备好，如果没有准备好，继续测试，直到数据准备好为止。在这个不断测试的过程中，会大量的占用CPU的时间。<br>非阻塞套接字在控制建立的多个连接，在数据的收发量不均，时间不定时，明显具有优势</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="多路复用"><a href="#多路复用" class="headerlink" title="多路复用"></a>多路复用</h2><p>详见下一节《Multi Socket IO》</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://1t4chi.com/2018/12/04/2018-10-11-Socket IO/" data-id="cjt6rg50j00085uvqaqkzhwj0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Sock_Unix" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/07/Sock_Unix/" class="article-date">
+  <time datetime="2018-11-07T01:28:49.178Z" itemprop="datePublished">2018-11-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="UnixSock"><a href="#UnixSock" class="headerlink" title="UnixSock"></a>UnixSock</h1><h2 id="非命令-Unix-套接字"><a href="#非命令-Unix-套接字" class="headerlink" title="非命令 Unix 套接字"></a>非命令 Unix 套接字</h2><p>socketpair(AF_UNIX,SOCK_STREAM,0,fd_array)<br>通常在父子进程间通信使用socketpair<br>双工</p>
+<h2 id="命名-Unix-套接字"><a href="#命名-Unix-套接字" class="headerlink" title="命名 Unix 套接字"></a>命名 Unix 套接字</h2><p>UNIX域协议不是真正的网络通信协议，它提供同一台主机上进程间通信的手段；<br>socket(AF_UNIX, type, protocol)<br>或AF_LOCAL</p>
+<p>UNIX域套接字与同一台主机上的域套接字相连，每一个域套接字的新连接都产生一个新的通信通道；</p>
+<p>UNIX域套接字是双向通道；</p>
+<p>UNIX域套接字比Internet套接字效率更高<br>在同一台主机上分别运行TCP套接字和UNIX域套接字程序传送16,777,216个字节的数据，结果为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/un.h&gt;</span></span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">socketaddr_un</span> &#123;</span></span><br><span class="line">            <span class="keyword">short</span> <span class="keyword">int</span> sun_family;   <span class="comment">//AF_UNIX</span></span><br><span class="line">            <span class="keyword">char</span> sun_path[<span class="number">108</span>]; <span class="comment">//文件名的绝对路径</span></span><br><span class="line">        &#125;；</span><br></pre></td></tr></table></figure>
+<p>UNIX域协议使用路径名标识服务器和客户端；<br>服务器调用函数bind绑定一个UNIX域socket时以该路径名创建一个特殊文件，无法用open等系统调用打开或读、写该文件；</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://1t4chi.com/2018/11/07/Sock_Unix/" data-id="cjt6rg513000r5uvqvpg2d0dk" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2018-11-07-Out Of Band Data" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/07/2018-11-07-Out Of Band Data/" class="article-date">
+  <time datetime="2018-11-07T01:28:25.510Z" itemprop="datePublished">2018-11-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Socket/">Socket</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/07/2018-11-07-Out Of Band Data/">Socket 的带外数据</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Out-Of-Band data 带外数据，在已经排队等待发送的普通(即带内)数据之前发送，比普通数据有更高的优先级。</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="非带外实紧急"><a href="#非带外实紧急" class="headerlink" title="非带外实紧急"></a>非带外实紧急</h2><p>TCP没有独立的带外数据通道，而是通过“紧急方式（urgent mode）”将紧急数据插入正常数据流中进行传送；<br>TCP在首部使用URG标志位和紧急指针指明要发送的紧急数据（即带外数据，尽管非真正的“带外”）<br>URG为紧急数据标志位；<br>紧急指针指向紧急数据的位置，一个正的偏移量；<br>紧急指针的值在不同的实现中会有所不同（参考RFC 793和RFC 1122）；<br>指向紧急数据最后一个字节（RFC规定）或它的下一个字节（大多数实现）<br>只支持1字节的带外数据</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="OOB-发送过程"><a href="#OOB-发送过程" class="headerlink" title="OOB 发送过程"></a>OOB 发送过程</h2><h4 id="URG-指针"><a href="#URG-指针" class="headerlink" title="URG 指针"></a>URG 指针</h4><p>一旦用户发送带外数据，TCP协议将带外数据拷贝到发送缓冲区<br>TCP协议立即发送一个设置了URG标志位的数据段<br>紧急指针指向带外字节下一个字节的位置</p>
+<h4 id="TCP数据段大小不够"><a href="#TCP数据段大小不够" class="headerlink" title="TCP数据段大小不够"></a>TCP数据段大小不够</h4><p>TCP数据段大小不够，当前数据段中无法包含带外数据<br>发送的数据段中URG标志置位，但不包含带外数据</p>
+<h4 id="对方接收缓冲区已满"><a href="#对方接收缓冲区已满" class="headerlink" title="对方接收缓冲区已满"></a>对方接收缓冲区已满</h4><p>对方接收缓冲区已满<br>发送URG标志置位的空数据段,数据长度为0<br>并设置紧急指针为带外数据在这个发送缓冲区的位置偏移；<br>TCP在随后发送的数据段中均设置URG标志，直到带外数据被送出</p>
+<h4 id="OOB-for-C"><a href="#OOB-for-C" class="headerlink" title="OOB for C"></a>OOB for C</h4><p>C 语言使用函数send和标志MSG_OOB发送带外数据<br>发送单个字节，这个字节被认为是带外数据<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">send(sockfd,”a”,<span class="number">1</span>,MSG_OOB);</span><br></pre></td></tr></table></figure></p>
+<p>发送多个字节，只有最后1个字节被认为是带外数据，其它字节被当作普通数据处理<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">send(sockfd,”abc”,<span class="number">3</span>,MSG_OOB);</span><br></pre></td></tr></table></figure></p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="OOB-接收过程"><a href="#OOB-接收过程" class="headerlink" title="OOB 接收过程"></a>OOB 接收过程</h2><h4 id="SO-OOBINLINE-缺省的接收"><a href="#SO-OOBINLINE-缺省的接收" class="headerlink" title="SO_OOBINLINE 缺省的接收"></a>SO_OOBINLINE 缺省的接收</h4><p>未设置SO_OOBINLINE选项(缺省)，带外数据被放入独立的(单字节)带外数据缓冲区中<br>进程接收时，首先需要设置属主，SIGURG 信号被传给属主<br>SIGURG 信号的处理函数中需设置带MSG_OOB标志的recv、recvfrom或 recvmsg 函数</p>
+<ol>
+<li><p>SIGURG 信号处理函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sig_urg</span><span class="params">(<span class="keyword">int</span> signo)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n; <span class="keyword">char</span> buf[<span class="number">100</span>];</span><br><span class="line">  bzero(buf, <span class="keyword">sizeof</span>(buf));</span><br><span class="line">  <span class="keyword">if</span>( (n = recv(newfd,buf,<span class="keyword">sizeof</span>(buf)<span class="number">-1</span>,MSG_OOB))&lt;<span class="number">0</span> )</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"urg recv error: %d\n"</span>, errno);</span><br><span class="line">  buf[n]=<span class="string">'\0'</span>;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"recv %d OOB bytes: %s\n"</span>, n, buf);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置 SIGURG 信号</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> *old_sigurg_handler;</span><br><span class="line">old_sigurg_handler=signal(SIGURG, sig_urg);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>属主的设置</p>
+<ul>
+<li>保险起见一般在 accept 后 recv 之前设置</li>
+<li>注意若处理消息的进程是子进程，则属主应该被设给子进程<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fcntl(sockfd, F_SETOWN, getpid());</span><br><span class="line"><span class="comment">//或</span></span><br><span class="line"><span class="keyword">pid_t</span> pid=getpid(); </span><br><span class="line">ioctl(sockfd, FIOSETOWN, &amp;pid);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>accept 后的消息的接收函数</p>
+<ul>
+<li>accept 后的 while 循环中不用设置 OOB 信号的接收函数</li>
+<li>在接收普通消息时如果有 OOB ，则会产生 SIGURG 信号，转而进行 SIGURG 信号处理的函数<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(i&lt;<span class="number">4</span>)&#123;</span><br><span class="line">  <span class="keyword">int</span> nbytes=recv(newfd,  buf, <span class="keyword">sizeof</span>(buf), <span class="number">0</span>);</span><br><span class="line">  buf[nbytes]=<span class="string">'\0'</span>;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"received normal data from client: %s\n"</span>,buf);</span><br><span class="line">  i++;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="out-of-band-mark"><a href="#out-of-band-mark" class="headerlink" title="out-of-band mark"></a>out-of-band mark</h4><p>检测读指针是否到达带外数据位置<br>返回值：-1表示出错，0表示未到达，1表示到达<br>带外标记有效时，正常数据的读取将在带外标记前停止<br>假设oob mark=20，缓冲区中数据长度为50，调用read(fd,buf,40)，返回值为20<br>为了同步带外数据和正常数据，可以利用ioctl检测读指针是否到达带外数据位置</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sock_at_mark</span><span class="params">(<span class="keyword">int</span> fd)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> flag;</span><br><span class="line">    <span class="keyword">if</span>( ioctl(fd,SIOCATMARK,&amp;flag) &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">return</span> (flag!=<span class="number">0</span>?<span class="number">1</span>:<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="SO-OOBINLINE-设置的接收"><a href="#SO-OOBINLINE-设置的接收" class="headerlink" title="SO_OOBINLINE 设置的接收"></a>SO_OOBINLINE 设置的接收</h4><p>设置了SO_OOBINLINE选项,带外数据被放入正常套接字缓冲区中<br>进程使用普通接收函数进行读取，比如read或recv，<strong>不能指定MSG_OOB标志</strong><br>这种方式 <strong>不需要设置 SIGURG 信号</strong> 与其处理函数<br>读取带外数据之前应先判断下一字节是否为带外数据<br>判断的方法可以通过检查带外标记实现 out-of-band mark</p>
+<ol>
+<li><p>设置 SO_OOBINLINE 标志</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setsockopt(newfd, SOL_SOCKET, SO_OOBINLINE, &amp;oobinline, <span class="keyword">sizeof</span>(oobinline));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>accept 后的消息的接收函数</p>
+<ul>
+<li>需要分别讨论是普通消息和 OOB 消息的区别</li>
+<li>普通消息与 OOB 消息均不加 MSG_OOB 标志</li>
+<li>用 sock_at_mark 判断 OOB 消息的到来<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> oobreach=sock_at_mark(newfd);</span><br><span class="line"><span class="keyword">if</span>(oobreach==<span class="number">1</span>)&#123;</span><br><span class="line">  bzero(buf,<span class="keyword">sizeof</span>(buf));</span><br><span class="line">  <span class="keyword">int</span> nbytes=recv(newfd, buf, <span class="keyword">sizeof</span>(buf),<span class="number">0</span>);</span><br><span class="line">  buf[nbytes]=<span class="string">'\0'</span>;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"received oob byte: %s\n"</span>, buf);</span><br><span class="line"> &#125; </span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">  bzero(buf,<span class="keyword">sizeof</span>(buf));</span><br><span class="line">  <span class="keyword">int</span> nbytes=recv(newfd, buf, <span class="keyword">sizeof</span>(buf),<span class="number">0</span>);</span><br><span class="line">  buf[nbytes]=<span class="string">'\0'</span>;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"received normal byte: %s\n"</span>, buf);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="如果进程调用select函数"><a href="#如果进程调用select函数" class="headerlink" title="如果进程调用select函数"></a>如果进程调用select函数</h4><p>select函数会返回对应socket描述符异常就绪：<br>    int select(int maxfd,fd_set <em>rdset,fd_set </em>wrest,fd_set <em>exset,struct timeval </em>timeout);</p>
+<h4 id="SO-OOBINLINE选项对sock-at-mark函数的影响"><a href="#SO-OOBINLINE选项对sock-at-mark函数的影响" class="headerlink" title="SO_OOBINLINE选项对sock_at_mark函数的影响"></a>SO_OOBINLINE选项对sock_at_mark函数的影响</h4><p>无论是否设置了SO_OOBINLINE选项， sock_at_mark函数总是可以检查是否到达带外数据位置<br>设置了SO_OOBINLINE选项且sock_at_mark返回1时，read读取的数据将包含带外数据；<br>未设置SO_OOBINLINE选项且sock_at_mark返回1时，read读取的数据将跳过带外数据，读取正常数据</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://1t4chi.com/2018/11/07/2018-11-07-Out Of Band Data/" data-id="cjt6rg515000u5uvqihk5gzb0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2018-10-18-Process Communication_Signal" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/17/2018-10-18-Process Communication_Signal/" class="article-date">
+  <time datetime="2018-10-17T01:46:20.581Z" itemprop="datePublished">2018-10-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OS/">OS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/17/2018-10-18-Process Communication_Signal/">进程的通信——信号</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>信号是一种进程间通信的方法，实质是一种软中断。常见的信号有 ctrl+c 产生 SIGINT 信号。</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h1 id="进程的信号"><a href="#进程的信号" class="headerlink" title="进程的信号"></a>进程的信号</h1><h2 id="概念与简介"><a href="#概念与简介" class="headerlink" title="概念与简介"></a>概念与简介</h2><p>信号是一种进程间通信的方法，应用于异步事件的处理<br>信号实质是一种软中断，它被发送给一个正执行的进程以通知该进程某一事件发生了<br>信号来源：通过系统调用，比如kill：<br>int kill(int pid, int sig);<br>通过kill命令，比如kill -9 pid发送SIGKILL信号<br>特定键盘字符，比如ctrl+c产生SIGINT信号<br>硬件故障，比如SIGFPE为浮点算术错信号<br>某些软件产生，比如加急数据到达的SIGURG信号</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="信号与信号的产生"><a href="#信号与信号的产生" class="headerlink" title="信号与信号的产生"></a>信号与信号的产生</h2><h4 id="常用信号"><a href="#常用信号" class="headerlink" title="常用信号"></a>常用信号</h4><p>SIGALARM－计时器到时<br>SIGCHLD－子进程停止或退出时通知父进程<br>SIGKILL－终止进程<br>SIGSTOP－停止进程<br>SIGINT－中断字符，CTRL＋C<br>SIGQUIT －退出，CTRL＋\</p>
+<h4 id="kill"><a href="#kill" class="headerlink" title="kill"></a>kill</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">kill</span><span class="params">(<span class="keyword">pid_t</span> pid, <span class="keyword">int</span> sig)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>发送信号系统调用<br>pid—接收信号的进程集合<br>sig—要发送的信号<br>返回值：成功返回0，否则返回-1</p>
+<h4 id="raise"><a href="#raise" class="headerlink" title="raise"></a>raise</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">raise</span><span class="params">(<span class="keyword">int</span> sig)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>向进程自身发送信号<br>sig—要发送的信号</p>
+<h4 id="alarm"><a href="#alarm" class="headerlink" title="alarm"></a>alarm</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">alarm</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> seconds)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>在指定的时间(seconds秒)后<br>将向进程自身发送 SIGALARM 信号 </p>
+<h4 id="abort"><a href="#abort" class="headerlink" title="abort"></a>abort</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">abort</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p>向进程自身发送SIGABORT信号<br>默认情况下进程会异常退出<br>但可定义自己的信号处理函数</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="sigaction"><a href="#sigaction" class="headerlink" title="sigaction"></a>sigaction</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sigaction</span><span class="params">(<span class="keyword">int</span> signum, <span class="keyword">const</span> struct sigaction *act,struct sigaction *oldact)</span></span></span><br><span class="line"><span class="function"><span class="comment">// 处理信号的函数</span></span></span><br><span class="line"><span class="function">struct sigaction </span>&#123;                  </span><br><span class="line">    <span class="keyword">void</span> (*sa_handler)(<span class="keyword">int</span>);    <span class="comment">//函数指针</span></span><br><span class="line">    <span class="keyword">sigset_t</span> sa_mask;       <span class="comment">//屏蔽的信号集</span></span><br><span class="line">    <span class="keyword">int</span> sa_flags;           <span class="comment">//标志</span></span><br><span class="line">    <span class="keyword">void</span> (*sa_restorer)(<span class="keyword">void</span>);  <span class="comment">//已废弃</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="参数返回值"><a href="#参数返回值" class="headerlink" title="参数返回值"></a>参数返回值</h4><p>signum：指定需要捕获的信号，SIGKILL和SIGSTOP不能指定<br>act：是一个sigaction结构体，指定处理捕获信号的动作<br>oldact：存储旧的动作<br>若成功则返回0，若出错则返回-1</p>
+<h4 id="sa-handler"><a href="#sa-handler" class="headerlink" title="sa_handler"></a>sa_handler</h4><p>指定信号的动作<br>使用默认动作时设置为 SIG_DFL<br>忽略信号时设置为 SIG_IGN<br>使用用户指定的处理函数时设置为相应处理函数</p>
+<h4 id="sa-mask"><a href="#sa-mask" class="headerlink" title="sa_mask"></a>sa_mask</h4><p>指定信号处理函数中被屏蔽的信号集，通常被处理的信号本身被屏蔽<br>即正在处理该信号时，不能再接收该信号<br>一般用 sigemptyset(&amp;act.sa_mask) 将其清零</p>
+<h4 id="sa-flags"><a href="#sa-flags" class="headerlink" title="sa_flags"></a>sa_flags</h4><p>是影响信号处理函数行为的标志<br>SA_ONESHOT或SA_RESETHAND－信号处理函数调用后，将信号的动作设置为默认动作，即自动撤消信号处理函数的注册<br>SA_RESTART－使某些系统调用在被信号中断后能自动重新执行，比如read；<br>SA_NOCLDSTOP－当signum=SIGCHLD时，子进程停止时不通知父进程；<br>SA_NOMASK或SA_NODEFER－在处理信号时如果又发生了其他信号，则立即进入其他信号的处理，等其他信号处理完毕后，再继续处理当前的信号。</p>
+<h4 id="使用实例"><a href="#使用实例" class="headerlink" title="使用实例"></a>使用实例</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> signal)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d号信号被捕捉。\n"</span>, signal);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sigaction</span> <span class="title">act</span>, <span class="title">oldact</span>;</span></span><br><span class="line">    act.sa_handler = func;</span><br><span class="line">    <span class="comment">// 指定处理函数为 func</span></span><br><span class="line">    act.sa_flags = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//为0的时候，可以屏蔽正在处理的信号（若在处理2号信号时又有2号信号，则&gt;会被屏蔽）</span></span><br><span class="line">    sigemptyset(&amp;act.sa_mask);</span><br><span class="line">    <span class="comment">//sa_mask是一个临时信号集，将其清零（初始化）</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> s_ret = sigaction(SIGINT, &amp;act, &amp;oldact);</span><br><span class="line">    <span class="keyword">if</span> (s_ret&lt;<span class="number">0</span>)&#123;</span><br><span class="line">        perror(<span class="string">"sigaction error"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="signal"><a href="#signal" class="headerlink" title="signal"></a>signal</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> (*signal(<span class="keyword">int</span> signum,<span class="keyword">void</span> (*handler)(<span class="keyword">int</span>)))(<span class="keyword">int</span>);</span><br><span class="line"><span class="comment">// 处理信号的函数</span></span><br></pre></td></tr></table></figure>
+<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><p>signum—指定需要捕获的信号,SIGKILL和SIGSTOP不能指定<br>handler—指定信号处理函数<br>返回值：若成功返回原来的信号处理配置，如出错则为SIG_ERR</p>
+<h4 id="使用实例-1"><a href="#使用实例-1" class="headerlink" title="使用实例"></a>使用实例</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sighandler</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   signal(SIGINT, sighandler);</span><br><span class="line">   <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"开始休眠一秒钟...\n"</span>);</span><br><span class="line">      sleep(<span class="number">1</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sighandler</span><span class="params">(<span class="keyword">int</span> signum)</span></span>&#123;</span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">"捕获信号 %d，跳出...\n"</span>, signum);</span><br><span class="line">   <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://1t4chi.com/2018/10/17/2018-10-18-Process Communication_Signal/" data-id="cjt6rg50v000i5uvqraieicae" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2018-10-17-Deamon Process" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/17/2018-10-17-Deamon Process/" class="article-date">
+  <time datetime="2018-10-17T01:43:43.727Z" itemprop="datePublished">2018-10-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OS/">OS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/17/2018-10-17-Deamon Process/">如何创建守护进程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>守护进程：执行守护任务，比如远程登录监控程序。生存期为系统执行时间，一般不和终端发生联系。</p>
+<hr>
+<h2 id="典型守护进程特点："><a href="#典型守护进程特点：" class="headerlink" title="典型守护进程特点："></a>典型守护进程特点：</h2><p>通常在系统初始化时被启动；<br>生存期为系统执行时间；<br>一直等待事件发生并处理事件；<br>可以利用其他进程完成各种请求；<br>一般不和终端发生联系</p>
+<hr>
+<h2 id="启动守护进程的方法"><a href="#启动守护进程的方法" class="headerlink" title="启动守护进程的方法"></a>启动守护进程的方法</h2><p>系统启动时，进程init根据系统启动文件启动守护进程，以超级进程权限运行<br>超级进程xinetd可以启动很多守护进程<br>由crontab可以周期性的启动一些进程，具有超级用户权限<br>由at命令执行，它将守护进程延迟到某一时间执行；<br>在终端上由用户启动守护进程（在命令后面添加一个 &amp; 符号）</p>
+<hr>
+<h2 id="守护进程编程步骤"><a href="#守护进程编程步骤" class="headerlink" title="守护进程编程步骤"></a>守护进程编程步骤</h2><ol>
+<li>创建子进程，父进程退出<ul>
+<li>所有工作在子进程中进行</li>
+<li>形式上脱离了控制终端</li>
+</ul>
+</li>
+<li>在子进程中创建新会话<ul>
+<li>setsid()函数</li>
+<li>setsid()调用成功后，返回新的会话的ID</li>
+<li>调用setsid函数的进程成为新的会话的领头进程</li>
+<li>并与其父进程的会话组和进程组脱离</li>
+<li>由于会话对控制终端的独占性，进程同时与控制终端脱离</li>
+</ul>
+</li>
+<li>改变当前目录为根目录<ul>
+<li>chdir()函数</li>
+<li>防止占用可卸载的文件系统</li>
+<li>也可以换成其它路径</li>
+</ul>
+</li>
+<li>重设文件权限掩码<ul>
+<li>umask()函数</li>
+<li>防止继承的文件创建屏蔽字拒绝某些权限</li>
+<li>增加守护进程灵活性</li>
+</ul>
+</li>
+<li>关闭文件描述符<ul>
+<li>继承的打开文件不会用到，浪费系统资源，无法卸载</li>
+<li>getdtablesize()</li>
+<li>返回所在进程的文件描述符表的项数，即该进程打开的文件数目</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="为什么要两次-fork"><a href="#为什么要两次-fork" class="headerlink" title="为什么要两次 fork"></a>为什么要两次 fork</h2><p>第一次是为了 setsid 因为不能是进程组组长</p>
+<p>1）调用一次fork的作用：<br>    第一次fork的作用是让shell认为这条命令已经终止，不用挂在终端输入上，还有就是为了后面的setsid服务，因为调用setsid函数的进程不能是进程组组长，如果不fork出子进程，则此时的父进程是进程组组长，就无法调用setsid。当子进程调用完setsid函数之后，子进程是会话组长也是进程组组长，并且脱离了控制终端，此时，不管控制终端如何操作，新的进程都不会收到一些信号使得进程退出。<br>（2）第二次fork的作用：<br>虽然当前关闭了和终端的联系，但是后期可能会误操作打开了终端。<br>只有会话首进程能打开终端设备，也就是再fork一次，再把父进程退出，再次fork的子进程作为守护进程继续运行，保证了该精灵进程不是对话期的首进程，<br>第二次不是必须的，是可选的，市面上有些开源项目也是fork一次</p>
+<p>1）调用umask将文件模式创建屏蔽字设置为0<br>（2）父进程fork出子进程，然后子进程调用setsid，父进程直接退出（保证了子进程不是一个进程组的组长），<br>（3）调用setsid创建一个新的会话（调用成功会使调用进程成为新会话的首进程，并且成为一个进程组的组长进程，调用进程没有控制终端）<br>（4）将当前工作目录更改为根目录<br>（5）关闭不在需要的文件描述符<br>（6）忽略SIGCHLD信号<br>下面是我写的创建守护进程的代码（fork两次）：</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://1t4chi.com/2018/10/17/2018-10-17-Deamon Process/" data-id="cjt6rg50s000f5uvqek86h4kt" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2018-10-13-Process Operation for C" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/10/2018-10-13-Process Operation for C/" class="article-date">
+  <time datetime="2018-10-10T01:57:58.000Z" itemprop="datePublished">2018-10-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OS/">OS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/10/2018-10-13-Process Operation for C/">C 语言的进程操作 API</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>C 语言下的进程操作常用接口: 创建子进程、替换进程、退出、等待等待。</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="进程概念"><a href="#进程概念" class="headerlink" title="进程概念"></a>进程概念</h2><p>Shell进程<br>批处理进程<br>守护进程</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="fork"><a href="#fork" class="headerlink" title="fork"></a>fork</h2><h4 id="库与定义"><a href="#库与定义" class="headerlink" title="库与定义"></a>库与定义</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="keyword">pid_t</span> fork(<span class="keyword">void</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h4><p>创建新的进程<br>调用者成为父进程<br>产生的新进程成为子进程</p>
+<h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><p>0，子进程的进程id，只在父进程中返回<br>-1，调用失败<br>=0，只在子进程返回</p>
+<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><p>两次返回<br>调用fork的进程（父进程）返回正整数（子进程ID）<br>在新创建的进程（子进程）中返回0，表示是子进程<br>调用fork时发生了什么?<br>系统创建新进程，并为该进程准备数据段、堆栈段和代码段<br>代码段使用和父进程相同的代码段<br>父进程的数据段和堆栈段被复制给子进程<br>子进程有自己数据段的空间，与父进程不共享</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="vfork"><a href="#vfork" class="headerlink" title="vfork"></a>vfork</h2><h4 id="库与定义-1"><a href="#库与定义-1" class="headerlink" title="库与定义"></a>库与定义</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="keyword">pid_t</span> vfork(<span class="keyword">void</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="功能-1"><a href="#功能-1" class="headerlink" title="功能"></a>功能</h4><p>创建新的进程</p>
+<h4 id="返回值-1"><a href="#返回值-1" class="headerlink" title="返回值"></a>返回值</h4><p>0，子进程的进程id，只在父进程中返回<br>-1，调用失败<br>=0，只在子进程返回</p>
+<h4 id="说明-1"><a href="#说明-1" class="headerlink" title="说明"></a>说明</h4><p>与fork区别:子进程与父进程共享数据段<br>不是真正意义上的进程,而是一个线程，缺少独立的内存资源<br>vfork子进程先运行，子进程调用了exec或exit之后，父子进程的执行次序才不受限制</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="exec"><a href="#exec" class="headerlink" title="exec"></a>exec</h2><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execve</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *path,</span></span></span><br><span class="line"><span class="function"><span class="params">           <span class="keyword">char</span> *<span class="keyword">const</span> argv[],</span></span></span><br><span class="line"><span class="function"><span class="params">           <span class="keyword">char</span> *<span class="keyword">const</span> envp[])</span></span>;</span><br></pre></td></tr></table></figure>
+<h4 id="功能-2"><a href="#功能-2" class="headerlink" title="功能"></a>功能</h4><p>系统调用exec<br>启动另一个程序执行<br>完全替换原有进程</p>
+<h4 id="返回值-2"><a href="#返回值-2" class="headerlink" title="返回值"></a>返回值</h4><p>调用成功后不返回<br>调用失败返回-1<br>从原程序调用点接着往下执行</p>
+<h4 id="说明-2"><a href="#说明-2" class="headerlink" title="说明"></a>说明</h4><p>调用exec后当前进程“死亡”<br>代码段替换为新的代码段<br>废弃原进程的数据段和堆栈段<br>创建新的数据段和堆栈段<br>但进程号保留</p>
+<h4 id="copy-on-write"><a href="#copy-on-write" class="headerlink" title="copy-on-write"></a>copy-on-write</h4><p>fork后不会立刻拷贝父进程程序<br>只有当真正需要使用时才拷贝堆栈等等</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="exit"><a href="#exit" class="headerlink" title="exit"></a>exit</h2><h4 id="库与定义-2"><a href="#库与定义-2" class="headerlink" title="库与定义"></a>库与定义</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">exit</span><span class="params">(<span class="keyword">int</span> status)</span></span>;</span><br></pre></td></tr></table></figure>
+<h4 id="功能-3"><a href="#功能-3" class="headerlink" title="功能"></a>功能</h4><p>清除包括PCB在内的各种数据结构<br>终止本进程的执行</p>
+<h4 id="返回"><a href="#返回" class="headerlink" title="返回"></a>返回</h4><p>无<br>但可以利用status传递进程结束时的状态<br>后续可用wait系统调用接收子进程的返回值；</p>
+<h4 id="僵尸进程"><a href="#僵尸进程" class="headerlink" title="僵尸进程"></a>僵尸进程</h4><p>是 exit 系统调用的问题<br>进程调用exit后并非马上就消失掉<br>而是留下一个称为僵尸进程（Zombie）的数据结构<br>僵尸进程：放弃了几乎所有内存空间<br>没有任何可执行代码，也不能被调度<br>仅仅在进程列表里保留一个位置<br>记载该进程的退出状态等信息供其他进程收集；<br>解决办法：使用wait和waitpid系统调用进行清除</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="wait"><a href="#wait" class="headerlink" title="wait"></a>wait</h2><h4 id="库与定义-3"><a href="#库与定义-3" class="headerlink" title="库与定义"></a>库与定义</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"><span class="keyword">pid_t</span> wait(<span class="keyword">int</span> *status)</span><br></pre></td></tr></table></figure>
+<h4 id="功能-4"><a href="#功能-4" class="headerlink" title="功能"></a>功能</h4><p>阻塞自己<br>查找僵尸子进程<br>收集其信息<br>并将它彻底销毁；</p>
+<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><p>status—存储僵尸子进程信息<br>如果不关心可设置为NULL</p>
+<h4 id="返回值-3"><a href="#返回值-3" class="headerlink" title="返回值"></a>返回值</h4><p>若成功返回进程ID<br>如出错返回-1；</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="waitpid"><a href="#waitpid" class="headerlink" title="waitpid"></a>waitpid</h2><h4 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pid_t</span> waitpid(<span class="keyword">pid_t</span> pid,<span class="keyword">int</span> *status,<span class="keyword">int</span> options)</span><br></pre></td></tr></table></figure>
+<h4 id="功能-5"><a href="#功能-5" class="headerlink" title="功能"></a>功能</h4><p>与wait相同<br>但多了两个用户可控制的参数pid和options</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="避免僵尸进程的方法"><a href="#避免僵尸进程的方法" class="headerlink" title="避免僵尸进程的方法"></a>避免僵尸进程的方法</h2><h4 id="waitpid-1"><a href="#waitpid-1" class="headerlink" title="waitpid"></a>waitpid</h4><p>只有父进程在子进程结束前执行waitpid()，子进程不会僵尸进程</p>
+<h4 id="SIGCHLD-信号"><a href="#SIGCHLD-信号" class="headerlink" title="SIGCHLD 信号"></a>SIGCHLD 信号</h4><p>使用signal(SIGCHLD, SIG_IGN)处理僵尸进程</p>
+<h4 id="两次-fork"><a href="#两次-fork" class="headerlink" title="两次 fork"></a>两次 fork</h4><p>父进程一次fork()后产生一个子进程随后立即执行waitpid(子进程pid, NULL, 0)来等待子进程结束，然后子进程fork()后产生孙子进程随后立即exit(0)。这样子进程顺利终止（父进程仅仅给子进程收尸，并不需要子进程的返回值），然后父进程继续执行。这时的孙子进程由于失去了它的父进程（即是父进程的子进程），将被转交给Init进程托管。于是父进程与孙子进程无继承关系了，它们的父进程均为Init，Init进程在其子进程结束时会自动收尸，这样也就不会产生僵尸进程了。<br>虽说一次 fork 后杀掉父进程，也可以使子进程避免成为僵尸进程。但这样父进程便用不了了。我们也许还需要父进程，所以需要两次 fork</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://1t4chi.com/2018/10/10/2018-10-13-Process Operation for C/" data-id="cjt6rg50p000d5uvq7dd3s5t5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -109,11 +663,23 @@
   
 
 
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
+
 </section>
         
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a></li></ul>
+    </div>
+  </div>
+
 
   
     
@@ -125,7 +691,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li></ul>
     </div>
   </div>
 
@@ -138,7 +704,23 @@
       <ul>
         
           <li>
-            <a href="/2019/03/13/hello-world/">Hello World</a>
+            <a href="/2018/12/05/Sock_semaphore/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/05/2018-10-20-Process Communication_Sharemem/">进程的通信——共享内存</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/05/2018-10-19-Process Communication_Msgqueue/">进程的通信——消息队列</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/05/2018-10-20-Process Communication_Pipe/">进程的通信——管道</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/04/2018-10-11-Socket IO/">Socket 的 IO 模型</a>
           </li>
         
       </ul>

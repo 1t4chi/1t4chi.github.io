@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>进程的通信——共享内存 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="共享内存是一种进程通信方法。指在多处理器的计算机系统中，大容量内存可以被不同中央处理器访问。  ftokftok函数：获得特定文件路径名的键值key_t ftok(char *pathname, char proj_id);参数：pathname－指定的文件（路径）名proj_id－子序号返回值成功时返回与路径pathname相对应的一个键值（通常与指定文件的索引节点号相关），失败则返回-1例子程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="进程的通信——共享内存">
+<meta property="og:url" content="http://1t4chi.com/2018/12/05/2018-10-20-Process Communication_Sharemem/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="共享内存是一种进程通信方法。指在多处理器的计算机系统中，大容量内存可以被不同中央处理器访问。  ftokftok函数：获得特定文件路径名的键值key_t ftok(char *pathname, char proj_id);参数：pathname－指定的文件（路径）名proj_id－子序号返回值成功时返回与路径pathname相对应的一个键值（通常与指定文件的索引节点号相关），失败则返回-1例子程">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-12T17:06:00.492Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="进程的通信——共享内存">
+<meta name="twitter:description" content="共享内存是一种进程通信方法。指在多处理器的计算机系统中，大容量内存可以被不同中央处理器访问。  ftokftok函数：获得特定文件路径名的键值key_t ftok(char *pathname, char proj_id);参数：pathname－指定的文件（路径）名proj_id－子序号返回值成功时返回与路径pathname相对应的一个键值（通常与指定文件的索引节点号相关），失败则返回-1例子程">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://1t4chi.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2018-10-20-Process Communication_Sharemem" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/05/2018-10-20-Process Communication_Sharemem/" class="article-date">
+  <time datetime="2018-12-05T05:39:40.008Z" itemprop="datePublished">2018-12-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OS/">OS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      进程的通信——共享内存
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>共享内存是一种进程通信方法。指在多处理器的计算机系统中，大容量内存可以被不同中央处理器访问。</p>
+<hr>
+<h2 id="ftok"><a href="#ftok" class="headerlink" title="ftok"></a>ftok</h2><p>ftok函数：获得特定文件路径名的键值<br>key_t ftok(char *pathname, char proj_id);<br>参数：<br>pathname－指定的文件（路径）名<br>proj_id－子序号<br>返回值<br>成功时返回与路径pathname相对应的一个键值（通常与指定文件的索引节点号相关），失败则返回-1<br>例子程序：ftok_test.c</p>
+<hr>
+<h2 id="shmget"><a href="#shmget" class="headerlink" title="shmget"></a>shmget</h2><p>创建共享内存段：<br>int shmget(key_t key, int size, int flags);</p>
+<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><p>key 是 ftok 函数返回的某文件的键</p>
+<hr>
+<h2 id="shmat"><a href="#shmat" class="headerlink" title="shmat"></a>shmat</h2><p>将共享内存段映射到进程虚拟地址空间：<br>char <em>shmat(int segid, char </em>addr, int flags);<br>返回共享内存段在进程虚拟地址空间的首地址</p>
+<hr>
+<h2 id="shmdt"><a href="#shmdt" class="headerlink" title="shmdt"></a>shmdt</h2><p>解除共享内存段的映射：<br>int shmdt(char *addr);</p>
+<hr>
+<h2 id="shmctl"><a href="#shmctl" class="headerlink" title="shmctl"></a>shmctl</h2><p>共享内存段控制：<br>int shmctl(int segid, int cmd, struct shmid_ds *sbuf);<br>Cmd: SHM_LOCK, SHM_UNLOCK, IPC_RMID等</p>
+<hr>
+<h2 id="ipc-命令"><a href="#ipc-命令" class="headerlink" title="ipc 命令"></a>ipc 命令</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo ipcs [-m]</span><br><span class="line">sudo ipcrm –m shmid</span><br></pre></td></tr></table></figure>
+<p>ipcrm 命令<br>移除一个消息对象。或者共享内存段，或者一个信号集，同时会将与ipc对象相关链的数据也一起移除。当然，只有超级管理员，或者ipc对象的创建者才有这项权利啦</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://1t4chi.com/2018/12/05/2018-10-20-Process Communication_Sharemem/" data-id="cjt6rg50z000m5uvqywz81i6c" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/05/Sock_semaphore/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/05/2018-10-19-Process Communication_Msgqueue/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">进程的通信——消息队列</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/05/Sock_semaphore/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/05/2018-10-20-Process Communication_Sharemem/">进程的通信——共享内存</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/05/2018-10-19-Process Communication_Msgqueue/">进程的通信——消息队列</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/05/2018-10-20-Process Communication_Pipe/">进程的通信——管道</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/04/2018-10-11-Socket IO/">Socket 的 IO 模型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

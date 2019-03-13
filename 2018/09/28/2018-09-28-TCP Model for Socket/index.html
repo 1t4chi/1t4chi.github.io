@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Socket 的 TCP 编程 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Socket 的 TCP 编程：TCP 协议面向连接。一般适用于并发服务器模型，但有例外需要灵活掌握。   一般流程服务器 socket： 创建套接字  TCP 用 fd1 = socket(AF_INET,SOCK_STREAM,0) 获得一个 socket 描述符 fd1   bind： 绑定服务器自己地址和端口 传入套接字描述符 fd1 传入自己地址用 INADDR_ANY   listen">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Socket 的 TCP 编程">
+<meta property="og:url" content="http://1t4chi.com/2018/09/28/2018-09-28-TCP Model for Socket/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Socket 的 TCP 编程：TCP 协议面向连接。一般适用于并发服务器模型，但有例外需要灵活掌握。   一般流程服务器 socket： 创建套接字  TCP 用 fd1 = socket(AF_INET,SOCK_STREAM,0) 获得一个 socket 描述符 fd1   bind： 绑定服务器自己地址和端口 传入套接字描述符 fd1 传入自己地址用 INADDR_ANY   listen">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-12T18:42:44.895Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Socket 的 TCP 编程">
+<meta name="twitter:description" content="Socket 的 TCP 编程：TCP 协议面向连接。一般适用于并发服务器模型，但有例外需要灵活掌握。   一般流程服务器 socket： 创建套接字  TCP 用 fd1 = socket(AF_INET,SOCK_STREAM,0) 获得一个 socket 描述符 fd1   bind： 绑定服务器自己地址和端口 传入套接字描述符 fd1 传入自己地址用 INADDR_ANY   listen">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://1t4chi.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2018-09-28-TCP Model for Socket" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/28/2018-09-28-TCP Model for Socket/" class="article-date">
+  <time datetime="2018-09-28T01:44:06.935Z" itemprop="datePublished">2018-09-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Socket/">Socket</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Socket 的 TCP 编程
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Socket 的 TCP 编程：TCP 协议面向连接。一般适用于并发服务器模型，但有例外需要灵活掌握。</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="一般流程"><a href="#一般流程" class="headerlink" title="一般流程"></a>一般流程</h2><h4 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h4><ul>
+<li>socket：<ul>
+<li>创建套接字 </li>
+<li>TCP 用 fd1 = socket(AF_INET,SOCK_STREAM,0)</li>
+<li>获得一个 socket 描述符 fd1</li>
+</ul>
+</li>
+<li>bind：<ul>
+<li>绑定服务器自己地址和端口</li>
+<li>传入套接字描述符 fd1</li>
+<li>传入自己地址用 INADDR_ANY</li>
+</ul>
+</li>
+<li>listen：<ul>
+<li>监听端口</li>
+<li>传入套接字描述符 fd1</li>
+<li>传入最大请求数量</li>
+</ul>
+</li>
+<li>accept：<ul>
+<li>接受客户连接</li>
+<li>传入地址 <strong>只声明</strong> ，由内核填入客户端地址</li>
+<li>获得用于通信的 socket 描述符 fd2</li>
+</ul>
+</li>
+<li>read(recv)：<ul>
+<li>接受客户请求</li>
+<li>传入用于通信的 socket 描述符 fd2</li>
+<li>无需传地址，需要传入接收缓冲区与其长度</li>
+</ul>
+</li>
+<li>write(send)：<ul>
+<li>回送响应</li>
+<li>传入用于通信的 socket 描述符 fd2</li>
+<li>无需传地址，需要传入消息与其长度</li>
+</ul>
+</li>
+<li>close：<ul>
+<li>关闭套接字</li>
+<li>并发服务器，一次通讯完关闭通讯描述符 fd2</li>
+</ul>
+</li>
+</ul>
+<h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><p>socket：创建套接字，socket(AF_INET,SOCK_STREAM,0)<br>connect：连接服务器，填入远程服务器地址和端口<br>write(send)：客户端发送请求<br>read(recv)：客户端接收响应<br>close：关闭套接字 </p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="服务器模型"><a href="#服务器模型" class="headerlink" title="服务器模型"></a>服务器模型</h2><h4 id="循环服务器模型"><a href="#循环服务器模型" class="headerlink" title="循环服务器模型"></a>循环服务器模型</h4><p>TCP 不常用循环服务器模型</p>
+<h4 id="并发服务器模型"><a href="#并发服务器模型" class="headerlink" title="并发服务器模型"></a>并发服务器模型</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fd=socket</span><br><span class="line">bind(fd)</span><br><span class="line">listen(fd)</span><br><span class="line"><span class="keyword">for</span>(;;)&#123;</span><br><span class="line">    newfd=accept(fd)</span><br><span class="line">    <span class="keyword">if</span>(fork()==<span class="number">0</span>)&#123;</span><br><span class="line">        close(fd)</span><br><span class="line">        recv(newfd)</span><br><span class="line">        send(newfd)</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    close(newfd)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="延迟创建子进程模型"><a href="#延迟创建子进程模型" class="headerlink" title="延迟创建子进程模型"></a>延迟创建子进程模型</h4><p>循环与并发混合的服务器模型<br>处理时间短的客户请求以循环方式完成<br>处理时间长的客户请求以并发方式完成<br>减少创建子进程的开销<br>建立进程表项的开销<br>复制数据段和堆栈段的开销</p>
+<h4 id="固定预创建子进程模型"><a href="#固定预创建子进程模型" class="headerlink" title="固定预创建子进程模型"></a>固定预创建子进程模型</h4><p>服务器建立侦听socket，并创建子进程<br>所有子进程调用accept，无连接时将睡眠<br>有连接到来时子进程被唤醒<br>某一个子进程接受连接后，其他进程继续睡眠</p>
+<h4 id="动态预创建子进程"><a href="#动态预创建子进程" class="headerlink" title="动态预创建子进程"></a>动态预创建子进程</h4><p>实现过程<br>服务器建立socket，并创建一定数量子进程<br>服务器父进程维护所有子进程的状态表，父进程和子进程通过管道通信<br>子进程接受连接时给父进程发1，关闭连接时发0<br>父进程收到1时检查空闲子进程数目是否小于下限，小于下限则创建新的子进程<br>父进程收到0时检查空闲子进程数目是否大于上限，大于上限则终止一些子进程</p>
+<h4 id="多路复用I-O"><a href="#多路复用I-O" class="headerlink" title="多路复用I/O"></a>多路复用I/O</h4><p>原理：<br>int select(int maxfd,fd_set <em>rdset,fd_set </em>wrest,fd_set <em>exset,struct timeval </em>timeout);<br>select函数检查侦听socket是否有连接到达、已连接socket是否有数据到达、已连接socket是否可以写数据<br>在测试是否可读的描述符集合rdset中同时包含侦听socket和已连接socket，在测试是否可写描述符集合中包含已连接socket，就可以实现多路复用<br>设置读和写描述符集合，其中读描述符集合包括侦听socket<br>调用select测试socket描述符是否就绪<br>侦听socket就绪则接收新连接<br>其他socket就绪则执行读写操作<br>重复步骤1－4</p>
+<p>优点<br>只需要一个进程来处理所有客户机请求<br>没有创建和管理子进程的开销，系统资源消耗少<br>没有进程间通信<br>缺点<br>服务器必须依次处理所有的请求，编程较复杂<br>服务器循环处理所有就绪客户端，可能会造成延时较长</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://1t4chi.com/2018/09/28/2018-09-28-TCP Model for Socket/" data-id="cjt6rg50b00055uvq1vt3mt2r" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/09/28/2018-09-28-UDP Model for Socket/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Socket 的 UDP 编程
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/09/21/2018-10-12-Socket IO_Multiplex/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">多路复用 Socket IO 模型</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/05/Sock_semaphore/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/05/2018-10-20-Process Communication_Sharemem/">进程的通信——共享内存</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/05/2018-10-19-Process Communication_Msgqueue/">进程的通信——消息队列</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/05/2018-10-20-Process Communication_Pipe/">进程的通信——管道</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/04/2018-10-11-Socket IO/">Socket 的 IO 模型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>原始套接字 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="原始套接字能够直接针对 IP 包进行编程;具有更强灵活性;能够直接访问 ICMP,IGMP 等多种协议的数据包。   创建 RawSocket1int socket (int family, int type, int protocol) 参数 family: 协议簇 AF_INET,AF_UNIX type: SOCK_STREAM,SOCK_DGRAM,SOCK_RAW  TCP 需选 SOC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="原始套接字">
+<meta property="og:url" content="http://1t4chi.com/2018/10/10/2018-10-10-Raw Socket/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="原始套接字能够直接针对 IP 包进行编程;具有更强灵活性;能够直接访问 ICMP,IGMP 等多种协议的数据包。   创建 RawSocket1int socket (int family, int type, int protocol) 参数 family: 协议簇 AF_INET,AF_UNIX type: SOCK_STREAM,SOCK_DGRAM,SOCK_RAW  TCP 需选 SOC">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-12T18:29:43.099Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="原始套接字">
+<meta name="twitter:description" content="原始套接字能够直接针对 IP 包进行编程;具有更强灵活性;能够直接访问 ICMP,IGMP 等多种协议的数据包。   创建 RawSocket1int socket (int family, int type, int protocol) 参数 family: 协议簇 AF_INET,AF_UNIX type: SOCK_STREAM,SOCK_DGRAM,SOCK_RAW  TCP 需选 SOC">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://1t4chi.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2018-10-10-Raw Socket" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/10/2018-10-10-Raw Socket/" class="article-date">
+  <time datetime="2018-10-10T01:01:13.000Z" itemprop="datePublished">2018-10-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Socket/">Socket</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      原始套接字
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原始套接字能够直接针对 IP 包进行编程;具有更强灵活性;能够直接访问 ICMP,IGMP 等多种协议的数据包。</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="创建-RawSocket"><a href="#创建-RawSocket" class="headerlink" title="创建 RawSocket"></a>创建 RawSocket</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket</span> <span class="params">(<span class="keyword">int</span> family, <span class="keyword">int</span> type, <span class="keyword">int</span> protocol)</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><ul>
+<li>family: 协议簇 AF_INET,AF_UNIX</li>
+<li>type: SOCK_STREAM,SOCK_DGRAM,SOCK_RAW <ul>
+<li>TCP 需选 SOCK_STREAM</li>
+</ul>
+</li>
+<li>protocol: 默认为0<ul>
+<li>IPPROTO_ICMP－ICMP数据包</li>
+<li>IPPROTO_IGMP－IGMP数据包</li>
+<li>IPPROTO_IP－IP数据包（内核送达的任意类型IP数据包）</li>
+</ul>
+</li>
+</ul>
+<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><p>原始套接字是一种非面向连接的套接字<br>且只能由超级用户或系统管理员创建。</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="设置IP选项"><a href="#设置IP选项" class="headerlink" title="设置IP选项"></a>设置IP选项</h2><ul>
+<li><p>是否自动填充IP首部，仅影响发送，不影响接收</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> on=<span class="number">1</span>;</span><br><span class="line">setsockopt(sockfd,IPPROTO_IP,IP_HDRINCL,&amp;on,<span class="keyword">sizeof</span>(on));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>on=0: 发送缓冲区存放IP数据报的实体部分，由协议自动填充IP首部；</p>
+</li>
+<li>on=1: 发送缓冲区存放包括IP头部在内的整个IP数据报，用户程序填充IP首部</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://1t4chi.com/2018/10/10/2018-10-10-Raw Socket/" data-id="cjt6rg50f00075uvqe94irq00" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/10/10/2018-10-13-Process Operation for C/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          C 语言的进程操作 API
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/09/28/2018-09-28-UDP Model for Socket/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Socket 的 UDP 编程</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/05/Sock_semaphore/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/05/2018-10-20-Process Communication_Sharemem/">进程的通信——共享内存</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/05/2018-10-19-Process Communication_Msgqueue/">进程的通信——消息队列</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/05/2018-10-20-Process Communication_Pipe/">进程的通信——管道</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/04/2018-10-11-Socket IO/">Socket 的 IO 模型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

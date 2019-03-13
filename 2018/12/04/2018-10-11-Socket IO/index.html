@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Socket 的 IO 模型 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="IO模型一般有4种：阻塞式 IO、非阻塞式 IO、多路复用 IO、信号驱动 IO。   Linux 的 IO阻塞是 IO：简单，被阻塞不占用 CPU 时间，不影响其他进程，但自己不能完成其他任务非阻塞时 IO：fcntl、ioctl，IO 操作不能完成时返回错误不休眠多路复用：阻塞与非阻塞的综合，利用 select 函数信号驱动 IO：SIGIO   socket 函数的阻塞情况可以产生阻塞：数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Socket 的 IO 模型">
+<meta property="og:url" content="http://1t4chi.com/2018/12/04/2018-10-11-Socket IO/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="IO模型一般有4种：阻塞式 IO、非阻塞式 IO、多路复用 IO、信号驱动 IO。   Linux 的 IO阻塞是 IO：简单，被阻塞不占用 CPU 时间，不影响其他进程，但自己不能完成其他任务非阻塞时 IO：fcntl、ioctl，IO 操作不能完成时返回错误不休眠多路复用：阻塞与非阻塞的综合，利用 select 函数信号驱动 IO：SIGIO   socket 函数的阻塞情况可以产生阻塞：数据">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-12T18:29:34.327Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Socket 的 IO 模型">
+<meta name="twitter:description" content="IO模型一般有4种：阻塞式 IO、非阻塞式 IO、多路复用 IO、信号驱动 IO。   Linux 的 IO阻塞是 IO：简单，被阻塞不占用 CPU 时间，不影响其他进程，但自己不能完成其他任务非阻塞时 IO：fcntl、ioctl，IO 操作不能完成时返回错误不休眠多路复用：阻塞与非阻塞的综合，利用 select 函数信号驱动 IO：SIGIO   socket 函数的阻塞情况可以产生阻塞：数据">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://1t4chi.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2018-10-11-Socket IO" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/04/2018-10-11-Socket IO/" class="article-date">
+  <time datetime="2018-12-03T17:48:38.808Z" itemprop="datePublished">2018-12-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Socket/">Socket</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Socket 的 IO 模型
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>IO模型一般有4种：阻塞式 IO、非阻塞式 IO、多路复用 IO、信号驱动 IO。</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="Linux-的-IO"><a href="#Linux-的-IO" class="headerlink" title="Linux 的 IO"></a>Linux 的 IO</h2><p>阻塞是 IO：简单，被阻塞不占用 CPU 时间，不影响其他进程，但自己不能完成其他任务<br>非阻塞时 IO：fcntl、ioctl，IO 操作不能完成时返回错误不休眠<br>多路复用：阻塞与非阻塞的综合，利用 select 函数<br>信号驱动 IO：SIGIO</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="socket-函数的阻塞情况"><a href="#socket-函数的阻塞情况" class="headerlink" title="socket 函数的阻塞情况"></a>socket 函数的阻塞情况</h2><p>可以产生阻塞：<br>数据发送：sendmsg\sendto\send\write\writev<br>数据接收<br>建立连接：connect<br>接收连接：accept</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="阻塞-IO"><a href="#阻塞-IO" class="headerlink" title="阻塞 IO"></a>阻塞 IO</h2><p>套接字相关函数默认时采用阻塞方式操作<br>阻塞方式（ block ），顾名思义，就是进程或是线程执行到这些函数时必须等待某个事件的发生，假如事件没有发生，进程或线程就被阻塞，函数不能立即返回。<br>使用阻塞模式的套接字，开发网络程序比较简单，容易实现。当希望能够立即发送和接收数据，且处理的套接字数量比较少的情况下，使用阻塞模式来开发网络程序比较合适。</p>
+<h4 id="多进程-线程"><a href="#多进程-线程" class="headerlink" title="多进程(线程)"></a>多进程(线程)</h4><p>应对多客户机的网络应用，最简单的解决方式是在服务器端使用多线程（或多进程）。多线程（或多进程）的目的是让每个连接都拥有独立的线程（或进程），这样任何一个连接的阻塞都不会影响其他的连接。<br>具体使用多进程还是多线程，并没有一个特定的模式。传统意义上，进程的开销要远远大于线程，所以，如果需要同时为较多的客户机提供服务，则不推荐使用多进程；如果单个服务执行体需要消耗较多的 CPU 资源，譬如需要进行大规模或长时间的数据运算或文件访问，则进程较为安全。通常，使用 pthread _create () 创建新线程，fork() 创建新进程。</p>
+<h3 id="多线程与多进程"><a href="#多线程与多进程" class="headerlink" title="多线程与多进程"></a>多线程与多进程</h3><p>应对多客户机的网络应用，最简单的解决方式是在服务器端使用多线程（或多进程）。多线程（或多进程）的目的是让每个连接都拥有独立的线程（或进程），这样任何一个连接的阻塞都不会影响其他的连接。</p>
+<ul>
+<li><p>使用多线程<br>具体使用多进程还是多线程，并没有一个特定的模式。传统意义上，进程的开销要远远大于线程，所以，如果需要同时为较多的客户机提供服务，则不推荐使用多进程；</p>
+</li>
+<li><p>使用多进程<br>如果单个服务执行体需要消耗较多的 CPU 资源，譬如需要进行大规模或长时间的数据运算或文件访问，则进程较为安全。通常，使用 pthread _create () 创建新线程，fork() 创建新进程。</p>
+</li>
+</ul>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="非阻塞-IO"><a href="#非阻塞-IO" class="headerlink" title="非阻塞 IO"></a>非阻塞 IO</h2><p>把一个SOCKET接口设置为非阻塞就是告诉内核，当所请求的I/O操作无法完成时，不要将进程睡眠，而是返回一个错误。I/O操作函数将不断的测试数据是否已经准备好，如果没有准备好，继续测试，直到数据准备好为止。在这个不断测试的过程中，会大量的占用CPU的时间。<br>非阻塞套接字在控制建立的多个连接，在数据的收发量不均，时间不定时，明显具有优势</p>
+<hr>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<h2 id="多路复用"><a href="#多路复用" class="headerlink" title="多路复用"></a>多路复用</h2><p>详见下一节《Multi Socket IO》</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://1t4chi.com/2018/12/04/2018-10-11-Socket IO/" data-id="cjt6rg50j00085uvqaqkzhwj0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/05/2018-10-20-Process Communication_Pipe/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          进程的通信——管道
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/07/Sock_Unix/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Socket/">Socket</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/05/Sock_semaphore/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/05/2018-10-20-Process Communication_Sharemem/">进程的通信——共享内存</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/05/2018-10-19-Process Communication_Msgqueue/">进程的通信——消息队列</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/05/2018-10-20-Process Communication_Pipe/">进程的通信——管道</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/04/2018-10-11-Socket IO/">Socket 的 IO 模型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
