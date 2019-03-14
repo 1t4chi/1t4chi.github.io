@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="信号是一种进程间通信的方法，实质是一种软中断。常见的信号有 ctrl+c 产生 SIGINT 信号。">
+<meta name="description" content="信号是一种进程间通信的方法，实质是一种软中断。常见的信号有 ctrl+c 产生 SIGINT 信号。本文详细讲解 C 语言下信号操作 API 及其用法，附有示例程序。">
 <meta name="keywords" content="Process Communication,C,Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="信号:进程间的通信">
 <meta property="og:url" content="http://1t4chi.com/2018/10/18/OS_Signal/index.html">
 <meta property="og:site_name" content="1t4chi">
-<meta property="og:description" content="信号是一种进程间通信的方法，实质是一种软中断。常见的信号有 ctrl+c 产生 SIGINT 信号。">
+<meta property="og:description" content="信号是一种进程间通信的方法，实质是一种软中断。常见的信号有 ctrl+c 产生 SIGINT 信号。本文详细讲解 C 语言下信号操作 API 及其用法，附有示例程序。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-13T08:58:15.472Z">
+<meta property="og:updated_time" content="2019-03-14T14:06:37.101Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="信号:进程间的通信">
-<meta name="twitter:description" content="信号是一种进程间通信的方法，实质是一种软中断。常见的信号有 ctrl+c 产生 SIGINT 信号。">
+<meta name="twitter:description" content="信号是一种进程间通信的方法，实质是一种软中断。常见的信号有 ctrl+c 产生 SIGINT 信号。本文详细讲解 C 语言下信号操作 API 及其用法，附有示例程序。">
 
 
 
@@ -270,7 +270,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="1t4chi">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -341,7 +341,7 @@
 
           
               <div class="post-description">
-                  信号是一种进程间通信的方法，实质是一种软中断。常见的信号有 ctrl+c 产生 SIGINT 信号。
+                  信号是一种进程间通信的方法，实质是一种软中断。常见的信号有 ctrl+c 产生 SIGINT 信号。本文详细讲解 C 语言下信号操作 API 及其用法，附有示例程序。
               </div>
           
 
@@ -359,32 +359,81 @@
 
       
         <hr>
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<h1 id="进程的信号"><a href="#进程的信号" class="headerlink" title="进程的信号"></a>进程的信号</h1><h2 id="概念与简介"><a href="#概念与简介" class="headerlink" title="概念与简介"></a>概念与简介</h2><p>信号是一种进程间通信的方法，应用于异步事件的处理<br>信号实质是一种软中断，它被发送给一个正执行的进程以通知该进程某一事件发生了<br>信号来源：通过系统调用，比如kill：<br>int kill(int pid, int sig);<br>通过kill命令，比如kill -9 pid发送SIGKILL信号<br>特定键盘字符，比如ctrl+c产生SIGINT信号<br>硬件故障，比如SIGFPE为浮点算术错信号<br>某些软件产生，比如加急数据到达的SIGURG信号</p>
+<h2 id="概念与简介"><a href="#概念与简介" class="headerlink" title="概念与简介"></a>概念与简介</h2><p>信号是一种进程间通信的方法，应用于异步事件的处理。信号实质是一种软中断，它被发送给一个正执行的进程以通知该进程某一事件发生了。</p>
+<h3 id="信号来源"><a href="#信号来源" class="headerlink" title="信号来源"></a>信号来源</h3><ul>
+<li>通过系统调用: 比如 kill：int kill(int pid, int sig)</li>
+<li>通过kill命令: 比如kill -9 pid 发送 SIGKILL 信号</li>
+<li>特定键盘字符: 比如 ctrl+c 产生 SIGINT 信号</li>
+<li>硬件故障: 比如 SIGFPE 为浮点算术错信号</li>
+<li>某些软件产生: 比如加急数据到达的SIGURG信号</li>
+</ul>
 <hr>
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<h2 id="信号与信号的产生"><a href="#信号与信号的产生" class="headerlink" title="信号与信号的产生"></a>信号与信号的产生</h2><h4 id="常用信号"><a href="#常用信号" class="headerlink" title="常用信号"></a>常用信号</h4><p>SIGALARM－计时器到时<br>SIGCHLD－子进程停止或退出时通知父进程<br>SIGKILL－终止进程<br>SIGSTOP－停止进程<br>SIGINT－中断字符，CTRL＋C<br>SIGQUIT －退出，CTRL＋\</p>
-<h4 id="kill"><a href="#kill" class="headerlink" title="kill"></a>kill</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">kill</span><span class="params">(<span class="keyword">pid_t</span> pid, <span class="keyword">int</span> sig)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>发送信号系统调用<br>pid—接收信号的进程集合<br>sig—要发送的信号<br>返回值：成功返回0，否则返回-1</p>
-<h4 id="raise"><a href="#raise" class="headerlink" title="raise"></a>raise</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">raise</span><span class="params">(<span class="keyword">int</span> sig)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>向进程自身发送信号<br>sig—要发送的信号</p>
-<h4 id="alarm"><a href="#alarm" class="headerlink" title="alarm"></a>alarm</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">alarm</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> seconds)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>在指定的时间(seconds秒)后<br>将向进程自身发送 SIGALARM 信号 </p>
-<h4 id="abort"><a href="#abort" class="headerlink" title="abort"></a>abort</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">abort</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
-<p>向进程自身发送SIGABORT信号<br>默认情况下进程会异常退出<br>但可定义自己的信号处理函数</p>
+<h2 id="信号与信号的产生"><a href="#信号与信号的产生" class="headerlink" title="信号与信号的产生"></a>信号与信号的产生</h2><h3 id="常用信号"><a href="#常用信号" class="headerlink" title="常用信号"></a>常用信号</h3><ul>
+<li>SIGALARM－计时器到时</li>
+<li>SIGCHLD－子进程停止或退出时通知父进程</li>
+<li>SIGKILL－终止进程</li>
+<li>SIGSTOP－停止进程</li>
+<li>SIGINT－中断字符，CTRL＋C</li>
+<li>SIGQUIT －退出，CTRL＋\</li>
+</ul>
+<h3 id="kill"><a href="#kill" class="headerlink" title="kill"></a>kill</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">kill</span><span class="params">(<span class="keyword">pid_t</span> pid, <span class="keyword">int</span> sig)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>发送信号的系统调用</li>
+<li>pid：接收信号的进程集合</li>
+<li>sig：要发送的信号</li>
+<li>返回值：成功返回0，否则返回-1</li>
+</ul>
+<h3 id="raise"><a href="#raise" class="headerlink" title="raise"></a>raise</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">raise</span><span class="params">(<span class="keyword">int</span> sig)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>向进程自身发送信号</li>
+<li>sig：要发送的信号</li>
+</ul>
+<h3 id="alarm"><a href="#alarm" class="headerlink" title="alarm"></a>alarm</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">alarm</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> seconds)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在指定的时间 (seconds) 后，将向进程自身发送 SIGALARM 信号 </li>
+</ul>
+<h3 id="abort"><a href="#abort" class="headerlink" title="abort"></a>abort</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">abort</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>向进程自身发送 SIGABORT 信号</li>
+<li>默认情况下进程会异常退出，但可定义自己的信号处理函数</li>
+</ul>
 <hr>
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<h2 id="sigaction"><a href="#sigaction" class="headerlink" title="sigaction"></a>sigaction</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sigaction</span><span class="params">(<span class="keyword">int</span> signum, <span class="keyword">const</span> struct sigaction *act,struct sigaction *oldact)</span></span></span><br><span class="line"><span class="function"><span class="comment">// 处理信号的函数</span></span></span><br><span class="line"><span class="function">struct sigaction </span>&#123;                  </span><br><span class="line">    <span class="keyword">void</span> (*sa_handler)(<span class="keyword">int</span>);    <span class="comment">//函数指针</span></span><br><span class="line">    <span class="keyword">sigset_t</span> sa_mask;       <span class="comment">//屏蔽的信号集</span></span><br><span class="line">    <span class="keyword">int</span> sa_flags;           <span class="comment">//标志</span></span><br><span class="line">    <span class="keyword">void</span> (*sa_restorer)(<span class="keyword">void</span>);  <span class="comment">//已废弃</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="参数返回值"><a href="#参数返回值" class="headerlink" title="参数返回值"></a>参数返回值</h4><p>signum：指定需要捕获的信号，SIGKILL和SIGSTOP不能指定<br>act：是一个sigaction结构体，指定处理捕获信号的动作<br>oldact：存储旧的动作<br>若成功则返回0，若出错则返回-1</p>
-<h4 id="sa-handler"><a href="#sa-handler" class="headerlink" title="sa_handler"></a>sa_handler</h4><p>指定信号的动作<br>使用默认动作时设置为 SIG_DFL<br>忽略信号时设置为 SIG_IGN<br>使用用户指定的处理函数时设置为相应处理函数</p>
-<h4 id="sa-mask"><a href="#sa-mask" class="headerlink" title="sa_mask"></a>sa_mask</h4><p>指定信号处理函数中被屏蔽的信号集，通常被处理的信号本身被屏蔽<br>即正在处理该信号时，不能再接收该信号<br>一般用 sigemptyset(&amp;act.sa_mask) 将其清零</p>
-<h4 id="sa-flags"><a href="#sa-flags" class="headerlink" title="sa_flags"></a>sa_flags</h4><p>是影响信号处理函数行为的标志<br>SA_ONESHOT或SA_RESETHAND－信号处理函数调用后，将信号的动作设置为默认动作，即自动撤消信号处理函数的注册<br>SA_RESTART－使某些系统调用在被信号中断后能自动重新执行，比如read；<br>SA_NOCLDSTOP－当signum=SIGCHLD时，子进程停止时不通知父进程；<br>SA_NOMASK或SA_NODEFER－在处理信号时如果又发生了其他信号，则立即进入其他信号的处理，等其他信号处理完毕后，再继续处理当前的信号。</p>
-<h4 id="使用实例"><a href="#使用实例" class="headerlink" title="使用实例"></a>使用实例</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> signal)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d号信号被捕捉。\n"</span>, signal);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sigaction</span> <span class="title">act</span>, <span class="title">oldact</span>;</span></span><br><span class="line">    act.sa_handler = func;</span><br><span class="line">    <span class="comment">// 指定处理函数为 func</span></span><br><span class="line">    act.sa_flags = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//为0的时候，可以屏蔽正在处理的信号（若在处理2号信号时又有2号信号，则&gt;会被屏蔽）</span></span><br><span class="line">    sigemptyset(&amp;act.sa_mask);</span><br><span class="line">    <span class="comment">//sa_mask是一个临时信号集，将其清零（初始化）</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> s_ret = sigaction(SIGINT, &amp;act, &amp;oldact);</span><br><span class="line">    <span class="keyword">if</span> (s_ret&lt;<span class="number">0</span>)&#123;</span><br><span class="line">        perror(<span class="string">"sigaction error"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="sigaction"><a href="#sigaction" class="headerlink" title="sigaction"></a>sigaction</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">include</span><span class="meta-string">&lt;signal.h&gt; // 函数的头文件</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sigaction</span><span class="params">(<span class="keyword">int</span> signum, <span class="keyword">const</span> struct sigaction *act,struct sigaction *oldact)</span></span></span><br><span class="line"><span class="function"><span class="comment">// 处理信号的函数</span></span></span><br><span class="line"><span class="function">struct sigaction </span>&#123;                  </span><br><span class="line">    <span class="keyword">void</span> (*sa_handler)(<span class="keyword">int</span>);    <span class="comment">//函数指针</span></span><br><span class="line">    <span class="keyword">sigset_t</span> sa_mask;       <span class="comment">//屏蔽的信号集</span></span><br><span class="line">    <span class="keyword">int</span> sa_flags;           <span class="comment">//标志</span></span><br><span class="line">    <span class="keyword">void</span> (*sa_restorer)(<span class="keyword">void</span>);  <span class="comment">//已废弃</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="功能作用"><a href="#功能作用" class="headerlink" title="功能作用"></a>功能作用</h3><p>sigaction 函数可以设置某信号的处理函数，处理函数可以自定义。</p>
+<h3 id="参数与返回值"><a href="#参数与返回值" class="headerlink" title="参数与返回值"></a>参数与返回值</h3><ul>
+<li><p>signum：指定需要捕获的信号，SIGKILL 和 SIGSTOP 不能指定</p>
+</li>
+<li><p>act：是一个 sigaction 结构体，指定处理捕获信号的动作</p>
+</li>
+<li><p>oldact：存储旧的动作</p>
+</li>
+<li><p>若成功则返回0，若出错则返回-1</p>
+</li>
+</ul>
+<h3 id="act-结构体成员-sa-handler"><a href="#act-结构体成员-sa-handler" class="headerlink" title="act 结构体成员 sa_handler"></a>act 结构体成员 sa_handler</h3><p>指定信号的动作，使用默认动作时设置为 SIG_DFL，忽略信号时设置为 SIG_IGN，使用用户指定的处理函数时设置为相应处理函数。</p>
+<h3 id="act-结构体成员-sa-mask"><a href="#act-结构体成员-sa-mask" class="headerlink" title="act 结构体成员 sa_mask"></a>act 结构体成员 sa_mask</h3><p>指定信号处理函数中被屏蔽的信号集，通常被处理的信号本身被屏蔽。即正在处理该信号时，不能再接收该信号。一般用 sigemptyset(&amp;act.sa_mask) 将其清零</p>
+<h3 id="act-结构体成员-sa-flags"><a href="#act-结构体成员-sa-flags" class="headerlink" title="act 结构体成员 sa_flags"></a>act 结构体成员 sa_flags</h3><p>是影响信号处理函数行为的标志：</p>
+<ul>
+<li><p>SA_ONESHOT 或 SA_RESETHAND：信号处理函数调用后，将信号的动作设置为默认动作，即自动撤消信号处理函数的注册。</p>
+</li>
+<li><p>SA_RESTART：使某些系统调用在被信号中断后能自动重新执行，比如read。</p>
+</li>
+<li><p>SA_NOCLDSTOP：当signum=SIGCHLD时，子进程停止时不通知父进程。</p>
+</li>
+<li><p>SA_NOMASK或SA_NODEFER：在处理信号时如果又发生了其他信号，则立即进入其他信号的处理，等其他信号处理完毕后，再继续处理当前的信号。</p>
+</li>
+</ul>
+<h3 id="使用实例"><a href="#使用实例" class="headerlink" title="使用实例"></a>使用实例</h3><p>下面的例子表名：在收到 SIGINT (ctrl+c) 信号后，会打印 ”2号信号被捕捉“，而不会中断。这个程序 copy 下来可以直接运行，大家不妨试一试。因为你 ctrl+c 之后已经不会中断程序了，所以想停止的时候可以 ctrl+z。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># <span class="meta-keyword">include</span><span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> signal)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d号信号被捕捉。\n"</span>, signal);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sigaction</span> <span class="title">act</span>, <span class="title">oldact</span>;</span></span><br><span class="line">    act.sa_handler = func;</span><br><span class="line">    <span class="comment">// 指定处理函数为 func</span></span><br><span class="line">    act.sa_flags = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//为0的时候，可以屏蔽正在处理的信号（若在处理2号信号时又有2号信号，则&gt;会被屏蔽）</span></span><br><span class="line">    sigemptyset(&amp;act.sa_mask);</span><br><span class="line">    <span class="comment">//sa_mask是一个临时信号集，将其清零（初始化）</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> s_ret = sigaction(SIGINT, &amp;act, &amp;oldact);</span><br><span class="line">    <span class="keyword">if</span> (s_ret&lt;<span class="number">0</span>)&#123;</span><br><span class="line">        perror(<span class="string">"sigaction error"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <hr>
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 <h2 id="signal"><a href="#signal" class="headerlink" title="signal"></a>signal</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> (*signal(<span class="keyword">int</span> signum,<span class="keyword">void</span> (*handler)(<span class="keyword">int</span>)))(<span class="keyword">int</span>);</span><br><span class="line"><span class="comment">// 处理信号的函数</span></span><br></pre></td></tr></table></figure>
-<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><p>signum—指定需要捕获的信号,SIGKILL和SIGSTOP不能指定<br>handler—指定信号处理函数<br>返回值：若成功返回原来的信号处理配置，如出错则为SIG_ERR</p>
-<h4 id="使用实例-1"><a href="#使用实例-1" class="headerlink" title="使用实例"></a>使用实例</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sighandler</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   signal(SIGINT, sighandler);</span><br><span class="line">   <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"开始休眠一秒钟...\n"</span>);</span><br><span class="line">      sleep(<span class="number">1</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sighandler</span><span class="params">(<span class="keyword">int</span> signum)</span></span>&#123;</span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">"捕获信号 %d，跳出...\n"</span>, signum);</span><br><span class="line">   <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="功能作用-1"><a href="#功能作用-1" class="headerlink" title="功能作用"></a>功能作用</h3><p>signal  是另一个设置信号处理的函数，与 sigaction 函数作用相同。不同点在于 signal  直接传入处理函数，而不是一个结构体，所以 signal 没有 flag 标志，信号处理函数调用后，它直接将信号的动作设置为默认动作。 <strong>可以说 signal 等于设置了 SA_ONESHOT 标志的 sigaction。</strong></p>
+<h3 id="参数与返回值-1"><a href="#参数与返回值-1" class="headerlink" title="参数与返回值"></a>参数与返回值</h3><ul>
+<li>signum—指定需要捕获的信号，SIGKILL 和 SIGSTOP 不能指定 </li>
+<li>handler—指定信号处理函数 </li>
+<li>返回值：若成功返回原来的信号处理配置，如出错则为 SIG_ERR</li>
+</ul>
+<h3 id="使用实例-1"><a href="#使用实例-1" class="headerlink" title="使用实例"></a>使用实例</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sighandler</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   signal(SIGINT, sighandler);</span><br><span class="line">   <span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"开始休眠一秒钟...\n"</span>);</span><br><span class="line">      sleep(<span class="number">1</span>);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sighandler</span><span class="params">(<span class="keyword">int</span> signum)</span></span>&#123;</span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">"捕获信号 %d，跳出...\n"</span>, signum);</span><br><span class="line">   <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -497,6 +546,8 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="1t4chi">
+            
               <p class="site-author-name" itemprop="name">1t4chi</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
@@ -508,7 +559,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -519,7 +570,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -530,7 +581,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -579,7 +630,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#进程的信号"><span class="nav-number">1.</span> <span class="nav-text">进程的信号</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念与简介"><span class="nav-number">1.1.</span> <span class="nav-text">概念与简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信号与信号的产生"><span class="nav-number">1.2.</span> <span class="nav-text">信号与信号的产生</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常用信号"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">常用信号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kill"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">kill</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#raise"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">raise</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#alarm"><span class="nav-number">1.2.0.4.</span> <span class="nav-text">alarm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#abort"><span class="nav-number">1.2.0.5.</span> <span class="nav-text">abort</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sigaction"><span class="nav-number">1.3.</span> <span class="nav-text">sigaction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参数返回值"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">参数返回值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sa-handler"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">sa_handler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sa-mask"><span class="nav-number">1.3.0.3.</span> <span class="nav-text">sa_mask</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sa-flags"><span class="nav-number">1.3.0.4.</span> <span class="nav-text">sa_flags</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用实例"><span class="nav-number">1.3.0.5.</span> <span class="nav-text">使用实例</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#signal"><span class="nav-number">1.4.</span> <span class="nav-text">signal</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参数"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用实例-1"><span class="nav-number">1.4.0.2.</span> <span class="nav-text">使用实例</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念与简介"><span class="nav-number">1.</span> <span class="nav-text">概念与简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#信号来源"><span class="nav-number">1.1.</span> <span class="nav-text">信号来源</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信号与信号的产生"><span class="nav-number">2.</span> <span class="nav-text">信号与信号的产生</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常用信号"><span class="nav-number">2.1.</span> <span class="nav-text">常用信号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kill"><span class="nav-number">2.2.</span> <span class="nav-text">kill</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#raise"><span class="nav-number">2.3.</span> <span class="nav-text">raise</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#alarm"><span class="nav-number">2.4.</span> <span class="nav-text">alarm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#abort"><span class="nav-number">2.5.</span> <span class="nav-text">abort</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sigaction"><span class="nav-number">3.</span> <span class="nav-text">sigaction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#功能作用"><span class="nav-number">3.1.</span> <span class="nav-text">功能作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数与返回值"><span class="nav-number">3.2.</span> <span class="nav-text">参数与返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#act-结构体成员-sa-handler"><span class="nav-number">3.3.</span> <span class="nav-text">act 结构体成员 sa_handler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#act-结构体成员-sa-mask"><span class="nav-number">3.4.</span> <span class="nav-text">act 结构体成员 sa_mask</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#act-结构体成员-sa-flags"><span class="nav-number">3.5.</span> <span class="nav-text">act 结构体成员 sa_flags</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用实例"><span class="nav-number">3.6.</span> <span class="nav-text">使用实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#signal"><span class="nav-number">4.</span> <span class="nav-text">signal</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#功能作用-1"><span class="nav-number">4.1.</span> <span class="nav-text">功能作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数与返回值-1"><span class="nav-number">4.2.</span> <span class="nav-text">参数与返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用实例-1"><span class="nav-number">4.3.</span> <span class="nav-text">使用实例</span></a></li></ol></li></ol></div>
             
 
           </div>

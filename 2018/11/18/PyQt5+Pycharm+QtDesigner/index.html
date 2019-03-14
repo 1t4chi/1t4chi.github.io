@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="对于独立开发或者平时的小练手来说，PyQt 简直是最最好用的界面开发工具了。本文记录了搭建 PyQt 开发环境和配置的全过程。">
+<meta name="description" content="对于独立开发或者平时的小练手来说，PyQt 简直是最最好用的界面开发工具了。本文记录了 Pycharm + QtDesigner 搭建完美 Qt 开发环境和配置的全过程。可以让你的 Pycharm 支持 Qt Designer，和实现 UI 文件转 Py 的功能。">
 <meta name="keywords" content="FrontEnd,PyQt,Python,Setup">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PyQt5 + Pycharm + QtDesigner 搭建完美 Qt 开发环境">
 <meta property="og:url" content="http://1t4chi.com/2018/11/18/PyQt5+Pycharm+QtDesigner/index.html">
 <meta property="og:site_name" content="1t4chi">
-<meta property="og:description" content="对于独立开发或者平时的小练手来说，PyQt 简直是最最好用的界面开发工具了。本文记录了搭建 PyQt 开发环境和配置的全过程。">
+<meta property="og:description" content="对于独立开发或者平时的小练手来说，PyQt 简直是最最好用的界面开发工具了。本文记录了 Pycharm + QtDesigner 搭建完美 Qt 开发环境和配置的全过程。可以让你的 Pycharm 支持 Qt Designer，和实现 UI 文件转 Py 的功能。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-13T09:27:31.174Z">
+<meta property="og:updated_time" content="2019-03-14T13:53:37.589Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PyQt5 + Pycharm + QtDesigner 搭建完美 Qt 开发环境">
-<meta name="twitter:description" content="对于独立开发或者平时的小练手来说，PyQt 简直是最最好用的界面开发工具了。本文记录了搭建 PyQt 开发环境和配置的全过程。">
+<meta name="twitter:description" content="对于独立开发或者平时的小练手来说，PyQt 简直是最最好用的界面开发工具了。本文记录了 Pycharm + QtDesigner 搭建完美 Qt 开发环境和配置的全过程。可以让你的 Pycharm 支持 Qt Designer，和实现 UI 文件转 Py 的功能。">
 
 
 
@@ -270,7 +270,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="1t4chi">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -341,7 +341,7 @@
 
           
               <div class="post-description">
-                  对于独立开发或者平时的小练手来说，PyQt 简直是最最好用的界面开发工具了。本文记录了搭建 PyQt 开发环境和配置的全过程。
+                  对于独立开发或者平时的小练手来说，PyQt 简直是最最好用的界面开发工具了。本文记录了 Pycharm + QtDesigner 搭建完美 Qt 开发环境和配置的全过程。可以让你的 Pycharm 支持 Qt Designer，和实现 UI 文件转 Py 的功能。
               </div>
           
 
@@ -359,19 +359,15 @@
 
       
         <hr>
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>PyQt是一个创建GUI应用程序的工具包。它是Python编程语言和Qt库的成功融合。它是一个多平台的工具包，可以运行在所有主要操作系统上，包括 Linux，Windows 和 Mac。<strong>比 wxpython 性能好一些</strong></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>PyQt是一个创建GUI应用程序的工具包。它是Python编程语言和Qt库的成功融合。它是一个多平台的工具包，可以运行在所有主要操作系统上，包括 Linux，Windows 和 Mac，<strong>比 wxpython 性能好一些。</strong></p>
 <hr>
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 <h2 id="安装-PyQt5"><a href="#安装-PyQt5" class="headerlink" title="安装 PyQt5"></a>安装 PyQt5</h2><p>Python3 支持 PyQt5;Python2 支持 PyQt4。<br>下载安装 PyQt 用 pip 是最简单的。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip3 install pyqt5</span><br><span class="line"><span class="comment"># 会自动安装依赖包 sip</span></span><br></pre></td></tr></table></figure></p>
 <hr>
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<h2 id="安装-Qt-Designer"><a href="#安装-Qt-Designer" class="headerlink" title="安装 Qt Designer"></a>安装 Qt Designer</h2><p>UI控件相关，可视化操作，直接拖拽控件，下载安装即可<br><a href="http://iso.mirrors.ustc.edu.cn/qtproject/archive/qt/5.10/5.10.1/qt-opensource-mac-x64-5.10.1.dmg" target="_blank" rel="noopener">Qt: http://iso.mirrors.ustc.edu.cn/qtproject/archive/qt/5.10/5.10.1/qt-opensource-mac-x64-5.10.1.dmg</a></p>
+<h2 id="安装-Qt-Designer"><a href="#安装-Qt-Designer" class="headerlink" title="安装 Qt Designer"></a>安装 Qt Designer</h2><p>UI控件相关，可视化操作，直接拖拽控件，下载安装即可<br><a href="http://iso.mirrors.ustc.edu.cn/qtproject/archive/qt/5.10/5.10.1/qt-opensource-mac-x64-5.10.1.dmg" target="_blank" rel="noopener">Qt Designer 下载路径: http://iso.mirrors.ustc.edu.cn/qtproject/archive/qt/5.10/5.10.1/qt-opensource-mac-x64-5.10.1.dmg</a></p>
 <hr>
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<h2 id="Pycharm-配置"><a href="#Pycharm-配置" class="headerlink" title="Pycharm 配置"></a>Pycharm 配置</h2><h4 id="让-Pycharm-支持-QtDesigner-和-PyUIC"><a href="#让-Pycharm-支持-QtDesigner-和-PyUIC" class="headerlink" title="让 Pycharm 支持 QtDesigner 和 PyUIC"></a>让 Pycharm 支持 QtDesigner 和 PyUIC</h4><p>下面进行 PyQt 和 Pycharm 的配置。其中 PyUIC 是将 ui 文件转化为 Py 文件的工具，QtDesigner 搭建的文件是一个 ui 格式文件，需要转换。<br>进入 pycharm 的 Extern tools 栏目 setting-&gt;tools-&gt;external tools。<br>配置完后，在 pycharm 上方的 Tools 里面就可以看到 Qt Designer 这个扩展功能了，可以快速启动 Designer。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">QtDesigner</span><br><span class="line">pro: /Applications/Qt/5.10.1/clang_64/bin/Designer.app/Contents/MacOS/Designer</span><br><span class="line">para: $FileName$</span><br><span class="line">dir: $ProjectFileDir$</span><br></pre></td></tr></table></figure></p>
+<h2 id="Pycharm-配置"><a href="#Pycharm-配置" class="headerlink" title="Pycharm 配置"></a>Pycharm 配置</h2><h3 id="让-Pycharm-支持-QtDesigner-和-PyUIC"><a href="#让-Pycharm-支持-QtDesigner-和-PyUIC" class="headerlink" title="让 Pycharm 支持 QtDesigner 和 PyUIC"></a>让 Pycharm 支持 QtDesigner 和 PyUIC</h3><p>下面进行 PyQt 和 Pycharm 的配置。其中 PyUIC 是将 ui 文件转化为 Py 文件的工具，QtDesigner 搭建的文件是一个 ui 格式文件，需要转换。<br>进入 pycharm 的 Extern tools 栏目 setting-&gt;tools-&gt;external tools。<br>配置完后，在 pycharm 上方的 Tools 里面就可以看到 Qt Designer 这个扩展功能了，可以快速启动 Designer。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">QtDesigner</span><br><span class="line">pro: /Applications/Qt/5.10.1/clang_64/bin/Designer.app/Contents/MacOS/Designer</span><br><span class="line">para: $FileName$</span><br><span class="line">dir: $ProjectFileDir$</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PyUIC</span><br><span class="line">pro: /usr/local/bin/python3</span><br><span class="line">para: -m PyQt5.uic.pyuic  $FileName$ -o $FileNameWithoutExtension$.py</span><br><span class="line">dir: $FileDir$</span><br></pre></td></tr></table></figure>
-<h4 id="创建-UI-文件和将-UI-文件转为-Py-文件"><a href="#创建-UI-文件和将-UI-文件转为-Py-文件" class="headerlink" title="创建 UI 文件和将 UI 文件转为 Py 文件"></a>创建 UI 文件和将 UI 文件转为 Py 文件</h4><ol>
+<h3 id="创建-UI-文件和将-UI-文件转为-Py-文件"><a href="#创建-UI-文件和将-UI-文件转为-Py-文件" class="headerlink" title="创建 UI 文件和将 UI 文件转为 Py 文件"></a>创建 UI 文件和将 UI 文件转为 Py 文件</h3><ol>
 <li>创建新的UI文件：选中随便一个文件右键 Extern tools 选中 QtDesigner。</li>
 <li>打开QtDesigner提示无法打开（当然了），直接新建，保存在当前工作目录。</li>
 <li>打开某 UI 文件：选中它右键 Extern tools 选中 QtDesigner</li>
@@ -491,6 +487,8 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="1t4chi">
+            
               <p class="site-author-name" itemprop="name">1t4chi</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
@@ -502,7 +500,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -513,7 +511,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -524,7 +522,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -573,7 +571,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-PyQt5"><span class="nav-number">2.</span> <span class="nav-text">安装 PyQt5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Qt-Designer"><span class="nav-number">3.</span> <span class="nav-text">安装 Qt Designer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pycharm-配置"><span class="nav-number">4.</span> <span class="nav-text">Pycharm 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#让-Pycharm-支持-QtDesigner-和-PyUIC"><span class="nav-number">4.0.1.</span> <span class="nav-text">让 Pycharm 支持 QtDesigner 和 PyUIC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建-UI-文件和将-UI-文件转为-Py-文件"><span class="nav-number">4.0.2.</span> <span class="nav-text">创建 UI 文件和将 UI 文件转为 Py 文件</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-PyQt5"><span class="nav-number">2.</span> <span class="nav-text">安装 PyQt5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Qt-Designer"><span class="nav-number">3.</span> <span class="nav-text">安装 Qt Designer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pycharm-配置"><span class="nav-number">4.</span> <span class="nav-text">Pycharm 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#让-Pycharm-支持-QtDesigner-和-PyUIC"><span class="nav-number">4.1.</span> <span class="nav-text">让 Pycharm 支持 QtDesigner 和 PyUIC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建-UI-文件和将-UI-文件转为-Py-文件"><span class="nav-number">4.2.</span> <span class="nav-text">创建 UI 文件和将 UI 文件转为 Py 文件</span></a></li></ol></li></ol></div>
             
 
           </div>

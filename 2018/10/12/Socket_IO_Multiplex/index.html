@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="1t4chi">
 <meta property="og:description" content="多路复用模型是阻塞模型的改进。监视多个描述符，一旦某个描述符就绪，就通知程序进行相应操作。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-13T08:58:58.330Z">
+<meta property="og:updated_time" content="2019-03-14T14:56:31.137Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="多路复用 Socket IO 模型">
 <meta name="twitter:description" content="多路复用模型是阻塞模型的改进。监视多个描述符，一旦某个描述符就绪，就通知程序进行相应操作。">
@@ -270,7 +270,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="1t4chi">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -359,28 +359,25 @@
 
       
         <hr>
-<h2 id="回顾阻塞与非阻塞模型"><a href="#回顾阻塞与非阻塞模型" class="headerlink" title="回顾阻塞与非阻塞模型"></a>回顾阻塞与非阻塞模型</h2><h4 id="阻塞方式-block"><a href="#阻塞方式-block" class="headerlink" title="阻塞方式 block"></a>阻塞方式 block</h4><p>顾名思义，就是进程或是线程执行到这些函数时必须等待某个事件的发生，假如事件没有发生，进程或线程就被阻塞，函数不能立即返回。</p>
-<h4 id="非阻塞方式-non-block"><a href="#非阻塞方式-non-block" class="headerlink" title="非阻塞方式 non-block"></a>非阻塞方式 non-block</h4><p>就是进程或线程执行此函数时不必非要等待事件的发生，一旦执行肯定返回，以返回值的不同来反映函数的执行情况，假如事件发生则和阻塞方式相同，若事件没有发生则返回一个代码来告知事件未发生，而进程或线程继续执行，所以效率较高。</p>
+<h2 id="回顾阻塞与非阻塞模型"><a href="#回顾阻塞与非阻塞模型" class="headerlink" title="回顾阻塞与非阻塞模型"></a>回顾阻塞与非阻塞模型</h2><h3 id="阻塞方式-block"><a href="#阻塞方式-block" class="headerlink" title="阻塞方式 block"></a>阻塞方式 block</h3><p>顾名思义，就是进程或是线程执行到这些函数时必须等待某个事件的发生，假如事件没有发生，进程或线程就被阻塞，函数不能立即返回。</p>
+<h3 id="非阻塞方式-non-block"><a href="#非阻塞方式-non-block" class="headerlink" title="非阻塞方式 non-block"></a>非阻塞方式 non-block</h3><p>就是进程或线程执行此函数时不必非要等待事件的发生，一旦执行肯定返回，以返回值的不同来反映函数的执行情况，假如事件发生则和阻塞方式相同，若事件没有发生则返回一个代码来告知事件未发生，而进程或线程继续执行，所以效率较高。</p>
 <hr>
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 <h2 id="fd-set-数据结构"><a href="#fd-set-数据结构" class="headerlink" title="fd_set 数据结构"></a>fd_set 数据结构</h2><p>是一种数据结构和 int char 一样<br>实际上是一long类型的数组，每一个数组元素都能与一打开的文件句柄<br>(不管是socket句柄，还是其他文件或命名管道或设备句柄)建立联系<br>建立联系的工作由程序员完成<br>当调用select()时，由内核根据IO状态修改fe_set的内容<br>由此来通知执行了select()的进程哪一socket或文件可读。<br>可简单描述为（实际很复杂）：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">typedefstruct fd_set &#123;</span><br><span class="line">　u_int fd_count;</span><br><span class="line">　socket fd_array[FD_SETSIZE];</span><br><span class="line">&#125; fd_set;</span><br></pre></td></tr></table></figure>
 <hr>
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 <h2 id="select函数"><a href="#select函数" class="headerlink" title="select函数"></a>select函数</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(<span class="keyword">int</span> maxfd,fd_set *rdset,fd_set *wrest,fd_set *exset,struct timeval *timeout)</span></span>;</span><br></pre></td></tr></table></figure>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">timeval</span>&#123;</span></span><br><span class="line">    <span class="keyword">long</span> tv_sec;<span class="comment">//秒</span></span><br><span class="line">    <span class="keyword">long</span> tv_usec;<span class="comment">//微秒</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h4><p>检查多个文件描述符（socket描述符）是否就绪<br>当某一个描述符就绪（可读、可写或发生异常）时函数返回<br>可以实现输入输出多路复用</p>
-<h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><p>有描述符就绪则返回就绪的描述符个数<br>超时时间内没有描述符就绪返回0<br>执行失败返回 -1。</p>
-<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><p>maxfd－集合中所有描述符的最大值+1<br>rdset－需要测试是否可读的描述符集合（包括处于listen状态的socket接收到连接请求）<br>wrset－需要测试是否可写的描述符集合（包括以非阻塞方式调用connect是否成功）<br>exset－需要测试是否异常的描述符集合（包括接收带外数据的socket有带外数据到达）<br>timeout－指定测试超时的时间 </p>
+<h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><p>检查多个文件描述符（socket描述符）是否就绪<br>当某一个描述符就绪（可读、可写或发生异常）时函数返回<br>可以实现输入输出多路复用</p>
+<h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><p>有描述符就绪则返回就绪的描述符个数<br>超时时间内没有描述符就绪返回0<br>执行失败返回 -1。</p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>maxfd－集合中所有描述符的最大值+1<br>rdset－需要测试是否可读的描述符集合（包括处于listen状态的socket接收到连接请求）<br>wrset－需要测试是否可写的描述符集合（包括以非阻塞方式调用connect是否成功）<br>exset－需要测试是否异常的描述符集合（包括接收带外数据的socket有带外数据到达）<br>timeout－指定测试超时的时间 </p>
 <hr>
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 <h2 id="描述符集合操作函数"><a href="#描述符集合操作函数" class="headerlink" title="描述符集合操作函数"></a>描述符集合操作函数</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FD_ZERO(fd_set *fdset) <span class="comment">//清空描述符集合</span></span><br><span class="line">FD_SET(<span class="keyword">int</span> fd,fd_set *fdset) <span class="comment">//将一个描述符添加到描述符集合 </span></span><br><span class="line">FD_CLR(<span class="keyword">int</span> fd,fd_set *fdset) <span class="comment">//将一个描述符从描述符集合中清除 </span></span><br><span class="line">FD_ISSET(<span class="keyword">int</span> fd,fd_set *fdset) <span class="comment">//检测一个描述符是否就绪</span></span><br></pre></td></tr></table></figure>
-<h4 id="FD-ZERO-初始化操作"><a href="#FD-ZERO-初始化操作" class="headerlink" title="FD_ZERO 初始化操作"></a>FD_ZERO 初始化操作</h4><p>是把集合清空（初始化为0，确切的说，是把集合中的元素个数初始化为0，并不修改描述符数组).使用集合前，必须用FD_ZERO初始化，否则集合在栈上作为自动变量分配时，fd_set分配的将是随机值，导致不可预测的问题。<br>注：在设置描述符集合前应该先调用FD_ZERO将集合清空，每次调用select函数前应该重新设置读、写和错误3个集合；三个集合中的描述符可以交叉 </p>
-<h4 id="FD-SET-添加操作"><a href="#FD-SET-添加操作" class="headerlink" title="FD_SET 添加操作"></a>FD_SET 添加操作</h4><p>向集合中加入一个套接口描述符（如果该套接口描述符s没在集合中，并且数组中已经设置的个数小于最大个数时，就把该描述符加入到集合中，集合元素个数加1）。这里是将s的值直接放入数组中。</p>
-<h4 id="FD-CLR-清除操作"><a href="#FD-CLR-清除操作" class="headerlink" title="FD_CLR 清除操作"></a>FD_CLR 清除操作</h4><p>从集合中移出一个套接字描述符（比如一个套接字连接中断后，就应该移除它）。实现思路是，在数组集合中找到对应的描述符，然后把后面的描述依次前移一个位置，最后把描述符的个数减1。</p>
-<h4 id="FD-ISSET-匹配操作"><a href="#FD-ISSET-匹配操作" class="headerlink" title="FD_ISSET 匹配操作"></a>FD_ISSET 匹配操作</h4><p>检查描述符是否在集合中，如果在集合中返回非0值，否则返回0. 它的宏定义并没有给出具体实现，但实现的思路很简单，就是搜索集合，判断套接字s是否在数组中。</p>
-<h4 id="调用规则"><a href="#调用规则" class="headerlink" title="调用规则"></a>调用规则</h4><p>调用FD_ZERO来初始化fd_set；<br>调用FD_SET将感兴趣的套接字描述符加入fd_set集合中（每次循环都要重新加入，因为select更新后，会将一些没有满足条件的套接字移除队列）；<br>设置等待时间后，调用select函数–更新套接字的状态；<br>调用FD_ISSET，来判断套接字是否有相应状态，然后做相应操作，比如，如果套接字可读，就调用recv函数去接收数据。</p>
-<h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fd_set <span class="built_in">set</span>;</span><br><span class="line"><span class="comment">// 注意：fd的最大值必须&lt;FD_SETSIZE</span></span><br><span class="line">FD_ZERO(&amp;<span class="built_in">set</span>);        </span><br><span class="line"><span class="comment">// 将set的所有位置0，如set在内存中占8位则将set置为00000000</span></span><br><span class="line">FD_SET(<span class="number">0</span>, &amp;<span class="built_in">set</span>);       </span><br><span class="line"><span class="comment">//将set的第0位置1，如set原来是00000000，则现在变为10000，这样fd==1的文件描述字就被加进set中了</span></span><br><span class="line">FD_CLR(<span class="number">4</span>, &amp;<span class="built_in">set</span>);       </span><br><span class="line"><span class="comment">//将set的第4位置0，如set原来是10001000，则现在变为10000000，这样fd==4的文件描述字就被从set中清除了</span></span><br><span class="line">FD_ISSET(<span class="number">5</span>, &amp;<span class="built_in">set</span>);     </span><br><span class="line"><span class="comment">//测试set的第5位是否为1，如果原来set是10000100，则返回非零，表明fd==5的文件描述符在set中，否则返回0</span></span><br></pre></td></tr></table></figure>
+<h3 id="FD-ZERO-初始化操作"><a href="#FD-ZERO-初始化操作" class="headerlink" title="FD_ZERO 初始化操作"></a>FD_ZERO 初始化操作</h3><p>是把集合清空（初始化为0，确切的说，是把集合中的元素个数初始化为0，并不修改描述符数组).使用集合前，必须用FD_ZERO初始化，否则集合在栈上作为自动变量分配时，fd_set分配的将是随机值，导致不可预测的问题。<br>注：在设置描述符集合前应该先调用FD_ZERO将集合清空，每次调用select函数前应该重新设置读、写和错误3个集合；三个集合中的描述符可以交叉 </p>
+<h3 id="FD-SET-添加操作"><a href="#FD-SET-添加操作" class="headerlink" title="FD_SET 添加操作"></a>FD_SET 添加操作</h3><p>向集合中加入一个套接口描述符（如果该套接口描述符s没在集合中，并且数组中已经设置的个数小于最大个数时，就把该描述符加入到集合中，集合元素个数加1）。这里是将s的值直接放入数组中。</p>
+<h3 id="FD-CLR-清除操作"><a href="#FD-CLR-清除操作" class="headerlink" title="FD_CLR 清除操作"></a>FD_CLR 清除操作</h3><p>从集合中移出一个套接字描述符（比如一个套接字连接中断后，就应该移除它）。实现思路是，在数组集合中找到对应的描述符，然后把后面的描述依次前移一个位置，最后把描述符的个数减1。</p>
+<h3 id="FD-ISSET-匹配操作"><a href="#FD-ISSET-匹配操作" class="headerlink" title="FD_ISSET 匹配操作"></a>FD_ISSET 匹配操作</h3><p>检查描述符是否在集合中，如果在集合中返回非0值，否则返回0. 它的宏定义并没有给出具体实现，但实现的思路很简单，就是搜索集合，判断套接字s是否在数组中。</p>
+<h3 id="调用规则"><a href="#调用规则" class="headerlink" title="调用规则"></a>调用规则</h3><p>调用FD_ZERO来初始化fd_set；<br>调用FD_SET将感兴趣的套接字描述符加入fd_set集合中（每次循环都要重新加入，因为select更新后，会将一些没有满足条件的套接字移除队列）；<br>设置等待时间后，调用select函数–更新套接字的状态；<br>调用FD_ISSET，来判断套接字是否有相应状态，然后做相应操作，比如，如果套接字可读，就调用recv函数去接收数据。</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fd_set <span class="built_in">set</span>;</span><br><span class="line"><span class="comment">// 注意：fd的最大值必须&lt;FD_SETSIZE</span></span><br><span class="line">FD_ZERO(&amp;<span class="built_in">set</span>);        </span><br><span class="line"><span class="comment">// 将set的所有位置0，如set在内存中占8位则将set置为00000000</span></span><br><span class="line">FD_SET(<span class="number">0</span>, &amp;<span class="built_in">set</span>);       </span><br><span class="line"><span class="comment">//将set的第0位置1，如set原来是00000000，则现在变为10000，这样fd==1的文件描述字就被加进set中了</span></span><br><span class="line">FD_CLR(<span class="number">4</span>, &amp;<span class="built_in">set</span>);       </span><br><span class="line"><span class="comment">//将set的第4位置0，如set原来是10001000，则现在变为10000000，这样fd==4的文件描述字就被从set中清除了</span></span><br><span class="line">FD_ISSET(<span class="number">5</span>, &amp;<span class="built_in">set</span>);     </span><br><span class="line"><span class="comment">//测试set的第5位是否为1，如果原来set是10000100，则返回非零，表明fd==5的文件描述符在set中，否则返回0</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -493,6 +490,8 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="1t4chi">
+            
               <p class="site-author-name" itemprop="name">1t4chi</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
@@ -504,7 +503,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -515,7 +514,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -526,7 +525,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -575,7 +574,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#回顾阻塞与非阻塞模型"><span class="nav-number">1.</span> <span class="nav-text">回顾阻塞与非阻塞模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#阻塞方式-block"><span class="nav-number">1.0.1.</span> <span class="nav-text">阻塞方式 block</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非阻塞方式-non-block"><span class="nav-number">1.0.2.</span> <span class="nav-text">非阻塞方式 non-block</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#fd-set-数据结构"><span class="nav-number">2.</span> <span class="nav-text">fd_set 数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#select函数"><span class="nav-number">3.</span> <span class="nav-text">select函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#功能"><span class="nav-number">3.0.1.</span> <span class="nav-text">功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#返回值"><span class="nav-number">3.0.2.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参数"><span class="nav-number">3.0.3.</span> <span class="nav-text">参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#描述符集合操作函数"><span class="nav-number">4.</span> <span class="nav-text">描述符集合操作函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#FD-ZERO-初始化操作"><span class="nav-number">4.0.1.</span> <span class="nav-text">FD_ZERO 初始化操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FD-SET-添加操作"><span class="nav-number">4.0.2.</span> <span class="nav-text">FD_SET 添加操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FD-CLR-清除操作"><span class="nav-number">4.0.3.</span> <span class="nav-text">FD_CLR 清除操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FD-ISSET-匹配操作"><span class="nav-number">4.0.4.</span> <span class="nav-text">FD_ISSET 匹配操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调用规则"><span class="nav-number">4.0.5.</span> <span class="nav-text">调用规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实例"><span class="nav-number">4.0.6.</span> <span class="nav-text">实例</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#回顾阻塞与非阻塞模型"><span class="nav-number">1.</span> <span class="nav-text">回顾阻塞与非阻塞模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#阻塞方式-block"><span class="nav-number">1.1.</span> <span class="nav-text">阻塞方式 block</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非阻塞方式-non-block"><span class="nav-number">1.2.</span> <span class="nav-text">非阻塞方式 non-block</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fd-set-数据结构"><span class="nav-number">2.</span> <span class="nav-text">fd_set 数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#select函数"><span class="nav-number">3.</span> <span class="nav-text">select函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#功能"><span class="nav-number">3.1.</span> <span class="nav-text">功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回值"><span class="nav-number">3.2.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数"><span class="nav-number">3.3.</span> <span class="nav-text">参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#描述符集合操作函数"><span class="nav-number">4.</span> <span class="nav-text">描述符集合操作函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FD-ZERO-初始化操作"><span class="nav-number">4.1.</span> <span class="nav-text">FD_ZERO 初始化操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FD-SET-添加操作"><span class="nav-number">4.2.</span> <span class="nav-text">FD_SET 添加操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FD-CLR-清除操作"><span class="nav-number">4.3.</span> <span class="nav-text">FD_CLR 清除操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FD-ISSET-匹配操作"><span class="nav-number">4.4.</span> <span class="nav-text">FD_ISSET 匹配操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用规则"><span class="nav-number">4.5.</span> <span class="nav-text">调用规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例"><span class="nav-number">4.6.</span> <span class="nav-text">实例</span></a></li></ol></li></ol></div>
             
 
           </div>

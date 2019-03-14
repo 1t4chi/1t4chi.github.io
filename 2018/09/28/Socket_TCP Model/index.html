@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="1t4chi">
 <meta property="og:description" content="Socket 的 TCP 编程：TCP 协议面向连接。一般适用于并发服务器模型，但有例外需要灵活掌握。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-13T09:01:06.014Z">
+<meta property="og:updated_time" content="2019-03-14T14:57:32.757Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Socket 的 TCP 模型及实现">
 <meta name="twitter:description" content="Socket 的 TCP 编程：TCP 协议面向连接。一般适用于并发服务器模型，但有例外需要灵活掌握。">
@@ -270,7 +270,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="1t4chi">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -359,8 +359,7 @@
 
       
         <hr>
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<h2 id="一般流程"><a href="#一般流程" class="headerlink" title="一般流程"></a>一般流程</h2><h4 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h4><ul>
+<h2 id="一般流程"><a href="#一般流程" class="headerlink" title="一般流程"></a>一般流程</h2><h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><ul>
 <li>socket：<ul>
 <li>创建套接字 </li>
 <li>TCP 用 fd1 = socket(AF_INET,SOCK_STREAM,0)</li>
@@ -403,15 +402,14 @@
 </ul>
 </li>
 </ul>
-<h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><p>socket：创建套接字，socket(AF_INET,SOCK_STREAM,0)<br>connect：连接服务器，填入远程服务器地址和端口<br>write(send)：客户端发送请求<br>read(recv)：客户端接收响应<br>close：关闭套接字 </p>
+<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><p>socket：创建套接字，socket(AF_INET,SOCK_STREAM,0)<br>connect：连接服务器，填入远程服务器地址和端口<br>write(send)：客户端发送请求<br>read(recv)：客户端接收响应<br>close：关闭套接字 </p>
 <hr>
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<h2 id="服务器模型"><a href="#服务器模型" class="headerlink" title="服务器模型"></a>服务器模型</h2><h4 id="循环服务器模型"><a href="#循环服务器模型" class="headerlink" title="循环服务器模型"></a>循环服务器模型</h4><p>TCP 不常用循环服务器模型</p>
-<h4 id="并发服务器模型"><a href="#并发服务器模型" class="headerlink" title="并发服务器模型"></a>并发服务器模型</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fd=socket</span><br><span class="line">bind(fd)</span><br><span class="line">listen(fd)</span><br><span class="line"><span class="keyword">for</span>(;;)&#123;</span><br><span class="line">    newfd=accept(fd)</span><br><span class="line">    <span class="keyword">if</span>(fork()==<span class="number">0</span>)&#123;</span><br><span class="line">        close(fd)</span><br><span class="line">        recv(newfd)</span><br><span class="line">        send(newfd)</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    close(newfd)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="延迟创建子进程模型"><a href="#延迟创建子进程模型" class="headerlink" title="延迟创建子进程模型"></a>延迟创建子进程模型</h4><p>循环与并发混合的服务器模型。处理时间短的客户请求以循环方式完成；处理时间长的客户请求以并发方式完成。减少创建子进程的开销、建立进程表项的开销和复制数据段和堆栈段的开销。</p>
-<h4 id="固定预创建子进程模型"><a href="#固定预创建子进程模型" class="headerlink" title="固定预创建子进程模型"></a>固定预创建子进程模型</h4><p>服务器建立侦听socket，并创建子进程。所有子进程调用accept，无连接时将睡眠；有连接到来时子进程被唤醒。某一个子进程接受连接后，其他进程继续睡眠。</p>
-<h4 id="动态预创建子进程"><a href="#动态预创建子进程" class="headerlink" title="动态预创建子进程"></a>动态预创建子进程</h4><p>服务器建立socket，并创建一定数量子进程。服务器父进程维护所有子进程的状态表，父进程和子进程通过管道通信。子进程接受连接时给父进程发1，关闭连接时发0。父进程收到1时检查空闲子进程数目是否小于下限，小于下限则创建新的子进程。父进程收到0时检查空闲子进程数目是否大于上限，大于上限则终止一些子进程。</p>
-<h4 id="多路复用I-O"><a href="#多路复用I-O" class="headerlink" title="多路复用I/O"></a>多路复用I/O</h4><p>基于 select 函数。select 函数检查侦听 socket是否有连接到达、已连接 socket 是否有数据到达、已连接 socket 是否可以写数据。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(<span class="keyword">int</span> maxfd,fd_set *rdset,fd_set *wrest,fd_set *exset,struct timeval *timeout)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<h2 id="服务器模型"><a href="#服务器模型" class="headerlink" title="服务器模型"></a>服务器模型</h2><h3 id="循环服务器模型"><a href="#循环服务器模型" class="headerlink" title="循环服务器模型"></a>循环服务器模型</h3><p>TCP 不常用循环服务器模型</p>
+<h3 id="并发服务器模型"><a href="#并发服务器模型" class="headerlink" title="并发服务器模型"></a>并发服务器模型</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fd=socket</span><br><span class="line">bind(fd)</span><br><span class="line">listen(fd)</span><br><span class="line"><span class="keyword">for</span>(;;)&#123;</span><br><span class="line">    newfd=accept(fd)</span><br><span class="line">    <span class="keyword">if</span>(fork()==<span class="number">0</span>)&#123;</span><br><span class="line">        close(fd)</span><br><span class="line">        recv(newfd)</span><br><span class="line">        send(newfd)</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    close(newfd)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="延迟创建子进程模型"><a href="#延迟创建子进程模型" class="headerlink" title="延迟创建子进程模型"></a>延迟创建子进程模型</h3><p>循环与并发混合的服务器模型。处理时间短的客户请求以循环方式完成；处理时间长的客户请求以并发方式完成。减少创建子进程的开销、建立进程表项的开销和复制数据段和堆栈段的开销。</p>
+<h3 id="固定预创建子进程模型"><a href="#固定预创建子进程模型" class="headerlink" title="固定预创建子进程模型"></a>固定预创建子进程模型</h3><p>服务器建立侦听socket，并创建子进程。所有子进程调用accept，无连接时将睡眠；有连接到来时子进程被唤醒。某一个子进程接受连接后，其他进程继续睡眠。</p>
+<h3 id="动态预创建子进程"><a href="#动态预创建子进程" class="headerlink" title="动态预创建子进程"></a>动态预创建子进程</h3><p>服务器建立socket，并创建一定数量子进程。服务器父进程维护所有子进程的状态表，父进程和子进程通过管道通信。子进程接受连接时给父进程发1，关闭连接时发0。父进程收到1时检查空闲子进程数目是否小于下限，小于下限则创建新的子进程。父进程收到0时检查空闲子进程数目是否大于上限，大于上限则终止一些子进程。</p>
+<h3 id="多路复用I-O"><a href="#多路复用I-O" class="headerlink" title="多路复用I/O"></a>多路复用I/O</h3><p>基于 select 函数。select 函数检查侦听 socket是否有连接到达、已连接 socket 是否有数据到达、已连接 socket 是否可以写数据。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(<span class="keyword">int</span> maxfd,fd_set *rdset,fd_set *wrest,fd_set *exset,struct timeval *timeout)</span></span>;</span><br></pre></td></tr></table></figure></p>
 <p>在测试是否可读的描述符集合 rdset 中同时包含侦听 socket 和已连接 socket，在测试是否可写描述符集合中包含已连接 socket，就可以实现多路复用。</p>
 <ol>
 <li>设置读和写描述符集合，其中读描述符集合包括侦听 socket</li>
@@ -547,6 +545,8 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="1t4chi">
+            
               <p class="site-author-name" itemprop="name">1t4chi</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
@@ -558,7 +558,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -569,7 +569,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -580,7 +580,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -629,7 +629,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一般流程"><span class="nav-number">1.</span> <span class="nav-text">一般流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#服务器"><span class="nav-number">1.0.1.</span> <span class="nav-text">服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端"><span class="nav-number">1.0.2.</span> <span class="nav-text">客户端</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器模型"><span class="nav-number">2.</span> <span class="nav-text">服务器模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#循环服务器模型"><span class="nav-number">2.0.1.</span> <span class="nav-text">循环服务器模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#并发服务器模型"><span class="nav-number">2.0.2.</span> <span class="nav-text">并发服务器模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#延迟创建子进程模型"><span class="nav-number">2.0.3.</span> <span class="nav-text">延迟创建子进程模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#固定预创建子进程模型"><span class="nav-number">2.0.4.</span> <span class="nav-text">固定预创建子进程模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动态预创建子进程"><span class="nav-number">2.0.5.</span> <span class="nav-text">动态预创建子进程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多路复用I-O"><span class="nav-number">2.0.6.</span> <span class="nav-text">多路复用I/O</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一般流程"><span class="nav-number">1.</span> <span class="nav-text">一般流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器"><span class="nav-number">1.1.</span> <span class="nav-text">服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端"><span class="nav-number">1.2.</span> <span class="nav-text">客户端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器模型"><span class="nav-number">2.</span> <span class="nav-text">服务器模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#循环服务器模型"><span class="nav-number">2.1.</span> <span class="nav-text">循环服务器模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发服务器模型"><span class="nav-number">2.2.</span> <span class="nav-text">并发服务器模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#延迟创建子进程模型"><span class="nav-number">2.3.</span> <span class="nav-text">延迟创建子进程模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#固定预创建子进程模型"><span class="nav-number">2.4.</span> <span class="nav-text">固定预创建子进程模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态预创建子进程"><span class="nav-number">2.5.</span> <span class="nav-text">动态预创建子进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多路复用I-O"><span class="nav-number">2.6.</span> <span class="nav-text">多路复用I/O</span></a></li></ol></li></ol></div>
             
 
           </div>

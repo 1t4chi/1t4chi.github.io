@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="1t4chi">
 <meta property="og:description" content="放下鸡鸡儿(Jekyll)，立地成佛。本文侧重 Hexo 搭建、本地运行、Github 运行的基础建站过程，美化过程请移步下一篇。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-13T08:55:36.043Z">
+<meta property="og:updated_time" content="2019-03-14T13:11:15.649Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo + Github 建站实录">
 <meta name="twitter:description" content="放下鸡鸡儿(Jekyll)，立地成佛。本文侧重 Hexo 搭建、本地运行、Github 运行的基础建站过程，美化过程请移步下一篇。">
@@ -270,7 +270,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="1t4chi">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.png">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -359,14 +359,13 @@
 
       
         <hr>
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<h2 id="安装与配置"><a href="#安装与配置" class="headerlink" title="安装与配置"></a>安装与配置</h2><h4 id="总体步骤"><a href="#总体步骤" class="headerlink" title="总体步骤"></a>总体步骤</h4><ol>
+<h2 id="安装与配置"><a href="#安装与配置" class="headerlink" title="安装与配置"></a>安装与配置</h2><h3 id="总体步骤"><a href="#总体步骤" class="headerlink" title="总体步骤"></a>总体步骤</h3><ol>
 <li>安装 Git</li>
 <li>通过 nvm 安装 Node.js</li>
 <li>安装 Hexo</li>
 </ol>
-<h4 id="装-nvm"><a href="#装-nvm" class="headerlink" title="装 nvm"></a>装 nvm</h4><ul>
-<li>Node Version Manager</li>
+<h3 id="装-nvm"><a href="#装-nvm" class="headerlink" title="装 nvm"></a>装 nvm</h3><p>Node Version Manager</p>
+<ul>
 <li><p>Mac 下使用 curl</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash</span><br></pre></td></tr></table></figure>
 </li>
@@ -374,16 +373,14 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h4 id="MacOS-zsh-nvm-command-not-found"><a href="#MacOS-zsh-nvm-command-not-found" class="headerlink" title="MacOS + zsh: nvm command not found"></a>MacOS + zsh: nvm command not found</h4><p>我的环境是 MACOS Mojava + Zsh + Oh my zsh<br>I use zsh and i had to add these two lines:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> NVM_DIR=~/.nvm</span><br><span class="line"><span class="built_in">source</span> ~/.nvm/nvm.sh</span><br></pre></td></tr></table></figure></p>
-<p>Into ~/.zshrc file<br>不用修改 ~/.bash_profile</p>
-<h4 id="装-Node-js"><a href="#装-Node-js" class="headerlink" title="装 Node.js"></a>装 Node.js</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nvm install stable</span><br></pre></td></tr></table></figure>
-<h4 id="装-Hexo"><a href="#装-Hexo" class="headerlink" title="装 Hexo"></a>装 Hexo</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<h3 id="P1-MacOS-zsh-nvm-command-not-found"><a href="#P1-MacOS-zsh-nvm-command-not-found" class="headerlink" title="P1: MacOS + zsh: nvm command not found"></a>P1: MacOS + zsh: nvm command not found</h3><p>安装 nvm 的时候出现了问题：装完之后敲命令 nvm 提示 not found<br>我的环境是 MACOS Mojava + Zsh + Oh my zsh<br>需要更改<code>~/.zshrc file</code>配置文件，在其中添加两行如下代码:<br>如果你用 zsh 就不用改 ~/.bash_profile </p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 ~/.zshrc file 添加</span></span><br><span class="line"><span class="built_in">export</span> NVM_DIR=~/.nvm</span><br><span class="line"><span class="built_in">source</span> ~/.nvm/nvm.sh</span><br></pre></td></tr></table></figure>
+<h3 id="装-Node-js"><a href="#装-Node-js" class="headerlink" title="装 Node.js"></a>装 Node.js</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nvm install stable</span><br></pre></td></tr></table></figure>
+<h3 id="装-Hexo"><a href="#装-Hexo" class="headerlink" title="装 Hexo"></a>装 Hexo</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 <hr>
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<h2 id="Blog-初始化"><a href="#Blog-初始化" class="headerlink" title="Blog 初始化"></a>Blog 初始化</h2><h4 id="初始化-Blog"><a href="#初始化-Blog" class="headerlink" title="初始化 Blog"></a>初始化 Blog</h4><p>注意一定要在一个空目录中执行<br>如果原来目录里有 git 而且不想删原来的目录<br>可以新创一个目录初始完后 copy 进原来目录<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init</span><br></pre></td></tr></table></figure></p>
-<h4 id="安装-npm"><a href="#安装-npm" class="headerlink" title="安装 npm"></a>安装 npm</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo npm install</span><br></pre></td></tr></table></figure>
+<h2 id="Blog-初始化"><a href="#Blog-初始化" class="headerlink" title="Blog 初始化"></a>Blog 初始化</h2><h3 id="初始化-Blog"><a href="#初始化-Blog" class="headerlink" title="初始化 Blog"></a>初始化 Blog</h3><p>注意一定要在一个空目录中执行<br>如果原来目录里有 git 而且不想删原来的目录<br>可以新创一个目录初始完后 copy 进原来目录<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init</span><br></pre></td></tr></table></figure></p>
+<h3 id="安装依赖库"><a href="#安装依赖库" class="headerlink" title="安装依赖库"></a>安装依赖库</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo npm install</span><br></pre></td></tr></table></figure>
 <hr>
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 <h2 id="Hexo-目录结构说明"><a href="#Hexo-目录结构说明" class="headerlink" title="Hexo 目录结构说明"></a>Hexo 目录结构说明</h2><ul>
 <li>config.yml<ul>
 <li>博客的配置文件</li>
@@ -416,20 +413,18 @@
 </li>
 </ul>
 <hr>
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<h2 id="本地运行-Blog"><a href="#本地运行-Blog" class="headerlink" title="本地运行 Blog"></a>本地运行 Blog</h2><h4 id="运行本地服务器"><a href="#运行本地服务器" class="headerlink" title="运行本地服务器"></a>运行本地服务器</h4><p>执行下列命令后，打开浏览器访问 <a href="http://127.0.0.1:4000" target="_blank" rel="noopener">http://127.0.0.1:4000</a><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure></p>
-<h4 id="刷新网页端"><a href="#刷新网页端" class="headerlink" title="刷新网页端"></a>刷新网页端</h4><p>本地运行支持运行时修改，刷新同步<br>如果页面没有同步则需要 clean 一下<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure></p>
+<h2 id="本地运行-Blog"><a href="#本地运行-Blog" class="headerlink" title="本地运行 Blog"></a>本地运行 Blog</h2><h3 id="运行本地服务器"><a href="#运行本地服务器" class="headerlink" title="运行本地服务器"></a>运行本地服务器</h3><p>执行下列命令后，打开浏览器访问 <a href="http://127.0.0.1:4000" target="_blank" rel="noopener">http://127.0.0.1:4000</a><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure></p>
+<h3 id="刷新网页端"><a href="#刷新网页端" class="headerlink" title="刷新网页端"></a>刷新网页端</h3><p>本地运行支持运行时修改，刷新同步<br>如果页面没有同步则需要 clean 一下</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
 <hr>
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<h2 id="上传-Github"><a href="#上传-Github" class="headerlink" title="上传 Github"></a>上传 Github</h2><h4 id="不能直接-git-push"><a href="#不能直接-git-push" class="headerlink" title="不能直接 git-push"></a>不能直接 git-push</h4><p>血泪教训！Hexo 与 Jekyll 不同，Github 原生支持 Jekyll，因此直接把 Jekyll 的文件扔上去就成。但是 Hexo 先要本地编译，再把编译后的东西上传<br>因此不能无脑 git push，需要用 hexo 的命令 deploy。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure></p>
-<h4 id="编辑-deploy-目标"><a href="#编辑-deploy-目标" class="headerlink" title="编辑 deploy 目标"></a>编辑 deploy 目标</h4><p>在 _config.yml 中编辑最后一个栏目<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">  repository:</span> <span class="attr">https://github.com/1t4chi/1t4chi.github.io.git</span></span><br><span class="line"><span class="attr">  branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="编译后-deploy"><a href="#编译后-deploy" class="headerlink" title="编译后 deploy"></a>编译后 deploy</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-<h4 id="hexo-d-报错-not-found-git"><a href="#hexo-d-报错-not-found-git" class="headerlink" title="hexo d 报错 not found: git"></a>hexo d 报错 not found: git</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-<h4 id="CNAME-每次-deploy-后被删"><a href="#CNAME-每次-deploy-后被删" class="headerlink" title="CNAME 每次 deploy 后被删"></a>CNAME 每次 deploy 后被删</h4><p>将 CNAME 放在 source 目录下再 deploy</p>
+<h2 id="上传-Github"><a href="#上传-Github" class="headerlink" title="上传 Github"></a>上传 Github</h2><h3 id="不能直接-git-push"><a href="#不能直接-git-push" class="headerlink" title="不能直接 git-push"></a>不能直接 git-push</h3><p>血泪教训！Hexo 与 Jekyll 不同，Github 原生支持 Jekyll，因此直接把 Jekyll 的文件扔上去就成。但是 Hexo 先要本地编译，再把编译后的东西上传<br>因此不能无脑 git push，需要用 hexo 的命令 deploy。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure></p>
+<h3 id="编辑-deploy-目标"><a href="#编辑-deploy-目标" class="headerlink" title="编辑 deploy 目标"></a>编辑 deploy 目标</h3><p>在 _config.yml 中编辑最后一个栏目<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">  repository:</span> <span class="attr">https://github.com/1t4chi/1t4chi.github.io.git</span></span><br><span class="line"><span class="attr">  branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="编译后-deploy"><a href="#编译后-deploy" class="headerlink" title="编译后 deploy"></a>编译后 deploy</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<h3 id="hexo-d-报错-not-found-git"><a href="#hexo-d-报错-not-found-git" class="headerlink" title="hexo d 报错 not found: git"></a>hexo d 报错 not found: git</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<h3 id="CNAME-每次-deploy-后被删"><a href="#CNAME-每次-deploy-后被删" class="headerlink" title="CNAME 每次 deploy 后被删"></a>CNAME 每次 deploy 后被删</h3><p>将 CNAME 放在 source 目录下再 deploy</p>
 <hr>
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-<h2 id="更换与配置主题"><a href="#更换与配置主题" class="headerlink" title="更换与配置主题"></a>更换与配置主题</h2><h4 id="下载主题"><a href="#下载主题" class="headerlink" title="下载主题"></a>下载主题</h4><p>选择自己喜欢的主题然后 git 下来，这里选择 next<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure></p>
-<h4 id="config-yml-配置主题"><a href="#config-yml-配置主题" class="headerlink" title="_config.yml 配置主题"></a>_config.yml 配置主题</h4><p>将 _config.yml 中的 theme 换位 next</p>
+<h2 id="更换与配置主题"><a href="#更换与配置主题" class="headerlink" title="更换与配置主题"></a>更换与配置主题</h2><h3 id="下载主题"><a href="#下载主题" class="headerlink" title="下载主题"></a>下载主题</h3><p>选择自己喜欢的主题然后 git 下来，这里选择 next<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure></p>
+<h3 id="config-yml-配置主题"><a href="#config-yml-配置主题" class="headerlink" title="_config.yml 配置主题"></a>_config.yml 配置主题</h3><p>将 _config.yml 中的 theme 换为 next</p>
 
       
     </div>
@@ -542,6 +537,8 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="1t4chi">
+            
               <p class="site-author-name" itemprop="name">1t4chi</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
@@ -553,7 +550,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -564,7 +561,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -575,7 +572,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -624,7 +621,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装与配置"><span class="nav-number">1.</span> <span class="nav-text">安装与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#总体步骤"><span class="nav-number">1.0.1.</span> <span class="nav-text">总体步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#装-nvm"><span class="nav-number">1.0.2.</span> <span class="nav-text">装 nvm</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MacOS-zsh-nvm-command-not-found"><span class="nav-number">1.0.3.</span> <span class="nav-text">MacOS + zsh: nvm command not found</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#装-Node-js"><span class="nav-number">1.0.4.</span> <span class="nav-text">装 Node.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#装-Hexo"><span class="nav-number">1.0.5.</span> <span class="nav-text">装 Hexo</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#Blog-初始化"><span class="nav-number">2.</span> <span class="nav-text">Blog 初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化-Blog"><span class="nav-number">2.0.1.</span> <span class="nav-text">初始化 Blog</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装-npm"><span class="nav-number">2.0.2.</span> <span class="nav-text">安装 npm</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo-目录结构说明"><span class="nav-number">3.</span> <span class="nav-text">Hexo 目录结构说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地运行-Blog"><span class="nav-number">4.</span> <span class="nav-text">本地运行 Blog</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#运行本地服务器"><span class="nav-number">4.0.1.</span> <span class="nav-text">运行本地服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#刷新网页端"><span class="nav-number">4.0.2.</span> <span class="nav-text">刷新网页端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上传-Github"><span class="nav-number">5.</span> <span class="nav-text">上传 Github</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#不能直接-git-push"><span class="nav-number">5.0.1.</span> <span class="nav-text">不能直接 git-push</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编辑-deploy-目标"><span class="nav-number">5.0.2.</span> <span class="nav-text">编辑 deploy 目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编译后-deploy"><span class="nav-number">5.0.3.</span> <span class="nav-text">编译后 deploy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hexo-d-报错-not-found-git"><span class="nav-number">5.0.4.</span> <span class="nav-text">hexo d 报错 not found: git</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CNAME-每次-deploy-后被删"><span class="nav-number">5.0.5.</span> <span class="nav-text">CNAME 每次 deploy 后被删</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更换与配置主题"><span class="nav-number">6.</span> <span class="nav-text">更换与配置主题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载主题"><span class="nav-number">6.0.1.</span> <span class="nav-text">下载主题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#config-yml-配置主题"><span class="nav-number">6.0.2.</span> <span class="nav-text">_config.yml 配置主题</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装与配置"><span class="nav-number">1.</span> <span class="nav-text">安装与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#总体步骤"><span class="nav-number">1.1.</span> <span class="nav-text">总体步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装-nvm"><span class="nav-number">1.2.</span> <span class="nav-text">装 nvm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#P1-MacOS-zsh-nvm-command-not-found"><span class="nav-number">1.3.</span> <span class="nav-text">P1: MacOS + zsh: nvm command not found</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装-Node-js"><span class="nav-number">1.4.</span> <span class="nav-text">装 Node.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装-Hexo"><span class="nav-number">1.5.</span> <span class="nav-text">装 Hexo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Blog-初始化"><span class="nav-number">2.</span> <span class="nav-text">Blog 初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化-Blog"><span class="nav-number">2.1.</span> <span class="nav-text">初始化 Blog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装依赖库"><span class="nav-number">2.2.</span> <span class="nav-text">安装依赖库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo-目录结构说明"><span class="nav-number">3.</span> <span class="nav-text">Hexo 目录结构说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地运行-Blog"><span class="nav-number">4.</span> <span class="nav-text">本地运行 Blog</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#运行本地服务器"><span class="nav-number">4.1.</span> <span class="nav-text">运行本地服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#刷新网页端"><span class="nav-number">4.2.</span> <span class="nav-text">刷新网页端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上传-Github"><span class="nav-number">5.</span> <span class="nav-text">上传 Github</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#不能直接-git-push"><span class="nav-number">5.1.</span> <span class="nav-text">不能直接 git-push</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编辑-deploy-目标"><span class="nav-number">5.2.</span> <span class="nav-text">编辑 deploy 目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译后-deploy"><span class="nav-number">5.3.</span> <span class="nav-text">编译后 deploy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo-d-报错-not-found-git"><span class="nav-number">5.4.</span> <span class="nav-text">hexo d 报错 not found: git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CNAME-每次-deploy-后被删"><span class="nav-number">5.5.</span> <span class="nav-text">CNAME 每次 deploy 后被删</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更换与配置主题"><span class="nav-number">6.</span> <span class="nav-text">更换与配置主题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载主题"><span class="nav-number">6.1.</span> <span class="nav-text">下载主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#config-yml-配置主题"><span class="nav-number">6.2.</span> <span class="nav-text">_config.yml 配置主题</span></a></li></ol></li></ol></div>
             
 
           </div>
