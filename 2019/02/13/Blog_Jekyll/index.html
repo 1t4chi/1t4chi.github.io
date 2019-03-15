@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="FrontEnd,Blog,Jekyll,">
+  <meta name="keywords" content="Blog,FrontEnd,Jekyll,">
 
 
 
@@ -80,17 +80,22 @@
 
 
 <meta name="description" content="想着把以前的笔记上Blog，无意惊扰了 Jekyll，苦海无涯任我漂。">
-<meta name="keywords" content="FrontEnd,Blog,Jekyll">
+<meta name="keywords" content="Blog,FrontEnd,Jekyll">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jekyll + Github 从入门到死亡">
 <meta property="og:url" content="http://1t4chi.com/2019/02/13/Blog_Jekyll/index.html">
 <meta property="og:site_name" content="1t4chi">
 <meta property="og:description" content="想着把以前的笔记上Blog，无意惊扰了 Jekyll，苦海无涯任我漂。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-14T15:00:36.747Z">
+<meta property="og:image" content="http://poe284u59.bkt.clouddn.com/2019-03-15-103129.png">
+<meta property="og:image" content="http://poe284u59.bkt.clouddn.com/2019-03-15-132219.png">
+<meta property="og:image" content="http://poe284u59.bkt.clouddn.com/2019-03-15-104851.png">
+<meta property="og:image" content="http://poe284u59.bkt.clouddn.com/2019-03-15-Blog_Jekyll_4.png">
+<meta property="og:updated_time" content="2019-03-15T13:51:15.061Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jekyll + Github 从入门到死亡">
 <meta name="twitter:description" content="想着把以前的笔记上Blog，无意惊扰了 Jekyll，苦海无涯任我漂。">
+<meta name="twitter:image" content="http://poe284u59.bkt.clouddn.com/2019-03-15-103129.png">
 
 
 
@@ -370,7 +375,9 @@
 
       
         <hr>
-<h2 id="jekyll-是什么"><a href="#jekyll-是什么" class="headerlink" title="jekyll 是什么"></a>jekyll 是什么</h2><p>Jekyll (杰基尔)是一个生成静态网页的工具，得到 Github 的原生支持。你一上来 Github Page 人家就让你选 Jekyll Theme，会误导很多人觉得 Jekyll 是最好的选择。实际上，Jekyll 是很好，但是对于不熟悉 ruby、前端开发的人来说简直是噩梦。因为它的主题库相比之下要简陋很多，页面的动态刘畅感也无法让人满意。对于前端开发的高手来说，可能更喜欢 Jekyll，它就像一张白纸，会画的人可以画的精彩绝伦，但是不会画的人也只有欲哭无泪了。</p>
+<h2 id="jekyll-是什么"><a href="#jekyll-是什么" class="headerlink" title="jekyll 是什么"></a>jekyll 是什么</h2><p>Jekyll (杰基尔)是一个生成静态网页的工具，得到 Github 的原生支持。你一上来 Github Page 人家就让你选 Jekyll Theme，会误导很多人觉得 Jekyll 是最好的选择。实际上，Jekyll 是很好，但是对于不熟悉 ruby、前端开发的人来说简直是噩梦。因为它的主题库相比之下要简陋很多，页面的动态刘畅感也无法让人满意。对于前端开发的高手来说，可能更喜欢 Jekyll，它像一张白纸，会画的人可以画的精彩绝伦，但不会画的人也只有欲哭无泪了。</p>
+<p><img src="http://poe284u59.bkt.clouddn.com/2019-03-15-103129.png" alt="Blog_Jekyll_1"></p>
+<p>因此我最后的 Jekyll 站布的并不成功。虽然搭起来了，但是看上去总是像 20 世纪初的产物，花花绿绿又十分僵硬。可惜所有的花花绿绿图都是我自己做的，做了半天嘤嘤嘤。现在我已经全面搬迁 Hexo，好搭了不是一点半点，界面还美观了一些。有兴趣的可以看看我写的几篇关于 Hexo 的文章。</p>
 <hr>
 <h2 id="安装与本地运行"><a href="#安装与本地运行" class="headerlink" title="安装与本地运行"></a>安装与本地运行</h2><h3 id="安装-jekyll"><a href="#安装-jekyll" class="headerlink" title="安装 jekyll"></a>安装 jekyll</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem install jekyll</span><br></pre></td></tr></table></figure>
 <h3 id="本地测试已存在的站点"><a href="#本地测试已存在的站点" class="headerlink" title="本地测试已存在的站点"></a>本地测试已存在的站点</h3><p>安装完 jekyll 后直接输入如下命令，然后打开浏览器 <a href="http://127.0.0.1:4000" target="_blank" rel="noopener">http://127.0.0.1:4000</a><br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">jekyll serve</span><br><span class="line"><span class="comment"># 运行上述命令如果报错，有时会提示你使用下一条命令</span></span><br><span class="line"><span class="comment"># 这往往是因为环境依赖问题引起的</span></span><br><span class="line">bundle <span class="built_in">exec</span> jekyll serve</span><br></pre></td></tr></table></figure></p>
@@ -379,8 +386,26 @@
 <h2 id="分类检索插件"><a href="#分类检索插件" class="headerlink" title="分类检索插件"></a>分类检索插件</h2><p><a href="https://github.com/shigeya/jekyll-category-archive-plugin" target="_blank" rel="noopener">插件地址: https://github.com/shigeya/jekyll-category-archive-plugin</a></p>
 <h3 id="插件功能"><a href="#插件功能" class="headerlink" title="插件功能"></a>插件功能</h3><p>它会根据文章 category 标签在_site 目录中创建一个目录x<br>这个目录x下有每个 category 的 index 页面<br>目录x 需要自己在 config.yml 配置自定义</p>
 <p><code>_site/目录x/</code><br><code>├── Linux</code><br><code>│   └── index.html</code><br><code>├── Python</code><br><code>│   └── index.html</code><br><code>├── Miu~</code><br><code>│   └── index.html</code><br><code>└── HAHA</code><br><code>└── index.html</code></p>
-<h3 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h3><p>仔细阅读人家的 README：一个放plugins,一个放layout。在config.yml里配置路径。<br>推荐为路径为：/ 否则多一个页面。一旦路径配好安装好自动会产生分类输出的页面</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">category_archive:</span></span><br><span class="line"><span class="attr">  path:</span> <span class="string">/</span></span><br></pre></td></tr></table></figure>
+<h3 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h3><p>仔细阅读人家的 README，有两个文件：category_archive.html 和category_archive_plugin.rb。一个放layout，一个放plugins。在 config.yml 里配置路径，如下代码所示。<br>我的路径为：/categories/ 。一旦路径配好安装好自动会产生分类输出的页面</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">category_archive:</span></span><br><span class="line"><span class="attr">  path:</span> <span class="string">/categories/</span></span><br></pre></td></tr></table></figure>
+<p>完全不加修改的话，效果如下：字很小。</p>
+<p><img src="http://poe284u59.bkt.clouddn.com/2019-03-15-132219.png" alt="Blog_Jekyll_2"></p>
+<p>由于这个页面整个类别的链接(就是蓝色的列表部分)，都是由<code>category_archive.html</code>中一句语句生成的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;content&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://poe284u59.bkt.clouddn.com/2019-03-15-104851.png" alt="Blog_Jekyll_3"></p>
+<p>至于 content 是怎么生成的是由 <code>category_archive_plugin.rb</code>的ruby 编写的，我完全不懂啊，因此不能改的很漂亮了。</p>
+<hr>
+<h2 id="Category-页面"><a href="#Category-页面" class="headerlink" title="Category 页面"></a>Category 页面</h2><p>上面将的分类检索工具可以产生分类检索页面，它只输出某一个分类下的文章。与分类检索页面不同，categories 页面输出所有分类以及分类下的文章。这个页面需要自己写，因此可自定义的地方就比较多了。但是相比 Hexo 自动生成 Categories 页面而言，Jekyll 还是比较硬核的。下图是我的 Categories 页面。</p>
+<p><img src="http://poe284u59.bkt.clouddn.com/2019-03-15-Blog_Jekyll_4.png" alt="Blog_Jekyll_4"></p>
+<h3 id="如何创建-Categories-页面？"><a href="#如何创建-Categories-页面？" class="headerlink" title="如何创建 Categories 页面？"></a>如何创建 Categories 页面？</h3><p>我的是这样的：</p>
+<ol>
+<li>在博客根目录创建一个叫 categories 的 md 文件</li>
+<li>在 md 文件中编写页面，我的代码如下</li>
+</ol>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">layout: page</span><br><span class="line">title: Categories</span><br><span class="line">permalink: /categories/</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">&#123;% for category in site.categories %&#125;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">h3</span>&gt;</span></span>&#123;&#123; category | first &#125;&#125;<span class="xml"><span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- &lt;/span&gt;</span></span>&#123;&#123; category | last | size &#125;&#125;<span class="xml"><span class="comment">&lt;/span&gt;</span></span> --&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"arc-list"</span>&gt;</span></span></span><br><span class="line"><span class="code">    &#123;% for post in category.last %&#125;</span></span><br><span class="line"><span class="code">        &lt;li&gt;&#123;&#123; post.date | date:"%d/%m/%Y"&#125;&#125;&amp;nbsp;&lt;a href="&#123;&#123; post.url &#125;&#125;"&gt;&#123;&#123; post.title &#125;&#125;&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="code">    &#123;% endfor %&#125;</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line">&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+<p>稍稍讲一下，其中 layout、title、permalink 是必须的。其他的看自己喜好设计界面就可以。其中：</p>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;category | first &#125;&#125; </span><br><span class="line"><span class="xml"><span class="comment">&lt;!--输出分类名称，比如 socket--&gt;</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; category | last | size &#125;&#125; </span><br><span class="line"><span class="xml"><span class="comment">&lt;!--输出分类下文章数目，上面的代码里被我注释掉了--&gt;</span></span></span><br></pre></td></tr></table></figure>
 <hr>
 <h2 id="问题与解决"><a href="#问题与解决" class="headerlink" title="问题与解决"></a>问题与解决</h2><h3 id="P1-Could-not-locate-Gemfile-or-bundle-directory"><a href="#P1-Could-not-locate-Gemfile-or-bundle-directory" class="headerlink" title="P1: Could not locate Gemfile or .bundle/ directory"></a>P1: Could not locate Gemfile or .bundle/ directory</h3><p>下述命令有时会报错。因为 bundle exec 会在当前项目依赖的上下文环境中执行命令：相同的 gem、相同的依赖关系、相同的版本号<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ bundle <span class="built_in">exec</span> jekyll serve</span><br><span class="line">&gt; Could not locate Gemfile or .bundle/ directory</span><br></pre></td></tr></table></figure></p>
 <ul>
@@ -408,11 +433,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/FrontEnd/" rel="tag"># FrontEnd</a>
+            <a href="/tags/Blog/" rel="tag"><i class="fa fa-tag"></i> Blog</a>
           
-            <a href="/tags/Blog/" rel="tag"># Blog</a>
+            <a href="/tags/FrontEnd/" rel="tag"><i class="fa fa-tag"></i> FrontEnd</a>
           
-            <a href="/tags/Jekyll/" rel="tag"># Jekyll</a>
+            <a href="/tags/Jekyll/" rel="tag"><i class="fa fa-tag"></i> Jekyll</a>
           
         </div>
       
@@ -516,7 +541,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -587,7 +612,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#jekyll-是什么"><span class="nav-number">1.</span> <span class="nav-text">jekyll 是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装与本地运行"><span class="nav-number">2.</span> <span class="nav-text">安装与本地运行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-jekyll"><span class="nav-number">2.1.</span> <span class="nav-text">安装 jekyll</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本地测试已存在的站点"><span class="nav-number">2.2.</span> <span class="nav-text">本地测试已存在的站点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本地测试新建站点"><span class="nav-number">2.3.</span> <span class="nav-text">本地测试新建站点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分类检索插件"><span class="nav-number">3.</span> <span class="nav-text">分类检索插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#插件功能"><span class="nav-number">3.1.</span> <span class="nav-text">插件功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装配置"><span class="nav-number">3.2.</span> <span class="nav-text">安装配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题与解决"><span class="nav-number">4.</span> <span class="nav-text">问题与解决</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#P1-Could-not-locate-Gemfile-or-bundle-directory"><span class="nav-number">4.1.</span> <span class="nav-text">P1: Could not locate Gemfile or .bundle/ directory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#P2-gem-安装-jekyll-缺少-ruby-headers"><span class="nav-number">4.2.</span> <span class="nav-text">P2: gem 安装 jekyll 缺少 ruby headers</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#jekyll-是什么"><span class="nav-number">1.</span> <span class="nav-text">jekyll 是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装与本地运行"><span class="nav-number">2.</span> <span class="nav-text">安装与本地运行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-jekyll"><span class="nav-number">2.1.</span> <span class="nav-text">安装 jekyll</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本地测试已存在的站点"><span class="nav-number">2.2.</span> <span class="nav-text">本地测试已存在的站点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本地测试新建站点"><span class="nav-number">2.3.</span> <span class="nav-text">本地测试新建站点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分类检索插件"><span class="nav-number">3.</span> <span class="nav-text">分类检索插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#插件功能"><span class="nav-number">3.1.</span> <span class="nav-text">插件功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装配置"><span class="nav-number">3.2.</span> <span class="nav-text">安装配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Category-页面"><span class="nav-number">4.</span> <span class="nav-text">Category 页面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何创建-Categories-页面？"><span class="nav-number">4.1.</span> <span class="nav-text">如何创建 Categories 页面？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题与解决"><span class="nav-number">5.</span> <span class="nav-text">问题与解决</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#P1-Could-not-locate-Gemfile-or-bundle-directory"><span class="nav-number">5.1.</span> <span class="nav-text">P1: Could not locate Gemfile or .bundle/ directory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#P2-gem-安装-jekyll-缺少-ruby-headers"><span class="nav-number">5.2.</span> <span class="nav-text">P2: gem 安装 jekyll 缺少 ruby headers</span></a></li></ol></li></ol></div>
             
 
           </div>
