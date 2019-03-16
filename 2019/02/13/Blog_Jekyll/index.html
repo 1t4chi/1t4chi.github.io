@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Blog,FrontEnd,Jekyll,">
+  <meta name="keywords" content="FrontEnd,Blog,Jekyll,">
 
 
 
@@ -80,7 +80,7 @@
 
 
 <meta name="description" content="想着把以前的笔记上Blog，无意惊扰了 Jekyll，苦海无涯任我漂。">
-<meta name="keywords" content="Blog,FrontEnd,Jekyll">
+<meta name="keywords" content="FrontEnd,Blog,Jekyll">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jekyll + Github 从入门到死亡">
 <meta property="og:url" content="http://1t4chi.com/2019/02/13/Blog_Jekyll/index.html">
@@ -349,6 +349,17 @@
 
           
           
+             <span id="/2019/02/13/Blog_Jekyll/" class="leancloud_visitors" data-flag-title="Jekyll + Github 从入门到死亡">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
           
 
@@ -401,10 +412,10 @@
 <li>在博客根目录创建一个叫 categories 的 md 文件</li>
 <li>在 md 文件中编写页面，我的代码如下</li>
 </ol>
-<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">layout: page</span><br><span class="line">title: Categories</span><br><span class="line">permalink: /categories/</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">&#123;% for category in site.categories %&#125;</span><br><span class="line">&lt;h3&gt;&#123;&#123; category | first &#125;&#125;&lt;/h3&gt;</span><br><span class="line">&lt;!-- &lt;/span&gt;&#123;&#123; category | last | size &#125;&#125;&lt;/span&gt; --&gt;</span><br><span class="line">&lt;ul class="arc-list"&gt;</span><br><span class="line"><span class="code">    &#123;% for post in category.last %&#125;</span></span><br><span class="line"><span class="code">        &lt;li&gt;&#123;&#123; post.date | date:"%d/%m/%Y"&#125;&#125;&amp;nbsp;&lt;a href="&#123;&#123; post.url &#125;&#125;"&gt;&#123;&#123; post.title &#125;&#125;&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="code">    &#123;% endfor %&#125;</span></span><br><span class="line">&lt;/ul&gt;</span><br><span class="line">&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">layout: page</span><br><span class="line">title: Categories</span><br><span class="line">permalink: /categories/</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">&#123;% for category in site.categories %&#125;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">h3</span>&gt;</span></span>&#123;&#123; category | first &#125;&#125;<span class="xml"><span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- &lt;/span&gt;</span></span>&#123;&#123; category | last | size &#125;&#125;<span class="xml"><span class="comment">&lt;/span&gt;</span></span> --&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"arc-list"</span>&gt;</span></span></span><br><span class="line"><span class="code">    &#123;% for post in category.last %&#125;</span></span><br><span class="line"><span class="code">        &lt;li&gt;&#123;&#123; post.date | date:"%d/%m/%Y"&#125;&#125;&amp;nbsp;&lt;a href="&#123;&#123; post.url &#125;&#125;"&gt;&#123;&#123; post.title &#125;&#125;&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="code">    &#123;% endfor %&#125;</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line">&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
 <p>稍稍讲一下，其中 layout、title、permalink 是必须的。其他的看自己喜好设计界面就可以。其中：</p>
-<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;category | first &#125;&#125; </span><br><span class="line">&lt;!--输出分类名称，比如 socket--&gt;</span><br></pre></td></tr></table></figure>
-<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; category | last | size &#125;&#125; </span><br><span class="line">&lt;!--输出分类下文章数目，上面的代码里被我注释掉了--&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;category | first &#125;&#125; </span><br><span class="line"><span class="xml"><span class="comment">&lt;!--输出分类名称，比如 socket--&gt;</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; category | last | size &#125;&#125; </span><br><span class="line"><span class="xml"><span class="comment">&lt;!--输出分类下文章数目，上面的代码里被我注释掉了--&gt;</span></span></span><br></pre></td></tr></table></figure>
 <hr>
 <h2 id="问题与解决"><a href="#问题与解决" class="headerlink" title="问题与解决"></a>问题与解决</h2><h3 id="P1-Could-not-locate-Gemfile-or-bundle-directory"><a href="#P1-Could-not-locate-Gemfile-or-bundle-directory" class="headerlink" title="P1: Could not locate Gemfile or .bundle/ directory"></a>P1: Could not locate Gemfile or .bundle/ directory</h3><p>下述命令有时会报错。因为 bundle exec 会在当前项目依赖的上下文环境中执行命令：相同的 gem、相同的依赖关系、相同的版本号<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ bundle <span class="built_in">exec</span> jekyll serve</span><br><span class="line">&gt; Could not locate Gemfile or .bundle/ directory</span><br></pre></td></tr></table></figure></p>
 <ul>
@@ -432,9 +443,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Blog/" rel="tag"><i class="fa fa-tag"></i> Blog</a>
-          
             <a href="/tags/FrontEnd/" rel="tag"><i class="fa fa-tag"></i> FrontEnd</a>
+          
+            <a href="/tags/Blog/" rel="tag"><i class="fa fa-tag"></i> Blog</a>
           
             <a href="/tags/Jekyll/" rel="tag"><i class="fa fa-tag"></i> Jekyll</a>
           
@@ -822,6 +833,113 @@
 
 
   
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("lqzwdvI9aK3fS06e3ziEjm5S-gzGzoHsz", "OrehvfTk9k9H6CQgsDLnLgeP");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
 
   
 
