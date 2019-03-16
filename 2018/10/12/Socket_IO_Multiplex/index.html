@@ -53,22 +53,22 @@
 <link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-1t4chi.png?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-1t4chi.png?v=5.1.4">
 
 
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-1t4chi.png?v=5.1.4">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+  <link rel="mask-icon" href="/images/logo-1t4chi.svg?v=5.1.4" color="#222">
 
 
 
 
 
-  <meta name="keywords" content="C,IO,Socket,">
+  <meta name="keywords" content="C,Socket,IO,">
 
 
 
@@ -80,7 +80,7 @@
 
 
 <meta name="description" content="多路复用模型是阻塞模型的改进。监视多个描述符，一旦某个描述符就绪，就通知程序进行相应操作。">
-<meta name="keywords" content="C,IO,Socket">
+<meta name="keywords" content="C,Socket,IO">
 <meta property="og:type" content="article">
 <meta property="og:title" content="多路复用 Socket IO 模型">
 <meta property="og:url" content="http://1t4chi.com/2018/10/12/Socket_IO_Multiplex/index.html">
@@ -330,6 +330,16 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/10/12/Socket_IO_Multiplex/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/10/12/Socket_IO_Multiplex/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -408,9 +418,9 @@
           
             <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C</a>
           
-            <a href="/tags/IO/" rel="tag"><i class="fa fa-tag"></i> IO</a>
-          
             <a href="/tags/Socket/" rel="tag"><i class="fa fa-tag"></i> Socket</a>
+          
+            <a href="/tags/IO/" rel="tag"><i class="fa fa-tag"></i> IO</a>
           
         </div>
       
@@ -464,6 +474,9 @@
 
           
 
+  
+    <div class="comments" id="comments">
+    </div>
   
 
 
@@ -607,7 +620,7 @@
       <div class="footer-inner">
         <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
-    <i class="fa fa-snowflake-o"></i>
+    <i class="fa fa-star"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">1t4chi</span>
 
@@ -761,6 +774,28 @@
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '39heRwKuk0iAeyB7uBITyP09-gzGzoHsz',
+        appKey: '2ync0orcEbl8PRytOGo6K5Q6',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
 
 
 
