@@ -98,18 +98,18 @@
 
 
 
-  <meta name="description" content="放下鸡鸡儿(Jekyll)，立地成佛。本文侧重 Hexo 搭建、本地运行、Github 运行的基础建站过程，美化过程请移步下一篇。">
-<meta name="keywords" content="Blog,FrontEnd,Hexo">
+  <meta name="description" content="放下鸡鸡儿(Jekyll)，立地成佛。本文侧重 Hexo 搭建、本地运行、Github 运行的基础建站过程，功能扩建与美化过程请移步下一篇。">
+<meta name="keywords" content="FrontEnd,Hexo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo + Github 建站实录">
 <meta property="og:url" content="http://1t4chi.github.io/2019/03/05/Blog_Hexo/index.html">
 <meta property="og:site_name" content="1t4chi">
-<meta property="og:description" content="放下鸡鸡儿(Jekyll)，立地成佛。本文侧重 Hexo 搭建、本地运行、Github 运行的基础建站过程，美化过程请移步下一篇。">
+<meta property="og:description" content="放下鸡鸡儿(Jekyll)，立地成佛。本文侧重 Hexo 搭建、本地运行、Github 运行的基础建站过程，功能扩建与美化过程请移步下一篇。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-14T13:11:15.649Z">
+<meta property="og:updated_time" content="2019-03-19T11:25:15.648Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo + Github 建站实录">
-<meta name="twitter:description" content="放下鸡鸡儿(Jekyll)，立地成佛。本文侧重 Hexo 搭建、本地运行、Github 运行的基础建站过程，美化过程请移步下一篇。">
+<meta name="twitter:description" content="放下鸡鸡儿(Jekyll)，立地成佛。本文侧重 Hexo 搭建、本地运行、Github 运行的基础建站过程，功能扩建与美化过程请移步下一篇。">
 
 
 
@@ -411,7 +411,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-03-14 21:11:15" itemprop="dateModified" datetime="2019-03-14T21:11:15+08:00">2019-03-14</time>
+                <time title="修改时间：2019-03-19 19:25:15" itemprop="dateModified" datetime="2019-03-19T19:25:15+08:00">2019-03-19</time>
               
             
           </span>
@@ -473,7 +473,7 @@
           
 
           
-            <div class="post-description">放下鸡鸡儿(Jekyll)，立地成佛。本文侧重 Hexo 搭建、本地运行、Github 运行的基础建站过程，美化过程请移步下一篇<hexo+next 美化实录>。</hexo+next></div>
+            <div class="post-description">放下鸡鸡儿(Jekyll)，立地成佛。本文侧重 Hexo 搭建、本地运行、Github 运行的基础建站过程，功能扩建与美化过程请移步下一篇<hexo+next 功能扩建与美化实录>。</hexo+next></div>
           
 
         </div>
@@ -490,6 +490,8 @@
 
       
         <hr>
+<p>本文侧重 Hexo 搭建、本地运行、Github 运行的基础建站过程。功能扩建与美化过程请移步下一篇：<a href="https://1t4chi.github.io/2019/03/06/Blog_Hexo+Next/">Hexo + NexT 功能扩建与美化实录</a></p>
+<hr>
 <h2 id="安装与配置"><a href="#安装与配置" class="headerlink" title="安装与配置"></a>安装与配置</h2><h3 id="总体步骤"><a href="#总体步骤" class="headerlink" title="总体步骤"></a>总体步骤</h3><ol>
 <li>安装 Git</li>
 <li>通过 nvm 安装 Node.js</li>
@@ -554,8 +556,18 @@
 <h3 id="hexo-d-报错-not-found-git"><a href="#hexo-d-报错-not-found-git" class="headerlink" title="hexo d 报错 not found: git"></a>hexo d 报错 not found: git</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
 <h3 id="CNAME-每次-deploy-后被删"><a href="#CNAME-每次-deploy-后被删" class="headerlink" title="CNAME 每次 deploy 后被删"></a>CNAME 每次 deploy 后被删</h3><p>将 CNAME 放在 source 目录下再 deploy</p>
 <hr>
-<h2 id="更换与配置主题"><a href="#更换与配置主题" class="headerlink" title="更换与配置主题"></a>更换与配置主题</h2><h3 id="下载主题"><a href="#下载主题" class="headerlink" title="下载主题"></a>下载主题</h3><p>选择自己喜欢的主题然后 git 下来，这里选择 next<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure></p>
-<h3 id="config-yml-配置主题"><a href="#config-yml-配置主题" class="headerlink" title="_config.yml 配置主题"></a>_config.yml 配置主题</h3><p>将 _config.yml 中的 theme 换为 next</p>
+<h2 id="更换与配置主题"><a href="#更换与配置主题" class="headerlink" title="更换与配置主题"></a>更换与配置主题</h2><h3 id="下载主题"><a href="#下载主题" class="headerlink" title="下载主题"></a>下载主题</h3><p>选择自己喜欢的主题然后 git 下来，这里选择 NexT。这里一定要注意，截止到19年3月 NexT 模板已经出到 v7 版本，<strong>这里把 v6 以后的版本统一称作 v6+。</strong></p>
+<p>为什么将 v6视为一个节点？因为，v5 到 v6 是一个大变迁，变迁最大之处在于 NexT 挪到了一个新的 github 仓库。即 v6 以后和 v5 的地址不一样。v6、v7及以后的升级版本应该都在同一个地址，即 v5 在老地址，v6+在一个新地址。</p>
+<p>v6 + 其功能相比 v5 有一定提升，建议下载 v6+ 版本。下面我把两个版本的地址都放上去，大家自行选择。</p>
+<ul>
+<li>v5 版本下载</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
+<ul>
+<li>v6+ 版本下载</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/theme-next/hexo-theme-next themes/next_v6plus</span><br></pre></td></tr></table></figure>
+<h3 id="配置主题"><a href="#配置主题" class="headerlink" title="配置主题"></a>配置主题</h3><p>将 <code>/_config.yml</code> 中的 theme 换为 next，对应上门的命令来说这是 v5 版本；或者 next_v6plus；你可以随意给 themes 目录下的主题目录命名，只要把对应的名称填入配置文件就可以了。</p>
 
       
     </div>
@@ -578,8 +590,6 @@
     <footer class="post-footer">
       
         <div class="post-tags">
-          
-            <a href="/tags/Blog/" rel="tag"><i class="fa fa-tag"></i> Blog</a>
           
             <a href="/tags/FrontEnd/" rel="tag"><i class="fa fa-tag"></i> FrontEnd</a>
           
@@ -606,8 +616,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/06/Blog_Hexo+Next/" rel="prev" title="Hexo + NexT 美化实录">
-                Hexo + NexT 美化实录 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/06/Blog_Hexo+Next/" rel="prev" title="Hexo + NexT(v5和v6+)功能扩建与美化实录">
+                Hexo + NexT(v5和v6+)功能扩建与美化实录 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -831,7 +841,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装与配置"><span class="nav-number">1.</span> <span class="nav-text">安装与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#总体步骤"><span class="nav-number">1.1.</span> <span class="nav-text">总体步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装-nvm"><span class="nav-number">1.2.</span> <span class="nav-text">装 nvm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#P1-MacOS-zsh-nvm-command-not-found"><span class="nav-number">1.3.</span> <span class="nav-text">P1: MacOS + zsh: nvm command not found</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装-Node-js"><span class="nav-number">1.4.</span> <span class="nav-text">装 Node.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装-Hexo"><span class="nav-number">1.5.</span> <span class="nav-text">装 Hexo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Blog-初始化"><span class="nav-number">2.</span> <span class="nav-text">Blog 初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化-Blog"><span class="nav-number">2.1.</span> <span class="nav-text">初始化 Blog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装依赖库"><span class="nav-number">2.2.</span> <span class="nav-text">安装依赖库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo-目录结构说明"><span class="nav-number">3.</span> <span class="nav-text">Hexo 目录结构说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地运行-Blog"><span class="nav-number">4.</span> <span class="nav-text">本地运行 Blog</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#运行本地服务器"><span class="nav-number">4.1.</span> <span class="nav-text">运行本地服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#刷新网页端"><span class="nav-number">4.2.</span> <span class="nav-text">刷新网页端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上传-Github"><span class="nav-number">5.</span> <span class="nav-text">上传 Github</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#不能直接-git-push"><span class="nav-number">5.1.</span> <span class="nav-text">不能直接 git-push</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编辑-deploy-目标"><span class="nav-number">5.2.</span> <span class="nav-text">编辑 deploy 目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译后-deploy"><span class="nav-number">5.3.</span> <span class="nav-text">编译后 deploy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo-d-报错-not-found-git"><span class="nav-number">5.4.</span> <span class="nav-text">hexo d 报错 not found: git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CNAME-每次-deploy-后被删"><span class="nav-number">5.5.</span> <span class="nav-text">CNAME 每次 deploy 后被删</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更换与配置主题"><span class="nav-number">6.</span> <span class="nav-text">更换与配置主题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载主题"><span class="nav-number">6.1.</span> <span class="nav-text">下载主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#config-yml-配置主题"><span class="nav-number">6.2.</span> <span class="nav-text">_config.yml 配置主题</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装与配置"><span class="nav-number">1.</span> <span class="nav-text">安装与配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#总体步骤"><span class="nav-number">1.1.</span> <span class="nav-text">总体步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装-nvm"><span class="nav-number">1.2.</span> <span class="nav-text">装 nvm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#P1-MacOS-zsh-nvm-command-not-found"><span class="nav-number">1.3.</span> <span class="nav-text">P1: MacOS + zsh: nvm command not found</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装-Node-js"><span class="nav-number">1.4.</span> <span class="nav-text">装 Node.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装-Hexo"><span class="nav-number">1.5.</span> <span class="nav-text">装 Hexo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Blog-初始化"><span class="nav-number">2.</span> <span class="nav-text">Blog 初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化-Blog"><span class="nav-number">2.1.</span> <span class="nav-text">初始化 Blog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装依赖库"><span class="nav-number">2.2.</span> <span class="nav-text">安装依赖库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo-目录结构说明"><span class="nav-number">3.</span> <span class="nav-text">Hexo 目录结构说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地运行-Blog"><span class="nav-number">4.</span> <span class="nav-text">本地运行 Blog</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#运行本地服务器"><span class="nav-number">4.1.</span> <span class="nav-text">运行本地服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#刷新网页端"><span class="nav-number">4.2.</span> <span class="nav-text">刷新网页端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上传-Github"><span class="nav-number">5.</span> <span class="nav-text">上传 Github</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#不能直接-git-push"><span class="nav-number">5.1.</span> <span class="nav-text">不能直接 git-push</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编辑-deploy-目标"><span class="nav-number">5.2.</span> <span class="nav-text">编辑 deploy 目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译后-deploy"><span class="nav-number">5.3.</span> <span class="nav-text">编译后 deploy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo-d-报错-not-found-git"><span class="nav-number">5.4.</span> <span class="nav-text">hexo d 报错 not found: git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CNAME-每次-deploy-后被删"><span class="nav-number">5.5.</span> <span class="nav-text">CNAME 每次 deploy 后被删</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更换与配置主题"><span class="nav-number">6.</span> <span class="nav-text">更换与配置主题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载主题"><span class="nav-number">6.1.</span> <span class="nav-text">下载主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置主题"><span class="nav-number">6.2.</span> <span class="nav-text">配置主题</span></a></li></ol></li></ol></div>
             
 
           </div>
