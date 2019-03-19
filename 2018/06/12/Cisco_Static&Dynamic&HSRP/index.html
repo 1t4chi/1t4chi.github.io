@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-1t4chi.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-1t4chi.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-1t4chi.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo-1t4chi.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本文详细记录了静态路由配置、动态路由配置，以及 HSRP 热备份路由协议的原理与配置全过程。">
+<meta name="keywords" content="Net">
+<meta property="og:type" content="article">
+<meta property="og:title" content="静态、动态路由配置与 HSRP 热备份路由协议">
+<meta property="og:url" content="http://1t4chi.github.io/2018/06/12/Cisco_Static&Dynamic&HSRP/index.html">
+<meta property="og:site_name" content="1t4chi">
+<meta property="og:description" content="本文详细记录了静态路由配置、动态路由配置，以及 HSRP 热备份路由协议的原理与配置全过程。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-19T06:48:01.466Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="静态、动态路由配置与 HSRP 热备份路由协议">
+<meta name="twitter:description" content="本文详细记录了静态路由配置、动态路由配置，以及 HSRP 热备份路由协议的原理与配置全过程。">
+
+
+
+
+
+
+  <link rel="canonical" href="http://1t4chi.github.io/2018/06/12/Cisco_Static&Dynamic&HSRP/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>静态、动态路由配置与 HSRP 热备份路由协议 | 1t4chi</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">1t4chi</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+  
+
+  
+
+  <a href="https://github.com/1t4chi" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill: #222; color: #fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://1t4chi.github.io/2018/06/12/Cisco_Static&Dynamic&HSRP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="1t4chi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="1t4chi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">静态、动态路由配置与 HSRP 热备份路由协议
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-06-12 00:00:00" itemprop="dateCreated datePublished" datetime="2018-06-12T00:00:00+08:00">2018-06-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-19 14:48:01" itemprop="dateModified" datetime="2019-03-19T14:48:01+08:00">2019-03-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Cisco/" itemprop="url" rel="index"><span itemprop="name">Cisco</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2018/06/12/Cisco_Static&Dynamic&HSRP/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/06/12/Cisco_Static&Dynamic&HSRP/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2018/06/12/Cisco_Static&Dynamic&HSRP/" class="leancloud_visitors" data-flag-title="静态、动态路由配置与 HSRP 热备份路由协议">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+            <div class="post-description">本文详细记录了静态路由配置、动态路由配置，以及 HSRP 热备份路由协议的原理与配置全过程。</div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<h2 id="静态路由配置"><a href="#静态路由配置" class="headerlink" title="静态路由配置"></a>静态路由配置</h2><h3 id="查看路由表"><a href="#查看路由表" class="headerlink" title="查看路由表"></a>查看路由表</h3><p>在没有配置路由的情况下，查询到的是直连路由。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Router# ip route</span><br></pre></td></tr></table></figure></p>
+<h3 id="配置接口-IP-地址"><a href="#配置接口-IP-地址" class="headerlink" title="配置接口 IP 地址"></a>配置接口 IP 地址</h3><p>进入端口配置，路由器每个接口都有 IP 地址，即其下主机网关地址。主机网关配此 IP 即可通过路由访问不同网络。比如这里我们配置该路由器接口地址为 192.168.1.254，掩码为 255.255.255.0。no shutdown 激活，这条命令必须有。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Router(config-if)# ip address 192.168.1.254 255.255.255.0</span><br><span class="line">Router(config-if)# no shutdown</span><br></pre></td></tr></table></figure></p>
+<h3 id="配置非直连静态路由"><a href="#配置非直连静态路由" class="headerlink" title="配置非直连静态路由"></a>配置非直连静态路由</h3><p>全局配置模式下进行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Router(config)# ip route 192.168.2.0 255.255.255.0 192.168.3.2 [管理距离]</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>目标网段 子网掩码 下一跳地址 [管理距离]<br>通过 <strong>对方路由器接口</strong> 192.168.3.2 到达 <strong>对方网段</strong> 192.168.2.0。两个参数都是对方路由器的，管理距离数值越小越优先，默认为 1，利用管理距离可以配置浮动路由。</li>
+</ul>
+<p>注意事项：</p>
+<ul>
+<li><p>配置是单向的，双向需要双方路由器都配置对方信息，比如公交车的去程反程，马路对面没设站就回不去</p>
+</li>
+<li><p>经过多个路由器时，注意是下一跳地址，永远是直接连接的另一个路由器接口的地址。比如坐公交车，不论坐多远坐多少站，下一站是不会变的。比如从韦曲南到小寨或凤城五路，下一站都是航天城</p>
+</li>
+<li><p>不能因为某网段是前往另一网段的必经之路，以为通了更远的，途经的就能通。比如坐公交途径不设站，也不会停车。</p>
+</li>
+</ul>
+<h3 id="配置缺省路由"><a href="#配置缺省路由" class="headerlink" title="配置缺省路由"></a>配置缺省路由</h3><p>全局配置模式下进行。这条配置优先级最低，是没有匹配路由的时候使用的路由，作为其他路由的补充。只有一个出口的末梢网络环境适用，中间路由器不可以。0.0.0.0 代表任意网段与任意子网掩码。指定下一跳地址，自动连接所有可达网段。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Router(config)# ip route 0.0.0.0 0.0.0.0 192.168.3.2 [管理距离]</span><br></pre></td></tr></table></figure></p>
+<h3 id="清除非直连静态路由信息"><a href="#清除非直连静态路由信息" class="headerlink" title="清除非直连静态路由信息"></a>清除非直连静态路由信息</h3><p>全局配置模式下进行。路由信息配置错误应及时清除，再配置一遍正确的不会覆盖错误的，没有清除错误的会使得同一网段路由有多个，造成丢包。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Router(config)# no ip route 192.168.2.0 255.255.255.0 192.168.3.2</span><br></pre></td></tr></table></figure></p>
+<h3 id="配置全网通注意事项"><a href="#配置全网通注意事项" class="headerlink" title="配置全网通注意事项"></a>配置全网通注意事项</h3><ul>
+<li>添加不全</li>
+<li>下一跳错误</li>
+<li>添加错误路由后不清除</li>
+<li>只配置单向路由</li>
+</ul>
+<hr>
+<h2 id="动态路由配置"><a href="#动态路由配置" class="headerlink" title="动态路由配置"></a>动态路由配置</h2><h3 id="路由协议简述"><a href="#路由协议简述" class="headerlink" title="路由协议简述"></a>路由协议简述</h3><p>动态路由配置不依赖于管理员的手动配置。他是依赖一定的路由协议进行自动的路由学习。常见的路由协议及其分类有：内部网关协议与外部网关协议；距离矢量协议和链路状态协议。</p>
+<ul>
+<li>内部网关协议：在自治系统内部运行的路由协议<ul>
+<li>RIP </li>
+<li>IGRP </li>
+<li>EIGRP </li>
+<li>IS-IS </li>
+<li>OSPF</li>
+</ul>
+</li>
+<li>外部网关协议：在自治系统之间使用的路由协议<ul>
+<li>EGP </li>
+<li>BGP</li>
+</ul>
+</li>
+<li>距离矢量：基于源到目标路由器个数 <ul>
+<li>RIP </li>
+<li>IGRP</li>
+</ul>
+</li>
+<li>链路状态：综合考虑源到目标各路径 <ul>
+<li>OSPF </li>
+<li>IS-IS</li>
+</ul>
+</li>
+</ul>
+<h3 id="RIP-协议及其配置"><a href="#RIP-协议及其配置" class="headerlink" title="RIP 协议及其配置"></a>RIP 协议及其配置</h3><p>RIP 协议有两种版本，其主要区别如下：</p>
+<table>
+<thead>
+<tr>
+<th>RIP_v1</th>
+<th>RIP_v2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>有类路由协议</td>
+<td>无类路由协议 </td>
+</tr>
+<tr>
+<td>不支持 VLSM</td>
+<td>支持 VLSM </td>
+</tr>
+<tr>
+<td>广播更新(255.255.255.255)</td>
+<td>组播更新(224.0.0.9) </td>
+</tr>
+<tr>
+<td>路由汇总不可关闭</td>
+<td>可关闭路由汇总 </td>
+</tr>
+</tbody>
+</table>
+<p>这里我们使用 RIPv2，关闭路由汇总：<br>其中：no auto-summary 关闭路由汇总<br>其中：network + 直连网段：将自己的直连网段广播出去，直连网段可以通过 ip route 查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Router(config)# router rip</span><br><span class="line">Router(config-router)# version 2</span><br><span class="line">Router(config-router)# no auto-summary</span><br><span class="line">Router(config-router)# network 192.168.1.0</span><br><span class="line">Router(config-router)# network 192.168.2.0</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="HSRP-热备份路由协议"><a href="#HSRP-热备份路由协议" class="headerlink" title="HSRP 热备份路由协议"></a>HSRP 热备份路由协议</h2><h3 id="概念与作用"><a href="#概念与作用" class="headerlink" title="概念与作用"></a>概念与作用</h3><p>热备份路由协议：Cisco 私有协议，确保当网络边缘设备接入链路出现故障时<br>用户通信能迅速并透明的恢复，提供网络冗余性。</p>
+<ul>
+<li>HSRP 成员<ul>
+<li>活跃路由器</li>
+<li>备份路由器</li>
+<li>虚拟路由器</li>
+<li>其他路由器</li>
+</ul>
+</li>
+<li>HSRP 状态<ul>
+<li>初始状态</li>
+<li>学习状态</li>
+<li>监听状态</li>
+<li>发言状态</li>
+<li>备份状态</li>
+<li>活跃状态</li>
+</ul>
+</li>
+<li>HSRP 消息<ul>
+<li>HSRP 中所有路由器都发送或接收 HSRP 消息</li>
+<li>使用协议与端口：UDP 1985</li>
+<li>组播地址：224.0.0.2</li>
+<li>TTL=1</li>
+</ul>
+</li>
+<li>HSRP 计时器<ul>
+<li>HELLO 间隔：默认 3 秒</li>
+<li>保持时间：默认 10 秒</li>
+</ul>
+</li>
+</ul>
+<p>多个路由器都配了网关，一个正在被使用，其他做备用。正在使用的即起作用的路由器称为活跃路由器，剩下的为备份路由器。活跃路由器与备份路由器有优先级的差别。HSRP 不指向其中任意一个，而指向他们都能识别的一个网关：虚拟路由器。这个虚拟路由器自己生成一个虚拟 MAC 地址。活跃路由器每隔 3 秒发送一次 HELLO 消息表示自己正在活跃，若 10 秒都没有发送，则认为活跃路由器故障，此时备份路由器会取代活跃路由器。</p>
+<h3 id="使用-HSRP-配置路由组"><a href="#使用-HSRP-配置路由组" class="headerlink" title="使用 HSRP 配置路由组"></a>使用 HSRP 配置路由组</h3><p>进入网关接口进行配置,下面以 0/0 接口作为网关接口，注意若使用三层交换机和 VLAN ，需要进入 VLAN 的 SVI，而不是特定接口。</p>
+<ol>
+<li>standby + 组号 + ip：配置虚拟路由器网关 ip 地址，即 HSRP 路由器组备份的目的网关地址</li>
+<li>standby + 组号 + priority ：配置优先级，产生活跃与备份路由器之分，0-255之间的数字，默认 100</li>
+<li>若有多个路由器，其中一个位活跃，其他为备份，则使用下述命令对每一个进行配置。注意组号与网关地址要一致，优先级要有差别。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Router(config)# interface fastEthernet 0/0</span><br><span class="line">Router(config-if)# standby 1 ip 192.168.1.254</span><br><span class="line">Router(config-if)# standby 1 priority 200</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="备份路由占先权配置"><a href="#备份路由占先权配置" class="headerlink" title="备份路由占先权配置"></a>备份路由占先权配置</h3><p>当活跃路由故障，备份路由应该自动上位顶替。</p>
+<ol>
+<li>活跃路由器进入网关接口进行配置，使用 standby + 组号 + track：跟踪出口接口，即连接外部链路的接口。这样如果 track 到活跃路由器的故障，他的优先级就会降失。</li>
+<li>备份路由器进入网关接口进行配置，使用 standby + 组号 + preempt 配置占先权，使得活跃路由优先级降失时备份路由自动上位。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 活跃路由器的配置：</span><br><span class="line">Router1(config)# interface fastEthernet 0/0</span><br><span class="line">Router1(config-if)# standby 1 track f0/1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 备份路由器的配置：</span><br><span class="line">Router2(config)# interface fastEthernet 0/0</span><br><span class="line">Router2(config-if)# standby 1 preempt</span><br></pre></td></tr></table></figure>
+<h3 id="活跃路由占先权配置"><a href="#活跃路由占先权配置" class="headerlink" title="活跃路由占先权配置"></a>活跃路由占先权配置</h3><p>活跃路由从故障到修好之后，需要自动替换备份路由。<br>活跃路由器进入网关接口进行配置，使用 standby + 组号 + preempt 配置占先权，使得活跃路由修复后，优先级上升自动重新上位。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 活跃路由器的配置：</span><br><span class="line">Router1(config)# interface fastEthernet 0/0</span><br><span class="line">Router1(config-if)# standby 1 preempt</span><br></pre></td></tr></table></figure></p>
+<p>当路由组、备份与活跃路由占先权都配置完毕后，即以上命令都噼里啪啦打一遍之后，HSRP 协议便配置好了。</p>
+<h3 id="查看-HSRP-路由情况"><a href="#查看-HSRP-路由情况" class="headerlink" title="查看 HSRP 路由情况"></a>查看 HSRP 路由情况</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Router# show standby brief</span><br></pre></td></tr></table></figure>
+<p>可以看到有以下几个条目，State、Active、Standby、Virtual IP</p>
+<ul>
+<li>state：Active 表示是活跃路由器、Standby 是备份路由器</li>
+<li>Active：表示活跃路由是谁，local 表示是自己否则为活跃路由的实际网关 ip</li>
+<li>Standby：表示备份路由是谁，local 表示是自己否则为备份路由的实际网关 ip</li>
+<li>Virtual IP：即虚拟路由器网关 IP，主机配置中填写的网关地址，被活跃与备份同时指向</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Net/" rel="tag"><i class="fa fa-tag"></i> Net</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/11/Cisco_MultiSwitch/" rel="next" title="VLAN 间的三层交换通信配置">
+                <i class="fa fa-chevron-left"></i> VLAN 间的三层交换通信配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/05/Socket_NetProgramming/" rel="prev" title="网络编程基础知识">
+                网络编程基础知识 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="1t4chi">
+            
+              <p class="site-author-name" itemprop="name">1t4chi</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/1t4chi" title="GitHub &rarr; https://github.com/1t4chi" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:yyg923@126.com" title="E-Mail &rarr; mailto:yyg923@126.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#静态路由配置"><span class="nav-number">1.</span> <span class="nav-text">静态路由配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看路由表"><span class="nav-number">1.1.</span> <span class="nav-text">查看路由表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置接口-IP-地址"><span class="nav-number">1.2.</span> <span class="nav-text">配置接口 IP 地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置非直连静态路由"><span class="nav-number">1.3.</span> <span class="nav-text">配置非直连静态路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置缺省路由"><span class="nav-number">1.4.</span> <span class="nav-text">配置缺省路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清除非直连静态路由信息"><span class="nav-number">1.5.</span> <span class="nav-text">清除非直连静态路由信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置全网通注意事项"><span class="nav-number">1.6.</span> <span class="nav-text">配置全网通注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态路由配置"><span class="nav-number">2.</span> <span class="nav-text">动态路由配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#路由协议简述"><span class="nav-number">2.1.</span> <span class="nav-text">路由协议简述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RIP-协议及其配置"><span class="nav-number">2.2.</span> <span class="nav-text">RIP 协议及其配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HSRP-热备份路由协议"><span class="nav-number">3.</span> <span class="nav-text">HSRP 热备份路由协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念与作用"><span class="nav-number">3.1.</span> <span class="nav-text">概念与作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-HSRP-配置路由组"><span class="nav-number">3.2.</span> <span class="nav-text">使用 HSRP 配置路由组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#备份路由占先权配置"><span class="nav-number">3.3.</span> <span class="nav-text">备份路由占先权配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#活跃路由占先权配置"><span class="nav-number">3.4.</span> <span class="nav-text">活跃路由占先权配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看-HSRP-路由情况"><span class="nav-number">3.5.</span> <span class="nav-text">查看 HSRP 路由情况</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-star"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">1t4chi</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+  
+
+<script src="https://cdn.jsdelivr.net/npm/valine@1.3.4/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: '39heRwKuk0iAeyB7uBITyP09-gzGzoHsz',
+    appKey: '2ync0orcEbl8PRytOGo6K5Q6',
+    placeholder: 'Just go go',
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

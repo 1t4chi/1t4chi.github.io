@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://1t4chi.github.io/2018/06/11/Cisco_MultiSwitch/</loc>
+    <lastmod>2019-03-19</lastmod>
+  </url>  <url>
+    <loc>http://1t4chi.github.io/2018/06/12/Cisco_Static&Dynamic&HSRP/</loc>
+    <lastmod>2019-03-19</lastmod>
+  </url>  <url>
+    <loc>http://1t4chi.github.io/2018/06/10/Cisco_VLAN&Trunk/</loc>
+    <lastmod>2019-03-19</lastmod>
+  </url>  <url>
+    <loc>http://1t4chi.github.io/2018/11/07/Socket_OOB/</loc>
+    <lastmod>2019-03-16</lastmod>
+  </url>  <url>
     <loc>http://1t4chi.github.io/2019/03/10/Blog_Beian/</loc>
     <lastmod>2019-03-15</lastmod>
   </url>  <url>
@@ -23,9 +35,6 @@
     <lastmod>2019-03-14</lastmod>
   </url>  <url>
     <loc>http://1t4chi.github.io/2018/09/28/Socket_TCP%20Model/</loc>
-    <lastmod>2019-03-14</lastmod>
-  </url>  <url>
-    <loc>http://1t4chi.github.io/2018/11/07/Socket_OOB/</loc>
     <lastmod>2019-03-14</lastmod>
   </url>  <url>
     <loc>http://1t4chi.github.io/2018/09/05/Socket_NetProgramming/</loc>

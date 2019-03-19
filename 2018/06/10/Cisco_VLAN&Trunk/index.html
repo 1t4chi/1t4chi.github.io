@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-1t4chi.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-1t4chi.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-1t4chi.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo-1t4chi.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="本文详细讲解了交换机的 VLAN 配置、跨交换机的 Trunk 中继配置、和 EtherChannel 以太网通道的链路聚集配置。">
+<meta name="keywords" content="Net">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VLAN 的 Trunk 中继与 EtherChannel 的跨交换机通信">
+<meta property="og:url" content="http://1t4chi.github.io/2018/06/10/Cisco_VLAN&Trunk/index.html">
+<meta property="og:site_name" content="1t4chi">
+<meta property="og:description" content="本文详细讲解了交换机的 VLAN 配置、跨交换机的 Trunk 中继配置、和 EtherChannel 以太网通道的链路聚集配置。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-19T04:43:44.222Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="VLAN 的 Trunk 中继与 EtherChannel 的跨交换机通信">
+<meta name="twitter:description" content="本文详细讲解了交换机的 VLAN 配置、跨交换机的 Trunk 中继配置、和 EtherChannel 以太网通道的链路聚集配置。">
+
+
+
+
+
+
+  <link rel="canonical" href="http://1t4chi.github.io/2018/06/10/Cisco_VLAN&Trunk/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>VLAN 的 Trunk 中继与 EtherChannel 的跨交换机通信 | 1t4chi</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">1t4chi</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+  
+
+  
+
+  <a href="https://github.com/1t4chi" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill: #222; color: #fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://1t4chi.github.io/2018/06/10/Cisco_VLAN&Trunk/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="1t4chi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="1t4chi">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">VLAN 的 Trunk 中继与 EtherChannel 的跨交换机通信
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-06-10 00:00:00" itemprop="dateCreated datePublished" datetime="2018-06-10T00:00:00+08:00">2018-06-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-19 12:43:44" itemprop="dateModified" datetime="2019-03-19T12:43:44+08:00">2019-03-19</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Cisco/" itemprop="url" rel="index"><span itemprop="name">Cisco</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2018/06/10/Cisco_VLAN&Trunk/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/06/10/Cisco_VLAN&Trunk/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2018/06/10/Cisco_VLAN&Trunk/" class="leancloud_visitors" data-flag-title="VLAN 的 Trunk 中继与 EtherChannel 的跨交换机通信">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+            <div class="post-description">本文详细讲解了交换机的 VLAN 配置、跨交换机的 Trunk 中继配置、和 EtherChannel 以太网通道的链路聚集配置。</div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<h2 id="什么是-VLAN"><a href="#什么是-VLAN" class="headerlink" title="什么是 VLAN"></a>什么是 VLAN</h2><p>交换机下配不同网段，不同网段中的计算机首先要在不同 vlan<br>端口静态划分<br>MAC 地址动态划分</p>
+<hr>
+<h2 id="VLAN-基本配置"><a href="#VLAN-基本配置" class="headerlink" title="VLAN 基本配置"></a>VLAN 基本配置</h2><h3 id="vlan-的查看"><a href="#vlan-的查看" class="headerlink" title="vlan 的查看"></a>vlan 的查看</h3><p>特权模式查看 vlan：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># show vlan</span><br></pre></td></tr></table></figure></p>
+<p>默认所有端口都属于 vlan 1</p>
+<h3 id="全局模式配置-vlan"><a href="#全局模式配置-vlan" class="headerlink" title="全局模式配置 vlan"></a>全局模式配置 vlan</h3><p>全局配置模式创建 vlan：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(config)# vlan 2</span><br></pre></td></tr></table></figure></p>
+<p>全局配置模式改名 vlan：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(config)# vlan 2</span><br><span class="line">(config-vlan)# caiwu</span><br><span class="line">(config-vlan)# end</span><br></pre></td></tr></table></figure></p>
+<p>全局配置模式删除 vlan：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(config)# no vlan 2</span><br><span class="line">(config)# end</span><br></pre></td></tr></table></figure></p>
+<h3 id="数据库模式配置-vlan"><a href="#数据库模式配置-vlan" class="headerlink" title="数据库模式配置 vlan"></a>数据库模式配置 vlan</h3><p>进入 vlan 数据库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># vlan database</span><br><span class="line">(vlan) #</span><br></pre></td></tr></table></figure></p>
+<p>vlan 数据库创建 vlan<br>一般建的时候命名<br>后来 name 会报错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># vlan database</span><br><span class="line">(vlan) # vlan 3 name haha</span><br></pre></td></tr></table></figure></p>
+<p>vlan 数据库删除 vlan<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(vlan) # no vlan 2</span><br><span class="line">(vlan) # exit</span><br></pre></td></tr></table></figure></p>
+<h3 id="端口加入-vlan"><a href="#端口加入-vlan" class="headerlink" title="端口加入 vlan"></a>端口加入 vlan</h3><p>单个加入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(config)# interface fastEthernet 0/1</span><br><span class="line">(config-if)# switchport access vlan 2</span><br><span class="line">(config-if)# end</span><br></pre></td></tr></table></figure></p>
+<p>范围加入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(config)# interface range f0/10 - 15</span><br><span class="line">(config-if-range)# switchport access vlan 3</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="Trunk-链路的多-vlan-承载"><a href="#Trunk-链路的多-vlan-承载" class="headerlink" title="Trunk 链路的多 vlan 承载"></a>Trunk 链路的多 vlan 承载</h2><h3 id="跨交换机的-VLAN-通信"><a href="#跨交换机的-VLAN-通信" class="headerlink" title="跨交换机的 VLAN 通信"></a>跨交换机的 VLAN 通信</h3><p>要实现跨交换机的 VLAN 通信有两种方法：</p>
+<ol>
+<li>每个 vlan 一条电路：两交换机相连多条链路，每条链路都配特定的 vlan</li>
+<li>多个 vlan 一条链路：两交换机相连一条链路，这条链路是 Trunk 中继链路</li>
+</ol>
+<h3 id="Trunk-链路多-vlan-承载的实现原理"><a href="#Trunk-链路多-vlan-承载的实现原理" class="headerlink" title="Trunk 链路多 vlan 承载的实现原理"></a>Trunk 链路多 vlan 承载的实现原理</h3><p>链路模式一般有 access 模式和 trunk 模式。接入电路模式为 Access；中继电路模式位 Trunk。<br>Access 链路只能承载一个 vlan ，Trunk 链路可以承载很多 vlan。<br>Trunk 链路使用 vlan 标记对 vlan 进行区分。Trunk 链路下每个数据帧带有 vlan 标识的数据帧，这个数据帧不是标准以太网数据帧，无法被标准链路承载，只有 Trunk 链路可以承载。<br>常用 vlan 标识种类有：ISL 和 IEEE 802.1Q </p>
+<ul>
+<li>ISL <ul>
+<li>Cisco 私有协议</li>
+<li>30字节，外部标记法加在帧两端：头加26字节，尾加4字节</li>
+<li>至少有 vlan ID </li>
+</ul>
+</li>
+<li>IEEE 802.1Q <ul>
+<li>共有的协议</li>
+<li>4字节，内部标记法：帧内部，加在源地址目标地址后 </li>
+<li>至少有 vlan ID </li>
+</ul>
+</li>
+</ul>
+<h3 id="交换机端口模式"><a href="#交换机端口模式" class="headerlink" title="交换机端口模式"></a>交换机端口模式</h3><ul>
+<li><p>交换机端口配置中继模式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(config)# interface fastEthernet 0/10</span><br><span class="line">(config-if)# switchport mode trunk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>交换机端口配置动态期望模式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(config)# interface fastEthernet 0/10</span><br><span class="line">(config-if)# switchport mode dynamic desirable</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>交换机端口配置动态自动模式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(config)# interface fastEthernet 0/10</span><br><span class="line">(config-if)# switchport mode dynamic auto</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="端口模式配置及其链路模式结果"><a href="#端口模式配置及其链路模式结果" class="headerlink" title="端口模式配置及其链路模式结果"></a>端口模式配置及其链路模式结果</h3><p>端口1模式 端口2模式 链路模式结果<br>trunk auto trunk<br>trunk desirable trunk<br>auto desirable trunk<br>desirable desirable trunk<br>auto auto access</p>
+<h3 id="查看接口与链路模式"><a href="#查看接口与链路模式" class="headerlink" title="查看接口与链路模式"></a>查看接口与链路模式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># show interface fastEthernet 0/10 switchport</span><br></pre></td></tr></table></figure>
+<p>Administrative mode: 端口模式<br>Operational mode: 链路模式</p>
+<h3 id="Trunk-链路移出与添加特定-vlan"><a href="#Trunk-链路移出与添加特定-vlan" class="headerlink" title="Trunk 链路移出与添加特定 vlan"></a>Trunk 链路移出与添加特定 vlan</h3><p>相当于禁止某个 vlan 进行中继通信<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(config)# interface fastEthernet 0/10</span><br><span class="line">(config-if)# switchport trunk allowed vlan remove 2</span><br><span class="line"></span><br><span class="line">(config)# interface fastEthernet 0/10</span><br><span class="line">(config-if)# switchport trunk allowed vlan add 2</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="以太网通道"><a href="#以太网通道" class="headerlink" title="以太网通道"></a>以太网通道</h2><h3 id="概念与作用"><a href="#概念与作用" class="headerlink" title="概念与作用"></a>概念与作用</h3><p>EtherChannel 以太网捆绑，端口聚集或以太网链路聚集<br>简单来说：两个交换机中间连接多条链路，这些链路都是 trunk 模式，相当于一条大 Trunk 中继链路。即物理多条链路，逻辑一条链路。这样配置，相比一条中继链路来说：多条线路负载均衡，带宽提高；容错提高，一条失效，其他线路不会丢包。</p>
+<h3 id="以太网通道配置"><a href="#以太网通道配置" class="headerlink" title="以太网通道配置"></a>以太网通道配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(config)# interface range f0/10 - 15</span><br><span class="line">(config-if-range)# switchport mode turnk</span><br><span class="line">(config-if-range)# channel-group 1 mode on</span><br></pre></td></tr></table></figure>
+<h3 id="查看以太网通道配置"><a href="#查看以太网通道配置" class="headerlink" title="查看以太网通道配置"></a>查看以太网通道配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># show etherchannel summary</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Net/" rel="tag"><i class="fa fa-tag"></i> Net</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/04/CVE_Heartbleed/" rel="next" title="Hearbleed 心血漏洞攻击重现与分析">
+                <i class="fa fa-chevron-left"></i> Hearbleed 心血漏洞攻击重现与分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/11/Cisco_MultiSwitch/" rel="prev" title="VLAN 间的三层交换通信配置">
+                VLAN 间的三层交换通信配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.png" alt="1t4chi">
+            
+              <p class="site-author-name" itemprop="name">1t4chi</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/1t4chi" title="GitHub &rarr; https://github.com/1t4chi" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:yyg923@126.com" title="E-Mail &rarr; mailto:yyg923@126.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是-VLAN"><span class="nav-number">1.</span> <span class="nav-text">什么是 VLAN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VLAN-基本配置"><span class="nav-number">2.</span> <span class="nav-text">VLAN 基本配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#vlan-的查看"><span class="nav-number">2.1.</span> <span class="nav-text">vlan 的查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全局模式配置-vlan"><span class="nav-number">2.2.</span> <span class="nav-text">全局模式配置 vlan</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库模式配置-vlan"><span class="nav-number">2.3.</span> <span class="nav-text">数据库模式配置 vlan</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#端口加入-vlan"><span class="nav-number">2.4.</span> <span class="nav-text">端口加入 vlan</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Trunk-链路的多-vlan-承载"><span class="nav-number">3.</span> <span class="nav-text">Trunk 链路的多 vlan 承载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#跨交换机的-VLAN-通信"><span class="nav-number">3.1.</span> <span class="nav-text">跨交换机的 VLAN 通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Trunk-链路多-vlan-承载的实现原理"><span class="nav-number">3.2.</span> <span class="nav-text">Trunk 链路多 vlan 承载的实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交换机端口模式"><span class="nav-number">3.3.</span> <span class="nav-text">交换机端口模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#端口模式配置及其链路模式结果"><span class="nav-number">3.4.</span> <span class="nav-text">端口模式配置及其链路模式结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看接口与链路模式"><span class="nav-number">3.5.</span> <span class="nav-text">查看接口与链路模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Trunk-链路移出与添加特定-vlan"><span class="nav-number">3.6.</span> <span class="nav-text">Trunk 链路移出与添加特定 vlan</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太网通道"><span class="nav-number">4.</span> <span class="nav-text">以太网通道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念与作用"><span class="nav-number">4.1.</span> <span class="nav-text">概念与作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#以太网通道配置"><span class="nav-number">4.2.</span> <span class="nav-text">以太网通道配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看以太网通道配置"><span class="nav-number">4.3.</span> <span class="nav-text">查看以太网通道配置</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-star"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">1t4chi</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+  
+
+<script src="https://cdn.jsdelivr.net/npm/valine@1.3.4/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: '39heRwKuk0iAeyB7uBITyP09-gzGzoHsz',
+    appKey: '2ync0orcEbl8PRytOGo6K5Q6',
+    placeholder: 'Just go go',
+    avatar: 'retro',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn'
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
