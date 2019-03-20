@@ -98,25 +98,25 @@
 
 
 
-  <meta name="description" content="Socket 是一种不可见控件,是连接应用程序和底层协议栈的接口,是应用程序间进行数据传输的端节点。本文是介绍 Socket 的基本知识。">
-<meta name="keywords" content="Net,Socket,Introduction">
+  <meta name="description" content="本文详细记录了STP 生成树协议的作用、算法、原理，及其人工干预配置方法。">
+<meta name="keywords" content="Net,Protocol">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Socket 基础知识">
-<meta property="og:url" content="http://1t4chi.github.io/2018/09/14/Socket_Basics/index.html">
+<meta property="og:title" content="STP 生成树协议原理、算法及其配置">
+<meta property="og:url" content="http://1t4chi.github.io/2018/06/12/Cisco_STP/index.html">
 <meta property="og:site_name" content="1t4chi">
-<meta property="og:description" content="Socket 是一种不可见控件,是连接应用程序和底层协议栈的接口,是应用程序间进行数据传输的端节点。本文是介绍 Socket 的基本知识。">
+<meta property="og:description" content="本文详细记录了STP 生成树协议的作用、算法、原理，及其人工干预配置方法。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-13T08:58:51.536Z">
+<meta property="og:updated_time" content="2019-03-20T09:10:51.690Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Socket 基础知识">
-<meta name="twitter:description" content="Socket 是一种不可见控件,是连接应用程序和底层协议栈的接口,是应用程序间进行数据传输的端节点。本文是介绍 Socket 的基本知识。">
+<meta name="twitter:title" content="STP 生成树协议原理、算法及其配置">
+<meta name="twitter:description" content="本文详细记录了STP 生成树协议的作用、算法、原理，及其人工干预配置方法。">
 
 
 
 
 
 
-  <link rel="canonical" href="http://1t4chi.github.io/2018/09/14/Socket_Basics/">
+  <link rel="canonical" href="http://1t4chi.github.io/2018/06/12/Cisco_STP/">
 
 
 
@@ -126,7 +126,7 @@
   };
 </script>
 
-  <title>Socket 基础知识 | 1t4chi</title>
+  <title>STP 生成树协议原理、算法及其配置 | 1t4chi</title>
   
 
 
@@ -351,7 +351,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://1t4chi.github.io/2018/09/14/Socket_Basics/">
+    <link itemprop="mainEntityOfPage" href="http://1t4chi.github.io/2018/06/12/Cisco_STP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="1t4chi">
@@ -368,7 +368,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Socket 基础知识
+          <h1 class="post-title" itemprop="name headline">STP 生成树协议原理、算法及其配置
 
               
             
@@ -394,7 +394,7 @@
                 
               
 
-              <time title="创建时间：2018-09-14 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-14T00:00:00+08:00">2018-09-14</time>
+              <time title="创建时间：2018-06-12 00:00:00" itemprop="dateCreated datePublished" datetime="2018-06-12T00:00:00+08:00">2018-06-12</time>
             
 
             
@@ -411,7 +411,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-03-13 16:58:51" itemprop="dateModified" datetime="2019-03-13T16:58:51+08:00">2019-03-13</time>
+                <time title="修改时间：2019-03-20 17:10:51" itemprop="dateModified" datetime="2019-03-20T17:10:51+08:00">2019-03-20</time>
               
             
           </span>
@@ -428,7 +428,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Socket/" itemprop="url" rel="index"><span itemprop="name">Socket</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Cisco/" itemprop="url" rel="index"><span itemprop="name">Cisco</span></a></span>
 
                 
                 
@@ -447,8 +447,8 @@
                 </span>
             
                 <span class="post-meta-item-text">评论数：</span>
-                <a href="/2018/09/14/Socket_Basics/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/09/14/Socket_Basics/" itemprop="commentCount"></span>
+                <a href="/2018/06/12/Cisco_STP/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/06/12/Cisco_STP/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -456,7 +456,7 @@
 
           
           
-            <span id="/2018/09/14/Socket_Basics/" class="leancloud_visitors" data-flag-title="Socket 基础知识">
+            <span id="/2018/06/12/Cisco_STP/" class="leancloud_visitors" data-flag-title="STP 生成树协议原理、算法及其配置">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -473,7 +473,7 @@
           
 
           
-            <div class="post-description">Socket 是一种不可见控件,是连接应用程序和底层协议栈的接口,是应用程序间进行数据传输的端节点。本文是介绍 Socket 的基本知识。</div>
+            <div class="post-description">本文详细记录了STP 生成树协议的作用、算法、原理，及其人工干预配置方法。</div>
           
 
         </div>
@@ -490,28 +490,108 @@
 
       
         <hr>
-<h2 id="支持协议簇"><a href="#支持协议簇" class="headerlink" title="支持协议簇"></a>支持协议簇</h2><p>支持多种协议簇，对应不同寻址方式<br>socket 地址: IP 地址+端口号<br>UNIX UNIX 域<br>INET TCPIP</p>
+<h2 id="STP-生成树协议概念与作用"><a href="#STP-生成树协议概念与作用" class="headerlink" title="STP 生成树协议概念与作用"></a>STP 生成树协议概念与作用</h2><p>逻辑上断开环路，防止广播风暴发送。<br>当线路故障，阻塞接口被激活，恢复通行，起备份线路的作用。</p>
 <hr>
-<h2 id="标识"><a href="#标识" class="headerlink" title="标识"></a>标识</h2><ul>
-<li>五元组&lt;sIP,sPort,dIP,dPort,Pro&gt;  </li>
-<li>本地 IP  </li>
-<li>本地端口 1024-5000  </li>
-<li>远程 IP  </li>
-<li>远程端口 1-1023  </li>
-<li>协议类型 </li>
+<h2 id="STP-生成树算法详解"><a href="#STP-生成树算法详解" class="headerlink" title="STP 生成树算法详解"></a>STP 生成树算法详解</h2><h3 id="STP-算法步骤简述"><a href="#STP-算法步骤简述" class="headerlink" title="STP 算法步骤简述"></a>STP 算法步骤简述</h3><ul>
+<li>每个广播域选择根网桥(Root Bridge)</li>
+<li>每个非根网桥选择根端口(Root Ports)</li>
+<li>每个网段上选择指定端口(Designated Ports)</li>
+<li>非指定端口，非根端口被阻塞</li>
+</ul>
+<h3 id="选择根网桥"><a href="#选择根网桥" class="headerlink" title="选择根网桥"></a>选择根网桥</h3><p>网桥 ID BID(8 字节) = 网桥优先级 (2 字节)+ 网桥 MAC 地址(6 字节)<br>网桥 ID 是唯一的，交换机之间选择 BID 值最小的交换机作为网络中的根网桥<br>网桥优先级取值范围：0~65535，缺省值 32768，可以自己设置，但要是4096的倍数<br>先对比优先级在对比 MAC 地址，小的作为根网桥。</p>
+<h3 id="选择根端口"><a href="#选择根端口" class="headerlink" title="选择根端口"></a>选择根端口</h3><p>每个非根网桥选一个根端口，根端口往往不止一个</p>
+<ul>
+<li>根端口选择依据：<ul>
+<li>选择到根网桥最低的路径成本</li>
+<li>路径成本一样时，选择直连的网桥 ID 较小的</li>
+<li>直连的网桥 ID 一样时，选择<strong>对端</strong>端口 ID 较小的</li>
+</ul>
+</li>
+</ul>
+<p>根路径成本：网桥到根网桥的路径上所有链路的成本之和，与链路带宽有关系。</p>
+<table>
+<thead>
+<tr>
+<th>链路带宽(Mbps)</th>
+<th>路径成本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>100</td>
+</tr>
+<tr>
+<td>16</td>
+<td>62</td>
+</tr>
+<tr>
+<td>45</td>
+<td>39</td>
+</tr>
+<tr>
+<td>100</td>
+<td>19</td>
+</tr>
+<tr>
+<td>155</td>
+<td>14</td>
+</tr>
+<tr>
+<td>622</td>
+<td>6</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<h3 id="选择指定端口"><a href="#选择指定端口" class="headerlink" title="选择指定端口"></a>选择指定端口</h3><p>每个网段上选择指定端口，此网段非彼网段，指的是两个路由器直接的段，就是一个网段</p>
+<ul>
+<li>指定端口选择依据<ul>
+<li>根网桥上全是指定端口</li>
+<li>每个网段，选择一个指定端口</li>
+<li>非根网桥上指定端口选择顺序<ul>
+<li>根路径成本较低</li>
+<li>所在交换机的网桥 ID 值较小</li>
+<li>端口 ID 值较小</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="小练习"><a href="#小练习" class="headerlink" title="小练习"></a>小练习</h3><hr>
+<h2 id="STP-生成树协议工作原理"><a href="#STP-生成树协议工作原理" class="headerlink" title="STP 生成树协议工作原理"></a>STP 生成树协议工作原理</h2><h3 id="桥协议数据单元"><a href="#桥协议数据单元" class="headerlink" title="桥协议数据单元"></a>桥协议数据单元</h3><p>桥协议数据单元(BPDU)：Bridge Protocol Data Unit，生成树协议的 PDU，使用组播发送 BPDU。BPDU分为2种类型：</p>
+<ul>
+<li>配置BPDU：生成树选取过程中发送的</li>
+<li>拓扑变更通告(TCN)BPDU：网络拓扑发生变更时发送的<br>BPDU报文字段如下：</li>
+</ul>
+<h3 id="交换机端口的-STP-状态"><a href="#交换机端口的-STP-状态" class="headerlink" title="交换机端口的 STP 状态"></a>交换机端口的 STP 状态</h3><p>状态 |用途</p>
+<p>—|—<br>转发( Forwarding)|发送/接收用户数据<br>学习( Learning)|构建网桥表<br>侦听( Listening)|构建 “活动” 拓扑<br>阻塞( Blocking)|不能发生接受标准数据帧， 只接收BPDU<br>禁用( Disabled)|强制关闭</p>
+<h3 id="STP-的计时器"><a href="#STP-的计时器" class="headerlink" title="STP 的计时器"></a>STP 的计时器</h3><p>HELLO 时间：网桥发送配置BPDU报文之间的时间间隔，默认2s<br>转发延迟：一个端口在侦听到学习状态所花费的时间间隔，默认15秒<br>最大老化时间：交换机在丢弃BPDU报文之前储存它的最大时间，默认20秒。</p>
+<h3 id="工作过程"><a href="#工作过程" class="headerlink" title="工作过程"></a>工作过程</h3><ul>
+<li>交换机启动时，都假定自己是根网桥，向外发送 BPDU 中根网桥字段填写自己为根网桥</li>
+<li>收到其他交换机发出的的 BPDU ，比较网桥 ID，选择较小的填写到根网桥字段。最后可以找出唯一一个根网桥</li>
 </ul>
 <hr>
-<h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><ul>
-<li>流式套接字 Stream socket interface TCP 可靠的双向顺序数据流连接</li>
-<li>数据包套接字 Datagram socket interface UDP 不可靠的双向数据传输</li>
-<li>原始套接字 Raw socket interface IP 允许进程直接存取下层协议</li>
+<h2 id="STP-生成树协议的配置"><a href="#STP-生成树协议的配置" class="headerlink" title="STP 生成树协议的配置"></a>STP 生成树协议的配置</h2><p>实际上，只要你将交换机连接成环路，就会自动启用 STP 协议，逻辑断开一个端口。<br>但是我们仍需要人工干预配置，因为：</p>
+<ul>
+<li>我们可以进行选择：人工改变交换机优先级，配置比较稳定的交换机作为根网桥</li>
+<li>起到网络负载分担的作用：因为每个广播域都需要根网桥，VLAN 是一个广播域，我们可以让交换机担任不同部分 VLAN 的根网桥</li>
 </ul>
-<hr>
-<h2 id="查看连接"><a href="#查看连接" class="headerlink" title="查看连接"></a>查看连接</h2><ul>
-<li>Netstat 命令用于显示各种网络相关信息</li>
-<li>如网络连接，路由表，接口状态，masquerade 连接，多播成员等等</li>
-<li>netstat -an</li>
+<h3 id="查看某广播域下的生成树状况"><a href="#查看某广播域下的生成树状况" class="headerlink" title="查看某广播域下的生成树状况"></a>查看某广播域下的生成树状况</h3><ul>
+<li>Root ID 是根网桥 ID</li>
+<li>Bridge ID 是当前这个网桥的 ID</li>
+<li>端口的 role 有 Desg(指定端口) 和 root(根端口)</li>
 </ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Switch# show spanning-tree vlan 1</span><br></pre></td></tr></table></figure>
+<h3 id="设置某个交换机为主根网桥"><a href="#设置某个交换机为主根网桥" class="headerlink" title="设置某个交换机为主根网桥"></a>设置某个交换机为主根网桥</h3><p>不用人工计算设置优先级，这条命令表示让这个交换机优先级最高(即数值最小)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Switch(config)#spanning-tree vlan 1 root primary</span><br></pre></td></tr></table></figure></p>
+<h3 id="设置某个交换机为次根网桥"><a href="#设置某个交换机为次根网桥" class="headerlink" title="设置某个交换机为次根网桥"></a>设置某个交换机为次根网桥</h3><p>这条命令表示让这个交换机作为主根网桥的备份，若主根故障，则这个交换机成为主根网桥。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Switch(config)#spanning-tree vlan 1 root secondary</span><br></pre></td></tr></table></figure></p>
+<h3 id="设置某个交换机的优先级"><a href="#设置某个交换机的优先级" class="headerlink" title="设置某个交换机的优先级"></a>设置某个交换机的优先级</h3><p>人工改变交换机的优先级，可以起到设置某个交换机为根网桥的作用，只要将 priority 后的值设的比其他交换机都小即可。但注意：一定要是 4096 的整数倍。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Switch(config)#spanning-tree vlan 1 priority 28672</span><br></pre></td></tr></table></figure></p>
+<h3 id="多-VLAN-设置根网桥"><a href="#多-VLAN-设置根网桥" class="headerlink" title="多 VLAN 设置根网桥"></a>多 VLAN 设置根网桥</h3><p>人工干预可以使不同交换机可以做不同 VLAN 的根网桥。<br>但注意，添加 VLAN 一定要 <strong>将链路配置为 Trunk 模式</strong>，否则不能设置多个 VLAN 的根网桥。<br>配置 Trunk 前情提要：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">switch(config)# interface range f0/6 - 7</span><br><span class="line">switch(config-if-range)# switchport trunk encapsulation dot1q #三层需要二层不需要</span><br><span class="line">switch(config-if-range)# switchport mode trunk</span><br></pre></td></tr></table></figure></p>
+<h3 id="配置速端口"><a href="#配置速端口" class="headerlink" title="配置速端口"></a>配置速端口</h3><p>速端口：使连接终端的端口快速进入到转达发状态，该端口不经过侦听和学习状态，直接进入转发状态，节省30秒的转发延迟。<strong>速端口只能配置在连接终端的接口上，即不参与环路的接口。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Switch(config)# interface fastEthernet 0/6</span><br><span class="line">Switch(config-if)# spanning-tree portfast</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -537,9 +617,7 @@
           
             <a href="/tags/Net/" rel="tag"><i class="fa fa-tag"></i> Net</a>
           
-            <a href="/tags/Socket/" rel="tag"><i class="fa fa-tag"></i> Socket</a>
-          
-            <a href="/tags/Introduction/" rel="tag"><i class="fa fa-tag"></i> Introduction</a>
+            <a href="/tags/Protocol/" rel="tag"><i class="fa fa-tag"></i> Protocol</a>
           
         </div>
       
@@ -552,8 +630,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/05/Socket_NetProgramming/" rel="next" title="网络编程基础知识">
-                <i class="fa fa-chevron-left"></i> 网络编程基础知识
+              <a href="/2018/06/12/Cisco_Static&Dynamic&HSRP/" rel="next" title="静态、动态路由配置与 HSRP 热备份路由协议">
+                <i class="fa fa-chevron-left"></i> 静态、动态路由配置与 HSRP 热备份路由协议
               </a>
             
           </div>
@@ -562,8 +640,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/14/Socket_Address/" rel="prev" title="Socket 的地址结构">
-                Socket 的地址结构 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/06/13/Cisco_ACL/" rel="prev" title="ACL 访问控制列表操作控制方法">
+                ACL 访问控制列表操作控制方法 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -639,7 +717,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -719,11 +797,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -787,7 +861,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#支持协议簇"><span class="nav-number">1.</span> <span class="nav-text">支持协议簇</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标识"><span class="nav-number">2.</span> <span class="nav-text">标识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型"><span class="nav-number">3.</span> <span class="nav-text">类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看连接"><span class="nav-number">4.</span> <span class="nav-text">查看连接</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#STP-生成树协议概念与作用"><span class="nav-number">1.</span> <span class="nav-text">STP 生成树协议概念与作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STP-生成树算法详解"><span class="nav-number">2.</span> <span class="nav-text">STP 生成树算法详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#STP-算法步骤简述"><span class="nav-number">2.1.</span> <span class="nav-text">STP 算法步骤简述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择根网桥"><span class="nav-number">2.2.</span> <span class="nav-text">选择根网桥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择根端口"><span class="nav-number">2.3.</span> <span class="nav-text">选择根端口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择指定端口"><span class="nav-number">2.4.</span> <span class="nav-text">选择指定端口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小练习"><span class="nav-number">2.5.</span> <span class="nav-text">小练习</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STP-生成树协议工作原理"><span class="nav-number">3.</span> <span class="nav-text">STP 生成树协议工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#桥协议数据单元"><span class="nav-number">3.1.</span> <span class="nav-text">桥协议数据单元</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交换机端口的-STP-状态"><span class="nav-number">3.2.</span> <span class="nav-text">交换机端口的 STP 状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#STP-的计时器"><span class="nav-number">3.3.</span> <span class="nav-text">STP 的计时器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工作过程"><span class="nav-number">3.4.</span> <span class="nav-text">工作过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STP-生成树协议的配置"><span class="nav-number">4.</span> <span class="nav-text">STP 生成树协议的配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看某广播域下的生成树状况"><span class="nav-number">4.1.</span> <span class="nav-text">查看某广播域下的生成树状况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置某个交换机为主根网桥"><span class="nav-number">4.2.</span> <span class="nav-text">设置某个交换机为主根网桥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置某个交换机为次根网桥"><span class="nav-number">4.3.</span> <span class="nav-text">设置某个交换机为次根网桥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置某个交换机的优先级"><span class="nav-number">4.4.</span> <span class="nav-text">设置某个交换机的优先级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多-VLAN-设置根网桥"><span class="nav-number">4.5.</span> <span class="nav-text">多 VLAN 设置根网桥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置速端口"><span class="nav-number">4.6.</span> <span class="nav-text">配置速端口</span></a></li></ol></li></ol></div>
             
 
           </div>
