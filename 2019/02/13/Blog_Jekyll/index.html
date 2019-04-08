@@ -106,15 +106,15 @@
 <meta property="og:site_name" content="1t4chi">
 <meta property="og:description" content="想着把以前的笔记上Blog，无意惊扰了 Jekyll，苦海无涯任我漂。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://poe284u59.bkt.clouddn.com/2019-03-15-103129.png">
-<meta property="og:image" content="http://poe284u59.bkt.clouddn.com/2019-03-15-132219.png">
-<meta property="og:image" content="http://poe284u59.bkt.clouddn.com/2019-03-15-104851.png">
-<meta property="og:image" content="http://poe284u59.bkt.clouddn.com/2019-03-15-Blog_Jekyll_4.png">
-<meta property="og:updated_time" content="2019-03-20T08:54:10.703Z">
+<meta property="og:image" content="http://cdn.1t4chi.com/2019-03-15-103129.png">
+<meta property="og:image" content="http://cdn.1t4chi.com/2019-03-15-132219.png">
+<meta property="og:image" content="http://cdn.1t4chi.com/2019-03-15-104851.png">
+<meta property="og:image" content="http://cdn.1t4chi.com/2019-03-15-Blog_Jekyll_4.png">
+<meta property="og:updated_time" content="2019-04-08T01:55:11.762Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jekyll + Github 从入门到死亡">
 <meta name="twitter:description" content="想着把以前的笔记上Blog，无意惊扰了 Jekyll，苦海无涯任我漂。">
-<meta name="twitter:image" content="http://poe284u59.bkt.clouddn.com/2019-03-15-103129.png">
+<meta name="twitter:image" content="http://cdn.1t4chi.com/2019-03-15-103129.png">
 
 
 
@@ -416,7 +416,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-03-20 16:54:10" itemprop="dateModified" datetime="2019-03-20T16:54:10+08:00">2019-03-20</time>
+                <time title="修改时间：2019-04-08 09:55:11" itemprop="dateModified" datetime="2019-04-08T09:55:11+08:00">2019-04-08</time>
               
             
           </span>
@@ -496,7 +496,7 @@
       
         <hr>
 <h2 id="jekyll-是什么"><a href="#jekyll-是什么" class="headerlink" title="jekyll 是什么"></a>jekyll 是什么</h2><p>Jekyll (杰基尔)是一个生成静态网页的工具，得到 Github 的原生支持。你一上来 Github Page 人家就让你选 Jekyll Theme，会误导很多人觉得 Jekyll 是最好的选择。实际上，Jekyll 是很好，但是对于不熟悉 ruby、前端开发的人来说简直是噩梦。因为它的主题库相比之下要简陋很多，页面的动态刘畅感也无法让人满意。对于前端开发的高手来说，可能更喜欢 Jekyll，它像一张白纸，会画的人可以画的精彩绝伦，但不会画的人也只有欲哭无泪了。</p>
-<p><img src="http://poe284u59.bkt.clouddn.com/2019-03-15-103129.png" alt="Blog_Jekyll_1"></p>
+<p><img src="http://cdn.1t4chi.com/2019-03-15-103129.png" alt="Blog_Jekyll_1"></p>
 <p>因此我最后的 Jekyll 站布的并不成功。虽然搭起来了，但是看上去总是像 20 世纪初的产物，花花绿绿又十分僵硬。可惜所有的花花绿绿图都是我自己做的，做了半天嘤嘤嘤。现在我已经全面搬迁 Hexo，好搭了不是一点半点，界面还美观了一些。有兴趣的可以看看我写的几篇关于 Hexo 的文章。</p>
 <ul>
 <li><a href="https://1t4chi.github.io/2019/03/05/Blog_Hexo/">Hexo + Github 建站实录</a></li>
@@ -514,14 +514,14 @@
 <h3 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h3><p>仔细阅读人家的 README，有两个文件：category_archive.html 和category_archive_plugin.rb。一个放layout，一个放plugins。在 config.yml 里配置路径，如下代码所示。<br>我的路径为：/categories/ 。一旦路径配好安装好自动会产生分类输出的页面</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">category_archive:</span></span><br><span class="line"><span class="attr">  path:</span> <span class="string">/categories/</span></span><br></pre></td></tr></table></figure>
 <p>完全不加修改的话，效果如下：字很小。</p>
-<p><img src="http://poe284u59.bkt.clouddn.com/2019-03-15-132219.png" alt="Blog_Jekyll_2"></p>
+<p><img src="http://cdn.1t4chi.com/2019-03-15-132219.png" alt="Blog_Jekyll_2"></p>
 <p>由于这个页面整个类别的链接(就是蓝色的列表部分)，都是由<code>category_archive.html</code>中一句语句生成的：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;content&#125;&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="http://poe284u59.bkt.clouddn.com/2019-03-15-104851.png" alt="Blog_Jekyll_3"></p>
+<p><img src="http://cdn.1t4chi.com/2019-03-15-104851.png" alt="Blog_Jekyll_3"></p>
 <p>至于 content 是怎么生成的是由 <code>category_archive_plugin.rb</code>的ruby 编写的，我完全不懂啊，因此不能改的很漂亮了。</p>
 <hr>
 <h2 id="Category-页面"><a href="#Category-页面" class="headerlink" title="Category 页面"></a>Category 页面</h2><p>上面将的分类检索工具可以产生分类检索页面，它只输出某一个分类下的文章。与分类检索页面不同，categories 页面输出所有分类以及分类下的文章。这个页面需要自己写，因此可自定义的地方就比较多了。但是相比 Hexo 自动生成 Categories 页面而言，Jekyll 还是比较硬核的。下图是我的 Categories 页面。</p>
-<p><img src="http://poe284u59.bkt.clouddn.com/2019-03-15-Blog_Jekyll_4.png" alt="Blog_Jekyll_4"></p>
+<p><img src="http://cdn.1t4chi.com/2019-03-15-Blog_Jekyll_4.png" alt="Blog_Jekyll_4"></p>
 <h3 id="如何创建-Categories-页面？"><a href="#如何创建-Categories-页面？" class="headerlink" title="如何创建 Categories 页面？"></a>如何创建 Categories 页面？</h3><p>我的是这样的：</p>
 <ol>
 <li>在博客根目录创建一个叫 categories 的 md 文件</li>
